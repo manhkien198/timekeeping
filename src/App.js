@@ -1,14 +1,12 @@
-import { useTranslation } from 'react-i18next';
 import { Route, Routes } from 'react-router-dom';
-import MainLayout from './layouts';
 import './App.css';
 import './assets/scss/app.scss';
-import TimeKeeping from './pages/timeKeeping';
+import MainLayout from './layouts';
 import Calendar from './pages/calendar';
 import Personal from './pages/personal';
 import Setting from './pages/setting';
+import TimeKeeping from './pages/timeKeeping';
 function App() {
-  const { t } = useTranslation();
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
