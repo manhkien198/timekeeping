@@ -1,0 +1,9 @@
+{
+  "sidebar": {
+    "time_keeping": "Chấm công",
+    "calendar": "Calendar",
+    "personal": "Cá nhân",
+    "setting": "Cài đặt",
+    "logout": "Đăng xuất"
+  }
+}

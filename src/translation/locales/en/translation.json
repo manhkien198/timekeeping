@@ -1,0 +1,9 @@
+{
+  "sidebar": {
+    "time_keeping": "Time Keeping",
+    "calendar": "Calendar",
+    "personal": "Personal",
+    "setting": "Setting",
+    "logout": "Log out"
+  }
+}
