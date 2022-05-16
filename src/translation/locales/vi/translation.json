@@ -10,5 +10,15 @@
     "timekeeping_table": "Bảng chấm công",
     "general_table": "Thống kê chung",
     "personal_statistic": "Thống kê cá nhân"
+  },
+  "general_table": {
+    "cardinal_numbers": "STT",
+    "employees": "Nhân viên",
+    "work_day": "Ngày làm việc",
+    "day_off": "Ngày nghỉ",
+    "unpaid_leave": "Nghỉ không lương",
+    "paid_leave": "Nghỉ có lương",
+    "total_day_off": "Tổng ngày phép",
+    "rest": "Ngày phép còn lại"
   }
 }

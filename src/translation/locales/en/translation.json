@@ -10,5 +10,16 @@
     "timekeeping_table": "Timekeeping Table",
     "general_table": "General Statistic",
     "personal_statistic": "Personal Statistic"
+  },
+  "general_table": {
+    "cardinal_numbers": "No",
+    "employees": "Employees",
+    "work_day": "Work day",
+
+    "day_off": "Day Off",
+    "unpaid_leave": "Unpaid leave",
+    "paid_leave": "Paid leave",
+    "total_day_off": "Total Day Off",
+    "rest": "Rest"
   }
 }

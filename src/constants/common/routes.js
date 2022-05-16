@@ -1,10 +1,10 @@
-import AcceptIcon from '../../layouts/icons/AcceptIcon';
-import CalendarIcon from '../../layouts/icons/CalendarIcon';
-import LogoutIcon from '../../layouts/icons/LogoutIcon';
-import SendIcon from '../../layouts/icons/SendIcon';
-import SettingIcon from '../../layouts/icons/SettingIcon';
-import StatisticIcon from '../../layouts/icons/StatisticIcon';
-import UserIcon from '../../layouts/icons/UserIcon';
+import AcceptIcon from '../../components/icons/AcceptIcon';
+import CalendarIcon from '../../components/icons/CalendarIcon';
+import LogoutIcon from '../../components/icons/LogoutIcon';
+import SendIcon from '../../components/icons/SendIcon';
+import SettingIcon from '../../components/icons/SettingIcon';
+import StatisticIcon from '../../components/icons/StatisticIcon';
+import UserIcon from '../../components/icons/UserIcon';
 
 export const LIST_ROUTES = [
   {
