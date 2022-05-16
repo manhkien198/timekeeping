@@ -4,6 +4,11 @@
     "calendar": "Calendar",
     "personal": "Personal",
     "setting": "Setting",
-    "logout": "Log out"
+    "logout": "Log out",
+    "accept_request": "Accept Request",
+    "statistic": "Statistic",
+    "timekeeping_table": "Timekeeping Table",
+    "general_table": "General Statistic",
+    "personal_statistic": "Personal Statistic"
   }
 }

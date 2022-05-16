@@ -4,6 +4,11 @@
     "calendar": "Calendar",
     "personal": "Cá nhân",
     "setting": "Cài đặt",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "accept_request": "Phê duyệt yêu cầu",
+    "statistic": "Thống kê",
+    "timekeeping_table": "Bảng chấm công",
+    "general_table": "Thống kê chung",
+    "personal_statistic": "Thống kê cá nhân"
   }
 }

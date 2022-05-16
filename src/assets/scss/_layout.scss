@@ -36,6 +36,14 @@
   margin-left: 10px;
   font-size: 20px;
 }
-.ant-menu-item:nth-child(2) {
-  margin-bottom: 573px !important;
+// .ant-menu-item:nth-child(2) {
+//   margin-bottom: 573px !important;
+// }
+.ant-layout-content {
+  margin: 0 !important;
+  border-top: 1px solid rgb(231, 231, 231);
+  border-left: 1px solid rgb(231, 231, 231);
+}
+.anticon {
+  margin-right: 10px;
 }
