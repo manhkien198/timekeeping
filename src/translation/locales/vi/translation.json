@@ -20,5 +20,12 @@
     "paid_leave": "Nghỉ có lương",
     "total_day_off": "Tổng ngày phép",
     "rest": "Ngày phép còn lại"
+  },
+  "filter": {
+    "search": "Tìm kiếm"
+  },
+  "page_header": {
+    "title": "Thống kê",
+    "month": "Tháng"
   }
 }

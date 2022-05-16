@@ -21,5 +21,12 @@
     "paid_leave": "Paid leave",
     "total_day_off": "Total Day Off",
     "rest": "Rest"
+  },
+  "filter": {
+    "search": "Search"
+  },
+  "page_header": {
+    "title": "Statistic",
+    "month": "Month"
   }
 }

@@ -1,10 +1,12 @@
 import Input from 'antd/lib/input/Input';
 import React from 'react';
 import { Button } from 'antd';
+import { useTranslation } from 'react-i18next';
 function Filter() {
+  const { t } = useTranslation();
   return (
     <div className="filter">
-      <Input placeholder="Tìm Kiếm" className="filter__input" />
+      <Input placeholder={t('filter.search')} className="filter__input" />
       <Button type="link">
         <svg
           xmlns="http://www.w3.org/2000/svg"

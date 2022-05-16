@@ -51,7 +51,10 @@ function GeneralStatistic(props) {
   });
   return (
     <>
-      <CusomPageHeader title="Thống kê" subTitle="Tháng 05/ 2022" />
+      <CusomPageHeader
+        title={t('page_header.title')}
+        subTitle={`${t('page_header.month')} 05/ 2022`}
+      />
       <Filter />
       <Table dataSource={data} columns={columns} rowKey="employees" />
     </>
