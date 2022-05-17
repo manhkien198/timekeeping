@@ -26,6 +26,35 @@
   },
   "page_header": {
     "title": "Thống kê",
-    "month": "Tháng"
+    "month": "Tháng",
+    "filter": "Lọc",
+    "export": "Xuất file"
+  },
+  "personal_statistic": {
+    "total_work": "Tổng số công",
+    "day": "Ngày",
+    "check_in": "Vào",
+    "check_out": "Ra",
+    "ot": "Làm thêm giờ",
+    "come_late": "Vào trễ",
+    "leave_soon": "Ra sớm",
+    "hours": "Giờ",
+    "state_owned": "Công",
+    "note": "Ghi chú"
+  },
+  "login": {
+    "header": "HiveTech Recruits Management",
+    "title": "LOGIN",
+    "loginFailed": "Tài khoản hoặc mật khẩu không chính xác",
+    "lockedAccount": "Tài khoản đang bị khóa, liên hệ Admin để được hỗ trợ",
+    "username": "Username",
+    "password": "Password",
+    "forgot-password": "Forgot Password?",
+    "noPermission": "Bạn hiện tại không được phân bất kì quyền nào nên không thể đăng nhập",
+    "message-error": {
+      "password": "Please input your password!",
+      "username": "Please input your username!"
+    },
+    "success": "Đăng nhập thành công"
   }
 }
