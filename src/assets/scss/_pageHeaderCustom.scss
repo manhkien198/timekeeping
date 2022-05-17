@@ -1,4 +1,7 @@
 .page-header-content {
+  display: flex;
+  align-items: start;
+  padding-left: 0;
   .ant-page-header-heading-title {
     font-weight: 700;
     font-size: 30px;
@@ -8,5 +11,21 @@
     color: #066f9b;
     font-weight: 700;
     font-size: 30px;
+  }
+  .ant-picker-input > input {
+    font-size: 30px;
+    font-weight: 700;
+    color: #066f9b;
+  }
+  .ant-select-selection-item {
+    font-size: 30px;
+    font-weight: 700;
+    color: #066f9b;
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border: none;
+  }
+  .ant-select-arrow {
+    color: #066f9b;
   }
 }
