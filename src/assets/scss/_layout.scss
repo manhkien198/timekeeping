@@ -17,8 +17,8 @@
 .ant-layout-sider.ant-layout-sider-dark {
   position: fixed;
   left: 0;
+  top: 72px;
   height: 100vh;
-  padding-top: 71px;
 }
 #components-layout-demo-custom-trigger .trigger {
   padding: 0 24px;
@@ -33,7 +33,9 @@
 #components-layout-demo-custom-trigger .trigger:hover {
   color: #1890ff;
 }
-
+.ant-layout.main-layout {
+  padding-top: 72px;
+}
 #components-layout-demo-custom-trigger .logo {
   height: 32px;
   margin: 16px;
@@ -51,12 +53,11 @@
   font-size: 20px;
 }
 .ant-layout-content {
-  margin: 0 !important;
   border-top: 1px solid rgb(231, 231, 231);
 }
 .anticon {
   margin-right: 10px;
 }
 .divider {
-  margin-top: 28vw !important;
+  margin-top: 30vw !important;
 }
