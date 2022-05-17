@@ -1,24 +1,40 @@
-import React from 'react';
-import { Typography, PageHeader, Dropdown, Space, DatePicker } from 'antd';
-import HistoryTable from './historyTable/index';
+import React, { useState } from 'react';
+import {
+  Typography,
+  PageHeader,
+  Dropdown,
+  Space,
+  DatePicker,
+  Button,
+} from 'antd';
+import HistoryTable from './components/historyTable/index';
 import './styles.scss';
 import DownOutline from './icon/downOutline';
+import PopupLaterCheckin from './components/popup/popup'
 
 const { Title } = Typography;
+const iconDown = <DownOutline />;
 
 const today = new Date();
-const formatMonth = (date,format) =>{
+const formatMonth = (date, format) => {
   const map = {
     mm: date.getMonth() + 1,
-    yyy: date.getFullYear()
-  }
-  return format.replace(/mm|yyy/gi, matched => map[matched])
-}
-const month=formatMonth(today,'mm/yyy')
-console.log(formatMonth(today,'mm/yyy'))
+    yyy: date.getFullYear(),
+  };
+  return format.replace(/mm|yyy/gi, matched => map[matched]);
+};
+const month = formatMonth(today, 'mm/yyy');
+console.log(formatMonth(today, 'mm/yyy'));
 const monthFormat = ' MM/YYYY';
-const iconDown = <DownOutline/>
+
 function TimeKeeping(props) {
+  const [visible, setVisible] = useState(false);
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  
   return (
     <>
       <PageHeader style={{ padding: '0' }}>
@@ -34,7 +50,7 @@ function TimeKeeping(props) {
           >
             Tháng{' '}
             <DatePicker
-              suffixIcon = {iconDown}
+              suffixIcon={iconDown}
               placeholder={month}
               format={monthFormat}
               bordered={'none'}
@@ -58,25 +74,26 @@ function TimeKeeping(props) {
         </Title>
 
         <Dropdown>
-          <a>
-            <Space
-              style={{
-                fontSize: '20px',
-                color: '#066F9B',
-                fontWeight: 'bold',
-                float: 'right',
-                marginTop: '-39px',
-                paddingRight: '10px',
-              }}
-            >
-              Filter
-              <DownOutline />
-            </Space>
-          </a>
+          <Space
+            style={{
+              fontSize: '20px',
+              color: '#066F9B',
+              fontWeight: 'bold',
+              float: 'right',
+              marginTop: '-39px',
+              paddingRight: '10px',
+            }}
+          >
+            Filter
+            <DownOutline />
+          </Space>
         </Dropdown>
       </PageHeader>
+      <Button style={{ color: '#066F9B' }} ghost onClick={showModal}>
+        Check in Muộn
+      </Button>
+      <PopupLaterCheckin Visible={visible} setVisibles={setVisible} />
       <HistoryTable />
-      <Space></Space>
     </>
   );
 }
