@@ -60,13 +60,13 @@ const Login = () => {
                 <div style={{ textAlign: 'end', margin: '16px 0' }}>
                   <Link
                     to="/forgotpassword"
-                    style={{ color: 'rgba(0, 0, 0, 0.85)' }}
+                    style={{ color: 'rgba(0, 0, 0, 0.85)', fontSize: 14 }}
                   >
                     {t('login.forgot-password')}
                   </Link>
                 </div>
                 <Form.Item>
-                  <Button htmlType="submit" type="danger">
+                  <Button htmlType="submit" type="danger" className="btn-login">
                     {t('login.title')}
                   </Button>
                 </Form.Item>

@@ -1,5 +1,10 @@
-.site-page-header {
+.header {
   background-color: #e11274;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
   .ant-page-header-heading-title {
     color: #fff;
   }
@@ -9,6 +14,12 @@
   flex-direction: row;
   height: calc(100vh - 72px);
 }
+.ant-layout-sider.ant-layout-sider-dark {
+  position: fixed;
+  left: 0;
+  height: 100vh;
+  padding-top: 71px;
+}
 #components-layout-demo-custom-trigger .trigger {
   padding: 0 24px;
   font-size: 18px;
@@ -16,7 +27,9 @@
   cursor: pointer;
   transition: color 0.3s;
 }
-
+.ant-layout.site-layout {
+  padding-left: 270px;
+}
 #components-layout-demo-custom-trigger .trigger:hover {
   color: #1890ff;
 }
@@ -40,7 +53,6 @@
 .ant-layout-content {
   margin: 0 !important;
   border-top: 1px solid rgb(231, 231, 231);
-  border-left: 1px solid rgb(231, 231, 231);
 }
 .anticon {
   margin-right: 10px;
