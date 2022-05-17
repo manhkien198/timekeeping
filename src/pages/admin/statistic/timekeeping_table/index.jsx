@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import TableTimeKeeping from './component/TableTimeKeeping';
-import FilterTimeKeeping from './component/FilterTimeKeeping';
 import { get_day_of_month } from './constant';
 import { Tooltip } from 'antd';
+import CusomPageHeader from '../../../../components/CusomPageHeader';
+import ButtonGroup from '../../../../components/ButtonGroup';
+import { useTranslation } from 'react-i18next';
+import Filter from '../../../../components/Filter';
 function TimeKeepingTable(props) {
   const [month, setMonth] = useState('');
+  const { t } = useTranslation();
   const [year, setYear] = useState('');
   const [day, setDay] = useState('');
   const [listDayOnMonth, setListDayOnMonth] = useState('');
+
   useEffect(() => {
     const dayInMonth = get_day_of_month(year, month);
     setDay(dayInMonth);
   }, [year, month]);
+
   useEffect(() => {
     let arrDay = [];
     for (let i = 1; i <= day; i++) {
@@ -53,7 +59,14 @@ function TimeKeepingTable(props) {
   }, [day]);
   return (
     <div className="tableTimeKeeping">
-      <FilterTimeKeeping setMonth={setMonth} setYear={setYear} />
+      <CusomPageHeader
+        setMonth={setMonth}
+        setYear={setYear}
+        title={t('page_header.title')}
+        subTitle={`${t('page_header.month')}`}
+      />
+      <Filter />
+      <ButtonGroup />
       <div className="table">
         <TableTimeKeeping listDayOnMonth={listDayOnMonth} />
       </div>
