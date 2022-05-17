@@ -47,8 +47,8 @@ const TableTimeKeeping = ({ listDayOnMonth }) => {
       <Table
         columns={column}
         dataSource={dataSource}
-        scroll={{ x: 800, y: 300 }}
-        style={{ maxWidth: '1583px' }}
+        scroll={{ x: 800, y: 700 }}
+        style={{ maxWidth: 'calc(100vw - 348px)' }}
       />
     </div>
   );

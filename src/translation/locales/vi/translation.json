@@ -66,5 +66,13 @@
     "fullName": "Họ và tên",
     "workingDay": "Ngày làm việc",
     "action": "Tác vụ"
+  },
+  "acceptRequestor": {
+    "request": "Yêu cầu",
+    "staff": "Nhân viên",
+    "date": "Ngày",
+    "time": "Thời gian",
+    "reason": "Lý do",
+    "approve": "Phê duyệt"
   }
 }
