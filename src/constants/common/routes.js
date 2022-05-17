@@ -1,3 +1,4 @@
+import { Divider } from 'antd';
 import AcceptIcon from '../../components/icons/AcceptIcon';
 import CalendarIcon from '../../components/icons/CalendarIcon';
 import LogoutIcon from '../../components/icons/LogoutIcon';
@@ -70,6 +71,13 @@ export const ADMIN_ROUTES = [
     ],
   },
   {
+    path: '',
+    title: '',
+    icon: <Divider />,
+    childs: [],
+    className: 'divider',
+  },
+  {
     path: '/personal',
     title: 'personal',
     icon: <UserIcon />,
@@ -82,7 +90,7 @@ export const ADMIN_ROUTES = [
     child: [],
   },
   {
-    path: '/logout',
+    path: '/login',
     title: 'logout',
     icon: <LogoutIcon />,
     child: [],

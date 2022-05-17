@@ -71,7 +71,7 @@ function PersonalStatistic(props) {
     <div className="personal__statistic">
       <CusomPageHeader
         title={
-          <Select defaultValue="lucy" style={{ width: 140 }}>
+          <Select defaultValue="lucy" style={{ width: 240 }}>
             <Option value="jack">Jack</Option>
             <Option value="lucy">Lucy</Option>
 

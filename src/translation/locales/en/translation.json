@@ -51,6 +51,10 @@
       "username": "Please input your username!"
     }
   },
+  "forgotpassword": {
+    "title": "FORGOT PASSWORD",
+    "it-helpdesk": "Contact IT Helpdesk for support."
+  },
   "time_keeping": {
     "id": "Id",
     "fullName": "Full Name",

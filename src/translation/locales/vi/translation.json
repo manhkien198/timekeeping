@@ -57,6 +57,10 @@
     },
     "success": "Đăng nhập thành công"
   },
+  "forgotpassword": {
+    "title": "FORGOT PASSWORD",
+    "it-helpdesk": "Contact IT Helpdesk for support."
+  },
   "time_keeping": {
     "id": "Stt",
     "fullName": "Họ và tên",

@@ -11,7 +11,8 @@ import PersonalStatistic from './pages/admin/statistic/personal_statistic';
 import TimeKeepingTable from './pages/admin/statistic/timekeeping_table';
 import AcceptRequest from './pages/admin/accept_request';
 import Calendar from './pages/user/calendar';
-import Login from './pages/admin/Login';
+import Login from './pages/auth/Login';
+import ForgotPassword from './pages/auth/ForgotPassword';
 
 function App() {
   const isAdmin = useSelector(state => state.layout.isAdmin);
@@ -19,6 +20,7 @@ function App() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
 
       <Route path="/" element={<MainLayout />}>
         {!isAdmin ? (

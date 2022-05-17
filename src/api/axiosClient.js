@@ -30,7 +30,9 @@ axiosClient.interceptors.response.use(
     return Promise.reject(response);
   },
   function (error) {
-    if (error.response.status === 401) window.location.reload(false);
+    // if (error.response.status === 401 && checked) {
+    //   refreshToken(refresh_token);
+    // }
     return Promise.reject(error);
   },
 );
