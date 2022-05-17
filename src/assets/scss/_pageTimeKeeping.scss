@@ -38,4 +38,10 @@
   .ant-select-single.ant-select-show-arrow .ant-select-selection-item{
     padding-right: 50px;
   }
+  thead .ant-table-cell{
+    font-weight: bold;
+  }
+  tbody .ant-table-cell{
+    font-size: 20px;
+  }
 }

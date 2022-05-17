@@ -1,77 +1,61 @@
-import { Button, Col, DatePicker, Form, Input, Row, Select } from 'antd';
-import React from 'react';
-import { SearchOutlined } from '@ant-design/icons';
-import { dataDate } from './constant';
+import React, { useEffect, useState } from 'react';
 import TableTimeKeeping from './component/TableTimeKeeping';
+import FilterTimeKeeping from './component/FilterTimeKeeping';
+import { get_day_of_month } from './constant';
+import { Tooltip } from 'antd';
 function TimeKeepingTable(props) {
-  const { Option } = Select;
+  const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
+  const [day, setDay] = useState('');
+  const [listDayOnMonth, setListDayOnMonth] = useState('');
+  useEffect(() => {
+    const dayInMonth = get_day_of_month(year, month);
+    setDay(dayInMonth);
+  }, [year, month]);
+  useEffect(() => {
+    let arrDay = [];
+    for (let i = 1; i <= day; i++) {
+      let dayObj = {
+        title: i.toString(),
+        dataIndex: i.toString(),
+        align: 'center',
+        width: 100,
+        key: i.toString(),
+        render: status => {
+          return (
+            <div>
+              {status?.onl ? (
+                <div>
+                  {status?.description ? (
+                    <div>
+                      <Tooltip
+                        placement="topLeft"
+                        title={status?.description}
+                        style={{ color: '#E11274', backgroundColor: 'white' }}
+                      >
+                        <span style={{ color: '#E11274' }}>X</span>
+                      </Tooltip>
+                    </div>
+                  ) : (
+                    <span>X</span>
+                  )}{' '}
+                </div>
+              ) : (
+                ''
+              )}
+            </div>
+          );
+        },
+      };
+      arrDay.push(dayObj);
+    }
+    setListDayOnMonth(arrDay);
+  }, [day]);
   return (
     <div className="tableTimeKeeping">
-      <Form>
-        <Form.Item
-          style={{ alignItem: 'center' }}
-          name="dateTime"
-          label={
-            <p className="title_filterMonth">
-              Chấm công{' '}
-              <span
-                className="title_filterMonth"
-                style={{ color: '#066F9B', textTransform: 'capitalize' }}
-              >
-                tháng
-              </span>
-            </p>
-          }
-          labelAlign="left"
-        >
-          <DatePicker
-            placeholder=""
-            className="datePicker_month"
-            picker="month"
-          />
-        </Form.Item>
-        <Row>
-          <Col span={23}>
-            <Form.Item name="search">
-              <Input
-                style={{ backgroundColor: '#E5E5E5', borderRadius: '8px' }}
-                placeholder="Search"
-                size="large"
-              />
-            </Form.Item>
-          </Col>
-          <Col span={1}>
-            <Form.Item>
-              <Button
-                size="large"
-                style={{ border: 'none', boxShadow: 'none' }}
-                icon={<SearchOutlined />}
-              ></Button>
-            </Form.Item>
-          </Col>
-          <Col style={{ marginRight: '15px' }}>
-            <Form.Item name="sort" style={{ marginBottom: 0 }}>
-              <Select defaultValue="Filter">
-                {dataDate?.map((item, index) => {
-                  return (
-                    <Option key={index} value={item?.id}>
-                      {item?.value}
-                    </Option>
-                  );
-                })}
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col>
-            <Button style={{ border: 'none', color: '#066F9B' }}>
-              {' '}
-              Export
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+      <FilterTimeKeeping setMonth={setMonth} setYear={setYear} />
       <div className="table">
-        <TableTimeKeeping />
+        <TableTimeKeeping listDayOnMonth={listDayOnMonth} />
       </div>
     </div>
   );
