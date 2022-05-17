@@ -1,6 +1,7 @@
 import { PageHeader, Table } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 
@@ -53,9 +54,10 @@ function GeneralStatistic(props) {
     <>
       <CusomPageHeader
         title={t('page_header.title')}
-        subTitle={`${t('page_header.month')} 05/ 2022`}
+        subTitle={`${t('page_header.month')}`}
       />
       <Filter />
+      <ButtonGroup />
       <Table dataSource={data} columns={columns} rowKey="employees" />
     </>
   );

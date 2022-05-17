@@ -27,6 +27,29 @@
   },
   "page_header": {
     "title": "Statistic",
-    "month": "Month"
+    "month": "Month",
+    "filter": "Filter",
+    "export": "Export"
+  },
+  "personal_statistic": {
+    "total_work": "Total Work",
+    "day": "Day",
+    "check_in": "Check in",
+    "check_out": "Check out",
+    "ot": "OT",
+    "come_late": "Come Late",
+    "leave_soon": "Leave soon",
+    "hours": "Hours",
+    "state_owned": "State-owned",
+    "note": "Note"
+  },
+  "login": {
+    "header": "HiveTech Recruits Management",
+    "title": "Login",
+    "forgot-password": "Forgot Password?",
+    "message-error": {
+      "password": "Please input your password!",
+      "username": "Please input your username!"
+    }
   }
 }

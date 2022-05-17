@@ -11,12 +11,15 @@ import PersonalStatistic from './pages/admin/statistic/personal_statistic';
 import TimeKeepingTable from './pages/admin/statistic/timekeeping_table';
 import AcceptRequest from './pages/admin/accept_request';
 import Calendar from './pages/user/calendar';
+import Login from './pages/admin/Login';
 
 function App() {
   const isAdmin = useSelector(state => state.layout.isAdmin);
 
   return (
     <Routes>
+      <Route path="login" element={<Login />} />
+
       <Route path="/" element={<MainLayout />}>
         {!isAdmin ? (
           <>
