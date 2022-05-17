@@ -1,13 +1,15 @@
 import { Table } from 'antd';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { dataSource } from '../constant';
 const TableTimeKeeping = ({ listDayOnMonth }) => {
+  const { t } = useTranslation();
   const column = [
     {
-      title: 'Stt',
+      title: t('time_keeping.id'),
       dataIndex: 'id',
       align: 'center',
-      key: 'id',
+      key: t('time_keeping.id'),
       fixed: 'left',
       width: 150,
       render: id => {
@@ -15,29 +17,29 @@ const TableTimeKeeping = ({ listDayOnMonth }) => {
       },
     },
     {
-      title: 'Họ và tên',
+      title: t('time_keeping.fullName'),
       dataIndex: 'name',
       align: 'center',
       fixed: 'left',
       width: 100,
-      key: 'name',
+      key: t('time_keeping.fullName'),
     },
     ...listDayOnMonth,
     {
-      title: 'Ngày làm việc',
+      title: t('time_keeping.workingDay'),
       dataIndex: 'workingDay',
       align: 'center',
       fixed: 'right',
       width: 100,
-      key: 'workingDay',
+      key: t('time_keeping.workingDay'),
     },
     {
-      title: 'Tác vụ',
+      title: t('time_keeping.action'),
       dataIndex: 'action',
       align: 'center',
       fixed: 'right',
       width: 100,
-      key: 'action',
+      key: t('time_keeping.action'),
     },
   ];
   return (

@@ -15,7 +15,6 @@
     "cardinal_numbers": "No",
     "employees": "Employees",
     "work_day": "Work day",
-
     "day_off": "Day Off",
     "unpaid_leave": "Unpaid leave",
     "paid_leave": "Paid leave",
@@ -51,5 +50,11 @@
       "password": "Please input your password!",
       "username": "Please input your username!"
     }
+  },
+  "time_keeping": {
+    "id": "Id",
+    "fullName": "Full Name",
+    "workingDay": "Working Day",
+    "action": "Action"
   }
 }
