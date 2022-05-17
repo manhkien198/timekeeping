@@ -46,10 +46,10 @@ function Sidebar({ collapsed }) {
         selectedKeys={[
           !isAdmin
             ? location.pathname.length > 1
-              ? location.pathname
+              ? selectedKey
               : DEFAULT_SELECTED_MENU_SIDEBAR
             : location.pathname.length > 1
-            ? location.pathname
+            ? selectedKey
             : DEFAULT_SELECTED_ADMIN,
         ]}
       >
@@ -73,7 +73,11 @@ function Sidebar({ collapsed }) {
                   ))}
                 </SubMenu>
               ) : (
-                <Menu.Item key={x.path} icon={x.icon}>
+                <Menu.Item
+                  key={x.path}
+                  icon={x.icon}
+                  className={x.className ? x.className : ''}
+                >
                   <Link to={x.path}>{t(`sidebar.${x.title}`)}</Link>
                 </Menu.Item>
               );

@@ -51,5 +51,9 @@
       "password": "Please input your password!",
       "username": "Please input your username!"
     }
+  },
+  "forgotpassword": {
+    "title": "FORGOT PASSWORD",
+    "it-helpdesk": "Contact IT Helpdesk for support."
   }
 }

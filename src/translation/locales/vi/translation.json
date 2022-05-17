@@ -56,5 +56,9 @@
       "username": "Please input your username!"
     },
     "success": "Đăng nhập thành công"
+  },
+  "forgotpassword": {
+    "title": "FORGOT PASSWORD",
+    "it-helpdesk": "Contact IT Helpdesk for support."
   }
 }

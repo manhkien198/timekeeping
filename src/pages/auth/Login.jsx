@@ -16,7 +16,7 @@ const Login = () => {
           <div className="login--right">
             <div className="login--right__header">
               <img src={logo} alt="" />
-              <p>{t('login.header')}</p>
+              <p style={{ fontWeight: 700 }}>{t('login.header')}</p>
             </div>
             <div className="login--right__content">
               <Form
