@@ -15,7 +15,6 @@
     "cardinal_numbers": "No",
     "employees": "Employees",
     "work_day": "Work day",
-
     "day_off": "Day Off",
     "unpaid_leave": "Unpaid leave",
     "paid_leave": "Paid leave",
@@ -55,5 +54,11 @@
   "forgotpassword": {
     "title": "FORGOT PASSWORD",
     "it-helpdesk": "Contact IT Helpdesk for support."
+  },
+  "time_keeping": {
+    "id": "Id",
+    "fullName": "Full Name",
+    "workingDay": "Working Day",
+    "action": "Action"
   }
 }

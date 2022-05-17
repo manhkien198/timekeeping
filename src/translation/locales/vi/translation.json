@@ -60,5 +60,11 @@
   "forgotpassword": {
     "title": "FORGOT PASSWORD",
     "it-helpdesk": "Contact IT Helpdesk for support."
+  },
+  "time_keeping": {
+    "id": "Stt",
+    "fullName": "Họ và tên",
+    "workingDay": "Ngày làm việc",
+    "action": "Tác vụ"
   }
 }
