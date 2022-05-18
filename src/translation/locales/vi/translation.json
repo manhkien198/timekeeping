@@ -73,6 +73,8 @@
     "date": "Ngày",
     "time": "Thời gian",
     "reason": "Lý do",
-    "approve": "Phê duyệt"
+    "approve": "Phê duyệt",
+    "edit": "Sửa",
+    "delete": "Xóa"
   }
 }

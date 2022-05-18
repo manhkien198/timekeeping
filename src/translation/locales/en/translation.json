@@ -60,5 +60,15 @@
     "fullName": "Full Name",
     "workingDay": "Working Day",
     "action": "Action"
+  },
+  "acceptRequestor": {
+    "request": "Request",
+    "staff": "Staff",
+    "date": "Date",
+    "time": "Time",
+    "reason": "Reason",
+    "approve": "Approve",
+    "edit": "Edit",
+    "delete": "Delete"
   }
 }

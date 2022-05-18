@@ -1,11 +1,34 @@
-import { Table } from 'antd';
+import { Button, Popover, Table, Tooltip } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import SuccessRequest from '../../../../assets/images/request/Button/True.png';
 import FailRequest from '../../../../assets/images/request/Button/False.png';
+import editIcon from '../../../../assets/images/request/Button/Edit.svg';
+import removeIcon from '../../../../assets/images/request/Button/DeleteOutlined.svg';
 import moment from 'moment';
+import { dataRequest } from '../constant';
+import { EllipsisOutlined } from '@ant-design/icons';
 const TableRequest = () => {
   const { t } = useTranslation();
+  const Actions = ({ record }) => (
+    <div className="request__action" style={{}}>
+      <Button
+        className="request__action--edit"
+        icon={<img src={editIcon} alt="detail" />}
+        size="large"
+      >
+        {t('acceptRequestor.edit')}
+      </Button>
+
+      <Button
+        className="request__action--delete"
+        icon={<img src={removeIcon} alt="detail" />}
+        size="large"
+      >
+        {t('acceptRequestor.delete')}
+      </Button>
+    </div>
+  );
   const column = [
     {
       title: t('time_keeping.id'),
@@ -14,7 +37,7 @@ const TableRequest = () => {
       key: t('time_keeping.id'),
       width: 150,
       render: id => {
-        return <p>{id}</p>;
+        return <span>{id}</span>;
       },
     },
     {
@@ -24,7 +47,7 @@ const TableRequest = () => {
       key: t('acceptRequestor.staff'),
       width: 150,
       render: staff => {
-        return <p>{staff}</p>;
+        return <span>{staff}</span>;
       },
     },
     {
@@ -34,7 +57,7 @@ const TableRequest = () => {
       key: t('acceptRequestor.date'),
       width: 150,
       render: date => {
-        return <p>{moment(date).format('DD/MM')}</p>;
+        return <span>{moment(date).format('DD/MM')}</span>;
       },
     },
     {
@@ -44,7 +67,7 @@ const TableRequest = () => {
       key: t('acceptRequestor.time'),
       width: 150,
       render: time => {
-        return <p>{moment(time).format('hh:mm')}</p>;
+        return <span>{moment(time).format('hh:mm')}</span>;
       },
     },
     {
@@ -53,8 +76,12 @@ const TableRequest = () => {
       align: 'center',
       key: t('acceptRequestor.reason'),
       width: 150,
-      render: time => {
-        return <p>{time}</p>;
+      render: reason => {
+        return (
+          <Tooltip title={reason}>
+            <span className="reason_content">{reason}</span>
+          </Tooltip>
+        );
       },
     },
     {
@@ -81,11 +108,32 @@ const TableRequest = () => {
       align: 'center',
       key: t('time_keeping.action'),
       width: 150,
+      render: (text, record) => {
+        return (
+          <Popover
+            zIndex={1}
+            style={{ padding: 0, border: '1px solid black' }}
+            content={<Actions record={record} />}
+            placement="bottomRight"
+            trigger="hover"
+            getTooltipContainer={triggerNode => triggerNode.parentNode}
+          >
+            <EllipsisOutlined
+              style={{
+                fontSize: '25px',
+                width: '27px',
+                height: '32px',
+                fontWeight: 400,
+              }}
+            />
+          </Popover>
+        );
+      },
     },
   ];
   return (
     <div>
-      <Table columns={column} />
+      <Table columns={column} dataSource={dataRequest} />
     </div>
   );
 };

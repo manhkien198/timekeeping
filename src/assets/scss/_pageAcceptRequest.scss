@@ -44,4 +44,19 @@
   tbody .ant-table-cell{
     font-size: 20px;
   }
+  .request__action{
+    display: flex;
+    flex-direction: column;
+    button{
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+}
+.reason_content{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
