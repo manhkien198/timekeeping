@@ -1,36 +1,30 @@
-import React, {useState} from 'react'
-import { Button, Modal} from 'antd'
-import LateCheckin from './laterCheckin/lateCheckin'
-import Close from '../../icon/close'
+import React, { useState } from 'react';
+import { Button, Modal } from 'antd';
+import LateCheckin from './laterCheckin/lateCheckin';
+import ConfirmCheck from './cofirmCheck/confirmCheck';
 
-export default function PopupLaterCheckin({Visible,setVisibles}) {
+import './popup.scss';
 
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState(<LateCheckin />);
+export default function PopupLaterCheckin({ Visible, setVisibles }) {
+  const [confirm, setConfirm] = useState(false);
 
-
-  const handleOk = () => {
-    setModalText();
-    setConfirmLoading(true);
+  const handleConfirm = () => {
+    return setConfirm(true);
   };
   const handleCancel = () => {
     console.log('Clicked cancel button');
     setVisibles(false);
   };
-  console.log(Visible)
+  console.log(confirm);
   return (
-    <div>
-      <Modal
-        title="Title"
-        visible={Visible}
-        
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <p>{modalText}</p>
-        <Button type='submit' onClick={handleOk}>Lý do Check in Muộn</Button>
-        
+    <>
+      <Modal visible={Visible} onCancel={handleCancel} footer={null}>
+        {confirm ? (
+          <ConfirmCheck />
+        ) : (
+          <LateCheckin HandleConfirm={handleConfirm} />
+        )}
       </Modal>
-    </div>
-  )
+    </>
+  );
 }

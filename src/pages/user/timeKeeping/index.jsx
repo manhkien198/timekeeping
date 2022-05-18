@@ -10,7 +10,7 @@ import {
 import HistoryTable from './components/historyTable/index';
 import './styles.scss';
 import DownOutline from './icon/downOutline';
-import PopupLaterCheckin from './components/popup/popup'
+import PopupLaterCheckin from './components/popup/popup';
 
 const { Title } = Typography;
 const iconDown = <DownOutline />;
@@ -32,9 +32,9 @@ function TimeKeeping(props) {
 
   const showModal = () => {
     setVisible(true);
+    
   };
 
-  
   return (
     <>
       <PageHeader style={{ padding: '0' }}>
