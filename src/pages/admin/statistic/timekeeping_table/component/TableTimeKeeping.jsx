@@ -45,6 +45,7 @@ const TableTimeKeeping = ({ listDayOnMonth }) => {
   return (
     <div>
       <Table
+        rowKey={'id'}
         columns={column}
         dataSource={dataSource}
         scroll={{ x: 800, y: 700 }}

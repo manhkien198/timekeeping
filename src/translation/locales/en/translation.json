@@ -59,7 +59,9 @@
     "id": "Id",
     "fullName": "Full Name",
     "workingDay": "Working Day",
-    "action": "Action"
+    "action": "Action",
+    "activity": "Activity",
+    "detail": "Detail"
   },
   "acceptRequestor": {
     "request": "Request",
