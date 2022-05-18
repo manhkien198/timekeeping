@@ -7,14 +7,7 @@ export default function LateCheckin({ HandleConfirm }) {
   const { t } = useTranslation();
   return (
     <div className="Popup__checkin-late">
-      <Card
-        style={{
-          width: '888px',
-          marginLeft: '25px',
-          marginTop: '94px',
-          border: 'none',
-        }}
-      >
+      <Card>
         <p>{t('popup.hello')} Lê Như Ngọc,</p>
         <p>
           {t('popup.now')} 8:32 {t('popup.day')} 12/05/2022

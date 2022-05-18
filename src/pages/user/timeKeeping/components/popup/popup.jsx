@@ -12,7 +12,6 @@ export default function PopupLaterCheckin({ Visible, setVisibles }) {
     return setConfirm(true);
   };
   const handleCancel = () => {
-    console.log('Clicked cancel button');
     setVisibles(false);
   };
   return (

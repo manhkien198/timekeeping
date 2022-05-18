@@ -9,7 +9,6 @@ export default function ConfirmCheck() {
     <div>
       <Card
         style={{
-          width: '888px',
           marginLeft: '25px',
           marginTop: '94px',
           border: 'none',

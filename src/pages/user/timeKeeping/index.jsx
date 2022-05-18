@@ -12,20 +12,11 @@ import './styles.scss';
 import DownOutline from './icon/downOutline';
 import PopupLaterCheckin from './components/popup/popup';
 import { useTranslation } from 'react-i18next';
+import { month, monthFormat} from '../../../components/moment/month'
 const { Title } = Typography;
 const iconDown = <DownOutline />;
 
-const today = new Date();
-const formatMonth = (date, format) => {
-  const map = {
-    mm: date.getMonth() + 1,
-    yyy: date.getFullYear(),
-  };
-  return format.replace(/mm|yyy/gi, matched => map[matched]);
-};
-const month = formatMonth(today, 'mm/yyy');
-console.log(formatMonth(today, 'mm/yyy'));
-const monthFormat = ' MM/YYYY';
+
 
 function TimeKeeping(props) {
   const { t } = useTranslation();
