@@ -65,6 +65,19 @@
     "id": "Stt",
     "fullName": "Họ và tên",
     "workingDay": "Ngày làm việc",
-    "action": "Tác vụ"
+    "action": "Tác vụ",
+    "activity": "Hoạt động",
+    "detail": "Chi tiết"
+  },
+  "acceptRequestor": {
+    "request": "Yêu cầu",
+    "staff": "Nhân viên",
+    "date": "Ngày",
+    "time": "Thời gian",
+    "reason": "Lý do",
+    "approve": "Phê duyệt",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "approver": "Người phê duyệt"
   }
 }

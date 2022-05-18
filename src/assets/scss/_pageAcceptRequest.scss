@@ -1,4 +1,4 @@
-.tableTimeKeeping{
+.acceptRequest{
   .title_filterMonth{
     font-size: 30px;
     font-weight: 700;
@@ -44,19 +44,19 @@
   tbody .ant-table-cell{
     font-size: 20px;
   }
-}
-
-.modal_content{
+  .request__action{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    p{
-      font-size: 20px;
+    flex-direction: column;
+    button{
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
+  }
 }
-.ant-modal-title{
-  font-weight: bold;
-}
-.ant-modal-footer{
-  padding: 0;
+.reason_content{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
