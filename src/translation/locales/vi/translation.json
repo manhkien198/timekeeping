@@ -71,7 +71,9 @@
     "month":"Tháng",
     "total_worked": "Tổng số công",
     "late": "check in muộn",
-    "note":"Ghi chú"
+    "note":"Ghi chú",
+    "activity": "Hoạt động",
+    "detail": "Chi tiết"
   }
   ,"request":{
     "request": "Yêu Cầu",
@@ -89,7 +91,16 @@
   "comfirmRequest":{
     "approved":"Yêu cầu đang được phê duyệt!",
     "wishing": "Chúc bạn một ngày làm việc hiệu quả!"
+  },
+  "acceptRequestor": {
+    "request": "Yêu cầu",
+    "staff": "Nhân viên",
+    "date": "Ngày",
+    "time": "Thời gian",
+    "reason": "Lý do",
+    "approve": "Phê duyệt",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "approver": "Người phê duyệt"
   }
 }
-
-

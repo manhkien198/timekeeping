@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TableTimeKeeping from './component/TableTimeKeeping';
 import { get_day_of_month } from './constant';
-import { Tooltip } from 'antd';
+import { Modal, Tooltip } from 'antd';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,7 @@ function TimeKeepingTable(props) {
   const [year, setYear] = useState('');
   const [day, setDay] = useState('');
   const [listDayOnMonth, setListDayOnMonth] = useState('');
+  const [isShowModal, setIsShowModal] = useState(false);
 
   useEffect(() => {
     const dayInMonth = get_day_of_month(year, month);
@@ -39,7 +40,14 @@ function TimeKeepingTable(props) {
                         title={status?.description}
                         style={{ color: '#E11274', backgroundColor: 'white' }}
                       >
-                        <span style={{ color: '#E11274' }}>X</span>
+                        <span
+                          onClick={() => {
+                            setIsShowModal(true);
+                          }}
+                          style={{ color: '#E11274' }}
+                        >
+                          X
+                        </span>
                       </Tooltip>
                     </div>
                   ) : (
@@ -69,6 +77,31 @@ function TimeKeepingTable(props) {
       <ButtonGroup />
       <div className="table">
         <TableTimeKeeping listDayOnMonth={listDayOnMonth} />
+      </div>
+      <div className="modal_detailTimeKeeping">
+        <Modal
+          footer={[]}
+          onCancel={() => setIsShowModal(false)}
+          title={t('time_keeping.detail')}
+          visible={isShowModal}
+        >
+          <div className="modal_content">
+            <div className="modal_description">
+              <p>{t('acceptRequestor.staff')}:</p>
+              <p>{t('acceptRequestor.date')}:</p>
+              <p>{t('time_keeping.activity')}:</p>
+              <p>{t('acceptRequestor.reason')}:</p>
+              <p>{t('acceptRequestor.approver')}:</p>
+            </div>
+            <div className="">
+              <p>{t('acceptRequestor.staff')}:</p>
+              <p>{t('acceptRequestor.date')}:</p>
+              <p>{t('time_keeping.activity')}:</p>
+              <p>{t('acceptRequestor.reason')}:</p>
+              <p>{t('acceptRequestor.approver')}:</p>
+            </div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

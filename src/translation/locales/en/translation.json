@@ -65,7 +65,9 @@
     "month":"month",
     "total_worked": "total worked days",
     "late": "check in late",
-    "note": "note"
+    "note": "note",
+    "activity": "Activity",
+    "detail": "Detail"
   }
   ,"request":{
     "request": "request",
@@ -84,5 +86,16 @@
   "comfirmRequest":{
     "approved":"Request is being approved!",
     "wishing": "Wishing you a productive day!"
+    
+  },
+  "acceptRequestor": {
+    "request": "Request",
+    "staff": "Staff",
+    "date": "Date",
+    "time": "Time",
+    "reason": "Reason",
+    "approve": "Approve",
+    "edit": "Edit",
+    "delete": "Delete"
   }
 }
