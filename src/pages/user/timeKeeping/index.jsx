@@ -11,7 +11,7 @@ import HistoryTable from './components/historyTable/index';
 import './styles.scss';
 import DownOutline from './icon/downOutline';
 import PopupLaterCheckin from './components/popup/popup';
-
+import { useTranslation } from 'react-i18next';
 const { Title } = Typography;
 const iconDown = <DownOutline />;
 
@@ -28,18 +28,19 @@ console.log(formatMonth(today, 'mm/yyy'));
 const monthFormat = ' MM/YYYY';
 
 function TimeKeeping(props) {
+  const { t } = useTranslation();
+
   const [visible, setVisible] = useState(false);
 
   const showModal = () => {
     setVisible(true);
-    
   };
 
   return (
     <>
       <PageHeader style={{ padding: '0' }}>
         <Title style={{ padding: '0px 19px' }} level={2}>
-          Lịch sử chấm công
+          {t('time_keeping.timekeeping_history')}
           <Title
             style={{
               display: 'inline',
@@ -48,7 +49,7 @@ function TimeKeeping(props) {
             }}
             level={2}
           >
-            Tháng{' '}
+            {t('time_keeping.month')}{' '}
             <DatePicker
               suffixIcon={iconDown}
               placeholder={month}
@@ -60,7 +61,7 @@ function TimeKeeping(props) {
           </Title>
         </Title>
         <Title style={{ padding: '0px 54px', marginTop: '0' }} level={3}>
-          Tổng số công
+          {t('time_keeping.total_worked')}
           <Title
             style={{
               display: 'inline',
@@ -90,7 +91,7 @@ function TimeKeeping(props) {
         </Dropdown>
       </PageHeader>
       <Button style={{ color: '#066F9B' }} ghost onClick={showModal}>
-        Check in Muộn
+        {t('time_keeping.late')}
       </Button>
       <PopupLaterCheckin Visible={visible} setVisibles={setVisible} />
       <HistoryTable />

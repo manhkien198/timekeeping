@@ -1,9 +1,10 @@
 import { Card, Typography } from 'antd';
 import React from 'react';
 import Check from '../../../icon/check';
-
+import { useTranslation } from 'react-i18next';
 const { Title } = Typography;
 export default function ConfirmCheck() {
+  const { t } = useTranslation();
   return (
     <div>
       <Card
@@ -17,8 +18,8 @@ export default function ConfirmCheck() {
       >
         <Check />
         <Typography style={{ marginTop: '68px' }}>
-          <Title level={2}>Yêu cầu đang được phê duyệt!</Title>
-          <Title level={2}>Chúc bạn một ngày làm việc hiệu quả!</Title>
+          <Title level={2}>{t('comfirmRequest.approved')}</Title>
+          <Title level={2}>{t('comfirmRequest.wishing')}</Title>
         </Typography>
       </Card>
     </div>

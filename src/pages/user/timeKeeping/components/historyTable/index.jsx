@@ -1,21 +1,23 @@
 import { Table } from 'antd';
 import Data from './dataTable';
 import  { DownOutlined } from '@ant-design/icons';
-
+import {useTranslation} from 'react-i18next'
 import './historyTable.scss'
 
 const iconDown = <DownOutlined />
 
 function HistoryTable() {
+  const {t} = useTranslation()
+
   const columns = [
     {
-      title: 'STT',
+      title: t("time_keeping.id"),
       dataIndex: 'STT',
       Key: 'STT',
       align: 'center'
     },
     {
-      title: <>Ngày  {iconDown}</> ,
+      title: <>{t("time_keeping.day")}  {iconDown}</> ,
       dataIndex: 'day',
       Key: 'day',
       align: 'center'
@@ -39,13 +41,13 @@ function HistoryTable() {
       align: 'center'
     },
     {
-      title: 'Tổng giờ làm ',
+      title: t("time_keeping.workingDay"),
       dataIndex: 'totalWork',
       Key: 'totalWork',
       align: 'center'
     },
     {
-      title: 'Ghi chú',
+      title: t("time_keeping.note"),
       dataIndex: 'note',
       key: 'note',
       align: 'center'

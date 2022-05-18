@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
 import LateCheckin from './laterCheckin/lateCheckin';
 import ConfirmCheck from './cofirmCheck/confirmCheck';
 
@@ -15,7 +15,6 @@ export default function PopupLaterCheckin({ Visible, setVisibles }) {
     console.log('Clicked cancel button');
     setVisibles(false);
   };
-  console.log(confirm);
   return (
     <>
       <Modal visible={Visible} onCancel={handleCancel} footer={null}>

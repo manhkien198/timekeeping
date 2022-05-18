@@ -1,8 +1,10 @@
 import React from 'react';
 import './lateCheckin.scss';
 import { Form, Input, Button, Card } from 'antd';
-export default function LateCheckin({HandleConfirm}) {
-  console.log(HandleConfirm)
+import { useTranslation } from 'react-i18next';
+
+export default function LateCheckin({ HandleConfirm }) {
+  const { t } = useTranslation();
   return (
     <div className="Popup__checkin-late">
       <Card
@@ -13,13 +15,12 @@ export default function LateCheckin({HandleConfirm}) {
           border: 'none',
         }}
       >
-        <p>Xin chào Lê Như Ngọc,</p>
-        <p>Bây giờ là 8:32 ngày 12/05/2022</p>
+        <p>{t('popup.hello')} Lê Như Ngọc,</p>
         <p>
-          Bạn chưa thực hiện check - in. Vui lòng kết nối điện thoại với Wifi
-          nội bộ hoặc gửi yêu cầu cho Admin.
+          {t('popup.now')} 8:32 {t('popup.day')} 12/05/2022
         </p>
-        
+        <p>{t('popup.connect_wifi')}</p>
+
         <Form
           name="basic"
           labelCol={{
@@ -59,7 +60,7 @@ export default function LateCheckin({HandleConfirm}) {
               }}
               onClick={HandleConfirm}
             >
-              Gửi yêu cầu
+              {t('popup.send')}
             </Button>
           </Form.Item>
         </Form>
