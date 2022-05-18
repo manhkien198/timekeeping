@@ -1,12 +1,7 @@
 .login {
-  padding-top: 130px;
-  #basic_username {
-    height: 40px;
-    font-size: 20px;
-  }
-  #basic_password {
-    height: 30px;
-    font-size: 20px;
+  padding-top: 150px;
+  .btn-login > span {
+    font-size: 14px;
   }
   @media (max-width: 768px) {
     padding-top: 50px;

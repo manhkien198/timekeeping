@@ -4,7 +4,7 @@ import React from 'react';
 function HeaderPage(props) {
   return (
     <PageHeader
-      className="site-page-header"
+      className="header"
       title="Hãy chấm công, vì bản thân và gia đình bạn"
     />
   );

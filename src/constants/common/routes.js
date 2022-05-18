@@ -31,7 +31,7 @@ export const LIST_ROUTES = [
     icon: <SettingIcon />,
   },
   {
-    path: '/logout',
+    path: '/login',
     title: 'logout',
     icon: <LogoutIcon />,
   },
