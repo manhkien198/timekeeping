@@ -1,13 +1,15 @@
-import { Select, Table } from 'antd';
+import { Button, Select, Table } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 function PersonalStatistic(props) {
   const { t } = useTranslation();
   const { Option } = Select;
+  const navi = useNavigate();
   const columns = [
     {
       title: t('personal_statistic.day'),
@@ -81,7 +83,17 @@ function PersonalStatistic(props) {
         subTitle={`${t('page_header.month')}`}
       />
       <Filter />
-      <ButtonGroup />
+      <ButtonGroup
+        children={
+          <Button
+            type="link"
+            style={{ color: '#066F9B', fontWeight: 700 }}
+            onClick={() => navi('/statistic/personal/edit')}
+          >
+            {t('personal_statistic.edit')}
+          </Button>
+        }
+      />
       <div className="personal__statistic__total total">
         <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
         <p className="total__number">7.5 / 20</p>

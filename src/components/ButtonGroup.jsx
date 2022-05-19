@@ -1,7 +1,7 @@
 import { Button, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-function ButtonGroup(props) {
+function ButtonGroup({ children }) {
   const { t } = useTranslation();
   const { Option } = Select;
 
@@ -15,7 +15,7 @@ function ButtonGroup(props) {
         <Option value="asc">ASC</Option>
         <Option value="desc">DESC</Option>
       </Select>
-
+      {children ? children : ''}
       <Button type="link" style={{ color: '#066F9B', fontWeight: 700 }}>
         {t('page_header.export')}
       </Button>

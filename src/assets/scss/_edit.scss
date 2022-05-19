@@ -1,0 +1,31 @@
+.edit-form {
+  .form {
+    margin-top: 100px;
+    .form-control {
+      label,
+      input,
+      select {
+        font-size: 20px !important;
+      }
+      .ant-picker,
+      .ant-input,
+      .ant-select-selector {
+        height: 44px;
+      }
+    }
+  }
+  .btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 25px;
+    margin-right: 42px;
+    margin-bottom: 70px;
+  }
+  button {
+    padding: 13px 27px;
+    border-radius: 4px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+  }
+}
