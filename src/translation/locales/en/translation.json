@@ -40,7 +40,8 @@
     "leave_soon": "Leave soon",
     "hours": "Hours",
     "state_owned": "State-owned",
-    "note": "Note"
+    "note": "Note",
+    "edit": "Edit"
   },
   "login": {
     "header": "HiveTech Recruits Management",

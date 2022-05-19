@@ -13,6 +13,7 @@ import AcceptRequest from './pages/admin/accept_request';
 import Calendar from './pages/user/calendar';
 import Login from './pages/auth/Login';
 import ForgotPassword from './pages/auth/ForgotPassword';
+import Edit from './pages/admin/statistic/personal_statistic/Edit';
 
 function App() {
   const isAdmin = useSelector(state => state.layout.isAdmin);
@@ -38,6 +39,7 @@ function App() {
             />
             <Route path="statistic/general" element={<GeneralStatistic />} />
             <Route path="statistic/personal" element={<PersonalStatistic />} />
+            <Route path="/statistic/personal/edit" element={<Edit />} />
           </>
         )}
         <Route path="personal" element={<Personal />} />

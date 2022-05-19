@@ -40,7 +40,8 @@
     "leave_soon": "Ra sớm",
     "hours": "Giờ",
     "state_owned": "Công",
-    "note": "Ghi chú"
+    "note": "Ghi chú",
+    "edit": "Sửa"
   },
   "login": {
     "header": "HiveTech Recruits Management",
