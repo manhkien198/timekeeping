@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Merriweather:ital,wght@0,400;1,700&display=swap');
+.ant-picker{
+    border: none;
+    padding: 0;
+    &-input >input{
+        font-size: 30px;
+        font-weight: bold;
+        color: #066F9B;
+        width: 140px;
+        &::placeholder{
+           color: #066F9B; 
+        }
+    }
+    &-focused{
+        box-shadow: none;
+    }
+    &-suffix{
+        color: #066F9B;
+
+    }
+}
