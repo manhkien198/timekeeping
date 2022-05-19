@@ -65,10 +65,33 @@
   "time_keeping": {
     "id": "Stt",
     "fullName": "Họ và tên",
+    "day":"ngày",
     "workingDay": "Ngày làm việc",
     "action": "Tác vụ",
+    "timekeeping_history": "Lịch sử chấm công",
+    "month":"Tháng",
+    "total_worked": "Tổng số công",
+    "late": "check in muộn",
+    "note":"Ghi chú",
     "activity": "Hoạt động",
     "detail": "Chi tiết"
+  }
+  ,"request":{
+    "request": "Yêu Cầu",
+    "resignation": "xin nghỉ",
+    "overtime":"xin Tăng ca",
+    "late": "xin đi muộn"
+  }
+  , "popup":{
+    "hello": "xin chào ",
+    "now": "bây giờ",
+    "day":"ngày",
+    "send":"Gửi yêu cầu",
+    "connect_wifi":"Bạn chưa thực hiện check - in. Vui lòng kết nối điện thoại với Wifi nội bộ hoặc gửi yêu cầu cho Admin."
+  },
+  "comfirmRequest":{
+    "approved":"Yêu cầu đang được phê duyệt!",
+    "wishing": "Chúc bạn một ngày làm việc hiệu quả!"
   },
   "acceptRequestor": {
     "request": "Yêu cầu",

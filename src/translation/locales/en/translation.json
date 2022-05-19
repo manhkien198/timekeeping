@@ -59,10 +59,35 @@
   "time_keeping": {
     "id": "Id",
     "fullName": "Full Name",
+    "day":"day",
     "workingDay": "Working Day",
     "action": "Action",
+    "timekeeping_history": "timekeeping history",
+    "month":"month",
+    "total_worked": "total worked days",
+    "late": "check in late",
+    "note": "note",
     "activity": "Activity",
     "detail": "Detail"
+  }
+  ,"request":{
+    "request": "request",
+    "resignation": "resignation",
+    "overtime":"overtime",
+    "late": "late for work"
+
+  } , 
+  "popup":{
+    "hello": "hello ",
+    "now": "now",
+    "day":" ",
+    "send":"send request",
+    "connect_wifi":"you haven't checked in yet. please connect to  company 's wifi or send request to adminnistrator."
+  },
+  "comfirmRequest":{
+    "approved":"Request is being approved!",
+    "wishing": "Wishing you a productive day!"
+    
   },
   "acceptRequestor": {
     "request": "Request",
