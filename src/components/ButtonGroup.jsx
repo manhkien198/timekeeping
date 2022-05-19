@@ -2,7 +2,6 @@ import { Button, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 function ButtonGroup({ children }) {
-  console.log('children :', children);
   const { t } = useTranslation();
   const { Option } = Select;
 

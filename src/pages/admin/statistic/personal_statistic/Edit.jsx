@@ -2,6 +2,8 @@ import { Button, DatePicker, Form, Input, Select } from 'antd';
 import React from 'react';
 import Filter from '../../../../components/Filter';
 import { useNavigate } from 'react-router-dom';
+import { t } from 'i18next';
+
 function Edit(props) {
   const [form] = Form.useForm();
   const onFinish = value => {
@@ -20,6 +22,7 @@ function Edit(props) {
     },
   };
   const navi = useNavigate();
+
   return (
     <div className="edit-form">
       <Filter />
@@ -30,50 +33,65 @@ function Edit(props) {
         onFinish={onFinish}
         scrollToFirstError
       >
-        <Form.Item label="Ngày :" name="date" className="form-control">
+        <Form.Item
+          label={`${t('personal_statistic.day')} :`}
+          name="date"
+          className="form-control"
+        >
           <DatePicker style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item
-          label="Chấm công :"
+          label={`${t('sidebar.time_keeping')} :`}
           name="timeKeeping"
           className="form-control"
         >
           <Form.Item style={{ display: 'inline-block', marginRight: 10 }}>
-            <Input placeholder="Giờ vào" />
+            <Input placeholder={t('personal_statistic.check_in')} />
           </Form.Item>
           <Form.Item style={{ display: 'inline-block' }}>
-            <Input placeholder="Giờ ra  " />
+            <Input placeholder={t('personal_statistic.check_out')} />
           </Form.Item>
         </Form.Item>
-        <Form.Item label="Tổng giờ :" name="totalTime" className="form-control">
+        <Form.Item
+          label={`${t('personal_statistic.total_hours')} :`}
+          name="totalTime"
+          className="form-control"
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="Vắng mặt :" name="absent" className="form-control">
+        <Form.Item
+          label={`${t('personal_statistic.absent')} :`}
+          name="absent"
+          className="form-control"
+        >
           <Input placeholder="OT/ P/ NB/ Ro" />
         </Form.Item>
         <Form.Item
-          label="Thời gian :"
-          name="timeKeeping"
+          label={`${t('personal_statistic.time')} :`}
+          name="time"
           className="form-control"
         >
           <Form.Item style={{ display: 'inline-block', marginRight: 10 }}>
-            <Input placeholder="Nhập thời gian" />
+            <Input placeholder={t('personal_statistic.enter_time')} />
           </Form.Item>
           <Form.Item style={{ display: 'inline-block' }}>
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
         </Form.Item>
-        <Form.Item label="Lý do :" name="reason" className="form-control">
-          <Input placeholder="Nhập lý do" />
+        <Form.Item
+          label={`${t('personal_statistic.reason')} :`}
+          name="reason"
+          className="form-control"
+        >
+          <Input placeholder={t('personal_statistic.enter_reason')} />
         </Form.Item>
         <Form.Item
-          label="Người phê duyệt :"
+          label={`${t('personal_statistic.acceptor')} :`}
           name="acceptor"
           className="form-control"
         >
           <Select
             showSearch
-            placeholder="Select a person"
             optionFilterProp="children"
             filterOption={(input, option) =>
               option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -84,17 +102,21 @@ function Edit(props) {
             <Option value="tom">Tom</Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Ghi chú :" name="note" className="form-control">
-          <Input placeholder="Nhập ghi chú" />
+        <Form.Item
+          label={`${t('personal_statistic.note')} :`}
+          name="note"
+          className="form-control"
+        >
+          <Input placeholder={t('personal_statistic.enter_note')} />
         </Form.Item>
       </Form>
       <div className="btn-group">
         <Button type="danger" onClick={() => form.resetFields()}>
-          Reset
+          {t('personal_statistic.reset')}
         </Button>
-        <Button type="danger">Update</Button>
+        <Button type="danger"> {t('personal_statistic.update')}</Button>
         <Button type="primary" onClick={() => navi('/statistic/personal')}>
-          Cancel
+          {t('personal_statistic.cancel')}
         </Button>
       </div>
     </div>

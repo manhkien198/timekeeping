@@ -33,15 +33,27 @@
   "personal_statistic": {
     "total_work": "Tổng số công",
     "day": "Ngày",
-    "check_in": "Vào",
-    "check_out": "Ra",
+    "check_in": "Giờ vào",
+    "check_out": "Giờ ra",
     "ot": "Làm thêm giờ",
     "come_late": "Vào trễ",
     "leave_soon": "Ra sớm",
     "hours": "Giờ",
     "state_owned": "Công",
     "note": "Ghi chú",
-    "edit": "Sửa"
+    "edit": "Sửa",
+    "total_hours": "Tổng giờ",
+    "time": "Thời gian",
+    "absent": "Vắng mặt",
+    "enter_time": "Nhập thời gian",
+    "reason": "Lý do",
+    "enter_reason": "Nhập lý do",
+    "acceptor": "Người phê duyệt",
+    "note": "Ghi chú",
+    "enter_note": "Nhập ghi chú",
+    "reset": "Nhập lại",
+    "update": "Cập nhật",
+    "cancel": "Hủy"
   },
   "login": {
     "header": "HiveTech Recruits Management",
@@ -65,32 +77,32 @@
   "time_keeping": {
     "id": "Stt",
     "fullName": "Họ và tên",
-    "day":"ngày",
+    "day": "ngày",
     "workingDay": "Ngày làm việc",
     "action": "Tác vụ",
     "timekeeping_history": "Lịch sử chấm công",
-    "month":"Tháng",
+    "month": "Tháng",
     "total_worked": "Tổng số công",
     "late": "check in muộn",
-    "note":"Ghi chú",
+    "note": "Ghi chú",
     "activity": "Hoạt động",
     "detail": "Chi tiết"
-  }
-  ,"request":{
+  },
+  "request": {
     "request": "Yêu Cầu",
     "resignation": "xin nghỉ",
-    "overtime":"xin Tăng ca",
+    "overtime": "xin Tăng ca",
     "late": "xin đi muộn"
-  }
-  , "popup":{
+  },
+  "popup": {
     "hello": "xin chào ",
     "now": "bây giờ",
-    "day":"ngày",
-    "send":"Gửi yêu cầu",
-    "connect_wifi":"Bạn chưa thực hiện check - in. Vui lòng kết nối điện thoại với Wifi nội bộ hoặc gửi yêu cầu cho Admin."
+    "day": "ngày",
+    "send": "Gửi yêu cầu",
+    "connect_wifi": "Bạn chưa thực hiện check - in. Vui lòng kết nối điện thoại với Wifi nội bộ hoặc gửi yêu cầu cho Admin."
   },
-  "comfirmRequest":{
-    "approved":"Yêu cầu đang được phê duyệt!",
+  "comfirmRequest": {
+    "approved": "Yêu cầu đang được phê duyệt!",
     "wishing": "Chúc bạn một ngày làm việc hiệu quả!"
   },
   "acceptRequestor": {
