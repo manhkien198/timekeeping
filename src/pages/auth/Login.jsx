@@ -6,6 +6,9 @@ import logo from '../../assets/images/login/logoHivetech.png';
 
 const Login = () => {
   const { t } = useTranslation();
+  const onFinish = value => {
+    console.log('value :', value);
+  };
   return (
     <div className="login ">
       <Row justify="space-around" align="middle">
@@ -23,6 +26,7 @@ const Login = () => {
                 name="basic"
                 initialValues={{ remember: true }}
                 autoComplete="off"
+                onFinish={onFinish}
               >
                 <Form.Item
                   label={
