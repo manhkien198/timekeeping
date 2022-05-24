@@ -1,4 +1,10 @@
 {
+  "common": {
+    "disconnect": "Mất kết nối"
+  },
+  "login": {
+    "unauthentication": "Tài khoản hoặc mật khẩu không đúng"
+  },
   "sidebar": {
     "time_keeping": "Chấm công",
     "calendar": "Calendar",

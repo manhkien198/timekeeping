@@ -1,4 +1,10 @@
 {
+  "common": {
+    "disconnect": "Disconnect"
+  },
+  "login": {
+    "unauthentication": "Username or password is invalid"
+  },
   "sidebar": {
     "time_keeping": "Time Keeping",
     "calendar": "Calendar",
