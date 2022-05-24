@@ -9,6 +9,7 @@ import { clearCookie } from '../api/Cookie';
 import {
   DEFAULT_SELECTED_ADMIN,
   DEFAULT_SELECTED_MENU_SIDEBAR,
+  LOGOUT,
 } from '../constants/common';
 
 import { ADMIN_ROUTES, LIST_ROUTES } from '../constants/common/routes';
@@ -79,7 +80,7 @@ function Sidebar({ collapsed }) {
                   icon={x.icon}
                   className={x.className ? x.className : ''}
                 >
-                  {x.title === 'logout' ? (
+                  {x.title === LOGOUT ? (
                     <Link to={x.path} onClick={() => clearCookie()}>
                       {t(`sidebar.${x.title}`)}
                     </Link>

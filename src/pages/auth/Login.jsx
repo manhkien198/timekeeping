@@ -14,7 +14,7 @@ const Login = () => {
     const { username, password } = value;
     axios
       .post(
-        'https://platform.hivetech.space/auth/realms/platform/protocol/openid-connect/token',
+        process.env.REACT_APP_LOGIN,
         qs.stringify({
           username,
           password,
@@ -32,9 +32,9 @@ const Login = () => {
       })
       .catch(e => {
         if (!e.status) {
-          message.error('Mất kết nối');
+          message.error(t('common.disconnect'));
         } else {
-          message.error('Tài khoản hoặc mật khẩu không đúng');
+          message.error(t('login.unauthentication'));
         }
         navi('/login');
       });
