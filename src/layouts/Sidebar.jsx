@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { clearCookie } from '../api/Cookie';
 import {
   DEFAULT_SELECTED_ADMIN,
   DEFAULT_SELECTED_MENU_SIDEBAR,
@@ -78,7 +79,13 @@ function Sidebar({ collapsed }) {
                   icon={x.icon}
                   className={x.className ? x.className : ''}
                 >
-                  <Link to={x.path}>{t(`sidebar.${x.title}`)}</Link>
+                  {x.title === 'logout' ? (
+                    <Link to={x.path} onClick={() => clearCookie()}>
+                      {t(`sidebar.${x.title}`)}
+                    </Link>
+                  ) : (
+                    <Link to={x.path}>{t(`sidebar.${x.title}`)}</Link>
+                  )}
                 </Menu.Item>
               );
             })}

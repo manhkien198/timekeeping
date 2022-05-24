@@ -1,13 +1,43 @@
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Col, Form, Input, message, Row } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bg from '../../assets/images/login/bg.png';
 import logo from '../../assets/images/login/logoHivetech.png';
-
+import axiosClient from '../../api/axiosClient';
+import { setToken } from '../../api/Cookie';
+import axios from 'axios';
+import qs from 'query-string';
 const Login = () => {
   const { t } = useTranslation();
+  const navi = useNavigate();
   const onFinish = value => {
-    console.log('value :', value);
+    const { username, password } = value;
+    axios
+      .post(
+        'https://platform.hivetech.space/auth/realms/platform/protocol/openid-connect/token',
+        qs.stringify({
+          username,
+          password,
+          client_id: 'auth-platform',
+          grant_type: 'password',
+        }),
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        },
+      )
+      .then(response => {
+        setToken(response.data.access_token, 'Access_Token');
+        setToken(response.data.refresh_token, 'Refresh');
+        navi('/');
+      })
+      .catch(e => {
+        if (!e.status) {
+          message.error('Mất kết nối');
+        } else {
+          message.error('Tài khoản hoặc mật khẩu không đúng');
+        }
+        navi('/login');
+      });
   };
   return (
     <div className="login ">

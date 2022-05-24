@@ -41,7 +41,9 @@
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
 }
-
+.collapsed {
+  padding-left: 80px !important;
+}
 .site-layout .site-layout-background {
   background: #fff;
   border-top: 1px solid rgb(231, 231, 231);
