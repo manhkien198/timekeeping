@@ -124,7 +124,7 @@ function PersonalStatistic(props) {
         <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
         <p className="total__number">7.5 / 20</p>
       </div>
-      <Table dataSource={dataSource} columns={columns} rowKey="day" />
+      <Table dataSource={dataSource} columns={columns} rowKey="id" />
     </div>
   );
 }
