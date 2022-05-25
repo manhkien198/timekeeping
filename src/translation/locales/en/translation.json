@@ -113,6 +113,11 @@
     "reason": "Reason",
     "approve": "Approve",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "successUpdate": "Update success accept request",
+    "failUpdate": "Update fail accept request",
+    "questionConfirm": "Do you want to change status ?",
+    "yes": "Yes",
+    "no": "No"
   }
 }
