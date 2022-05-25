@@ -3,12 +3,16 @@ import { DatePicker, PageHeader } from 'antd';
 import DownIcon from './icons/DownIcon';
 import moment from 'moment';
 import { t } from 'i18next';
-function CusomPageHeader({ title, subTitle, setMonth, setYear }) {
-  const handleDatePicker = value => {
+function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
+  const handleDatePicker = (value, valueString) => {
     const month = moment(value).month();
     const year = moment(value).year();
-    setMonth(month + 1);
-    setYear(year);
+    if (!setDate) {
+      setMonth(month + 1);
+      setYear(year);
+    } else {
+      setDate(`01/${valueString}`);
+    }
   };
   return (
     <PageHeader
@@ -29,7 +33,6 @@ function CusomPageHeader({ title, subTitle, setMonth, setYear }) {
             border: 'none',
             height: 40,
             width: 180,
-            paddingTop: 0,
           }}
           defaultValue={moment('05/2022', 'MM/YYYY')}
         />

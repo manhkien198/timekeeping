@@ -15,7 +15,8 @@
     "statistic": "Thống kê",
     "timekeeping_table": "Bảng chấm công",
     "general_table": "Thống kê chung",
-    "personal_statistic": "Thống kê cá nhân"
+    "personal_statistic": "Thống kê cá nhân",
+    "admin": "Quản trị viên"
   },
   "general_table": {
     "cardinal_numbers": "STT",
@@ -74,7 +75,8 @@
       "password": "Please input your password!",
       "username": "Please input your username!"
     },
-    "success": "Đăng nhập thành công"
+    "success": "Đăng nhập thành công",
+    "timeout": "Phiên đăng nhập hết hạn"
   },
   "forgotpassword": {
     "title": "FORGOT PASSWORD",
@@ -121,10 +123,21 @@
     "edit": "Sửa",
     "delete": "Xóa",
     "approver": "Người phê duyệt",
+    "approver": "Người phê duyệt",
     "successUpdate": "Cập nhập yêu cầu thành công",
     "failUpdate": "Cập nhập yêu cầu thất bại",
     "questionConfirm": "Bạn có muốn thay đổi trạng thái không ?",
     "yes": "Có",
     "no": "Không"
+  },
+  "edit": {
+    "checkOutTime_msg": "Vui lòng nhập giờ ra",
+    "days": "Ngày",
+    "hours": "Giờ",
+    "weeks": "Tuần",
+    "time_msg": "Vui lòng nhập thời gian nghỉ",
+    "reason_msg": "Vui lòng nhập lý do",
+    "acceptor_msg": "Vui lòng chọn người phê duyệt",
+    "date_msg": "Vui lòng chọn ngày"
   }
 }
