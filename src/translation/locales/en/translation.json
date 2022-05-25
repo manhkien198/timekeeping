@@ -15,7 +15,8 @@
     "statistic": "Statistic",
     "timekeeping_table": "Timekeeping Table",
     "general_table": "General Statistic",
-    "personal_statistic": "Personal Statistic"
+    "personal_statistic": "Personal Statistic",
+    "admin": "Admin"
   },
   "general_table": {
     "cardinal_numbers": "No",
@@ -68,7 +69,8 @@
     "message-error": {
       "password": "Please input your password!",
       "username": "Please input your username!"
-    }
+    },
+    "timeout": "Login timeout"
   },
   "forgotpassword": {
     "title": "FORGOT PASSWORD",
@@ -114,10 +116,19 @@
     "approve": "Approve",
     "edit": "Edit",
     "delete": "Delete",
-    "successUpdate": "Update success accept request",
     "failUpdate": "Update fail accept request",
     "questionConfirm": "Do you want to change status ?",
     "yes": "Yes",
     "no": "No"
+  },
+  "edit": {
+    "checkOutTime_msg": "Please enter check out time",
+    "days": "Days",
+    "hours": "Hours",
+    "weeks": "Weeks",
+    "time_msg": "Please enter time off",
+    "reason_msg": "Please enter the reason",
+    "acceptor_msg": "Please select the acceptor",
+    "date_msg": "Date is required"
   }
 }

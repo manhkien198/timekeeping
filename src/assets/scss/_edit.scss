@@ -1,7 +1,16 @@
 .edit-form {
+  .ant-select-selection-item{
+    display: flex;
+    align-items: center;
+  }
+  .ant-select-selector{
+    border: none !important;
+  }
   .form {
     margin-top: 100px;
     .form-control {
+      display: flex;
+      align-items: center;
       label,
       input,
       select {
@@ -13,13 +22,16 @@
         height: 44px;
       }
     }
+    .btn-group-wrapper{
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 42px;
+    }
   }
   .btn-group {
     display: flex;
-    justify-content: flex-end;
     gap: 25px;
-    margin-right: 42px;
-    margin-bottom: 70px;
+  
   }
   button {
     padding: 13px 27px;

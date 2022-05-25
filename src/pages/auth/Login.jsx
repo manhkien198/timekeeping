@@ -1,15 +1,19 @@
 import { Button, Col, Form, Input, message, Row } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
-import bg from '../../assets/images/login/bg.png';
-import logo from '../../assets/images/login/logoHivetech.png';
-import axiosClient from '../../api/axiosClient';
-import { setToken } from '../../api/Cookie';
 import axios from 'axios';
 import qs from 'query-string';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { setToken } from '../../api/Cookie';
+import bg from '../../assets/images/login/bg.png';
+import logo from '../../assets/images/login/logoHivetech.png';
+import jwt_decode from "jwt-decode";
+import { setUsername } from './authReducer';
+
 const Login = () => {
   const { t } = useTranslation();
   const navi = useNavigate();
+  const dispatch= useDispatch();
   const onFinish = value => {
     const { username, password } = value;
     axios
@@ -27,7 +31,9 @@ const Login = () => {
       )
       .then(response => {
         setToken(response.data.access_token, 'Access_Token');
-        setToken(response.data.refresh_token, 'Refresh');
+        setToken(response.data.refresh_token, 'Refresh_Token');
+        const accesstokenParsed = jwt_decode(response.data.access_token);
+        dispatch(setUsername(accesstokenParsed.preferred_username));
         navi('/');
       })
       .catch(e => {

@@ -1,5 +1,4 @@
-import { PageHeader, Table } from 'antd';
-import React from 'react';
+import { Table } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
