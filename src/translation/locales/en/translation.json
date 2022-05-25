@@ -114,7 +114,11 @@
     "reason": "Reason",
     "approve": "Approve",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "failUpdate": "Update fail accept request",
+    "questionConfirm": "Do you want to change status ?",
+    "yes": "Yes",
+    "no": "No"
   },
   "edit": {
     "checkOutTime_msg": "Please enter check out time",

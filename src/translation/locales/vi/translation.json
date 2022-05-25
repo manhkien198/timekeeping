@@ -121,7 +121,13 @@
     "approve": "Phê duyệt",
     "edit": "Sửa",
     "delete": "Xóa",
-    "approver": "Người phê duyệt"
+    "approver": "Người phê duyệt",
+    "approver": "Người phê duyệt",
+    "successUpdate": "Cập nhập yêu cầu thành công",
+    "failUpdate": "Cập nhập yêu cầu thất bại",
+    "questionConfirm": "Bạn có muốn thay đổi trạng thái không ?",
+    "yes": "Có",
+    "no": "Không"
   },
   "edit": {
     "checkOutTime_msg": "Vui lòng nhập giờ ra",
