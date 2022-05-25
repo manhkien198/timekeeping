@@ -15,7 +15,8 @@
     "statistic": "Statistic",
     "timekeeping_table": "Timekeeping Table",
     "general_table": "General Statistic",
-    "personal_statistic": "Personal Statistic"
+    "personal_statistic": "Personal Statistic",
+    "admin": "Admin"
   },
   "general_table": {
     "cardinal_numbers": "No",
@@ -114,5 +115,14 @@
     "approve": "Approve",
     "edit": "Edit",
     "delete": "Delete"
+  },
+  "edit": {
+    "checkOutTime_msg": "Please enter check out time",
+    "days": "Days",
+    "hours": "Hours",
+    "weeks": "Weeks",
+    "time_msg": "Please enter time off",
+    "reason_msg": "Please enter the reason",
+    "acceptor_msg": "Please select the acceptor"
   }
 }
