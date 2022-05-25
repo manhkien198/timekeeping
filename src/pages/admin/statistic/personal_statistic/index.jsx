@@ -9,6 +9,7 @@ import UsersApi from '../../../../api/userApi';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
+import SelectUsers from '../../../../components/SelectUsers';
 import { filterOption } from '../../../../utils/filterOption';
 import { setUsers } from './reducer';
 function PersonalStatistic(props) {
@@ -16,7 +17,7 @@ function PersonalStatistic(props) {
   const [userSelected, setUserSelected] = useState('kienpm');
   const [dataSource, setDataSource] = useState([]);
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
-
+  const [loading, setLoading] = useState(true);
   const { Option } = Select;
   const navi = useNavigate();
   const usersList = useSelector(state => state.personalStatistic.users);
@@ -77,8 +78,10 @@ function PersonalStatistic(props) {
         date: date,
       });
       setDataSource(resp.data);
+      setLoading(false);
     } catch (error) {
       message.error(error.message);
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -91,19 +94,10 @@ function PersonalStatistic(props) {
     <div className="personal__statistic">
       <CusomPageHeader
         title={
-          <Select
-            defaultValue={userSelected}
-            style={{ width: 240 }}
-            showSearch
-            filterOption={filterOption}
-            onChange={handleSelectUser}
-          >
-            {usersList.map(x => (
-              <Option key={x.username} value={x.username}>
-                {x.fullName}
-              </Option>
-            ))}
-          </Select>
+          <SelectUsers
+            userSelected={userSelected}
+            setUserSelected={setUserSelected}
+          />
         }
         subTitle={`${t('page_header.month')}`}
         setDate={setDate}
@@ -124,7 +118,12 @@ function PersonalStatistic(props) {
         <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
         <p className="total__number">7.5 / 20</p>
       </div>
-      <Table dataSource={dataSource} columns={columns} rowKey="id" />
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        rowKey="id"
+        loading={loading}
+      />
     </div>
   );
 }

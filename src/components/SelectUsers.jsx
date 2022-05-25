@@ -12,7 +12,7 @@ function SelectUsers({ userSelected, setUserSelected }) {
 
   return (
     <Select
-      defaultValue={userSelected}
+      defaultValue={usersList[0]?.username}
       style={{ width: 240, color: '#066f9b', fontWeight: 700, fontSize: 30 }}
       showSearch
       filterOption={filterOption}

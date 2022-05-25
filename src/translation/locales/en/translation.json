@@ -69,7 +69,8 @@
     "message-error": {
       "password": "Please input your password!",
       "username": "Please input your username!"
-    }
+    },
+    "timeout": "Login timeout"
   },
   "forgotpassword": {
     "title": "FORGOT PASSWORD",
@@ -127,6 +128,7 @@
     "weeks": "Weeks",
     "time_msg": "Please enter time off",
     "reason_msg": "Please enter the reason",
-    "acceptor_msg": "Please select the acceptor"
+    "acceptor_msg": "Please select the acceptor",
+    "date_msg": "Date is required"
   }
 }

@@ -7,9 +7,12 @@ function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
   const handleDatePicker = (value, valueString) => {
     const month = moment(value).month();
     const year = moment(value).year();
-    // setMonth(month + 1);
-    // setYear(year);
-    setDate(`01/${valueString}`);
+    if (!setDate) {
+      setMonth(month + 1);
+      setYear(year);
+    } else {
+      setDate(`01/${valueString}`);
+    }
   };
   return (
     <PageHeader

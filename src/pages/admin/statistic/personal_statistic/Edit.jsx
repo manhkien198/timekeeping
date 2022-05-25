@@ -10,16 +10,8 @@ import { filterOption } from '../../../../utils/filterOption';
 function Edit(props) {
   const [form] = Form.useForm();
   const [reasonTypeList, setReasonTypeList] = useState([]);
-  const [userSelected, setUserSelected] = useState('kienpm');
-  const onFinish = value => {
-    console.log(value);
-    // const payload={}
-    // try {
-
-    // } catch (error) {
-
-    // }
-  };
+  const [userSelected, setUserSelected] = useState();
+  const onFinish = value => {};
   const { Option } = Select;
 
   const formItemLayout = {
@@ -43,7 +35,15 @@ function Edit(props) {
   };
   useEffect(() => {
     fetchReasonType();
+    form.setFieldsValue({
+      reasonTypeId: reasonTypeList ? reasonTypeList[0]?.id : 1,
+    });
   }, []);
+  useEffect(() => {
+    form.setFieldsValue({
+      reasonTypeId: reasonTypeList ? reasonTypeList[0]?.id : 1,
+    });
+  }, [reasonTypeList]);
 
   return (
     <div className="edit-form">
@@ -63,7 +63,7 @@ function Edit(props) {
           colon={true}
           name="date"
           className="form-control"
-          rules={[{ required: true, message: 'Date is required' }]}
+          rules={[{ required: true, message: t('edit.date_msg') }]}
           required={true}
           requiredMark
         >

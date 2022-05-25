@@ -75,7 +75,8 @@
       "password": "Please input your password!",
       "username": "Please input your username!"
     },
-    "success": "Đăng nhập thành công"
+    "success": "Đăng nhập thành công",
+    "timeout": "Phiên đăng nhập hết hạn"
   },
   "forgotpassword": {
     "title": "FORGOT PASSWORD",
@@ -136,6 +137,7 @@
     "weeks": "Tuần",
     "time_msg": "Vui lòng nhập thời gian nghỉ",
     "reason_msg": "Vui lòng nhập lý do",
-    "acceptor_msg": "Vui lòng chọn người phê duyệt"
+    "acceptor_msg": "Vui lòng chọn người phê duyệt",
+    "date_msg": "Vui lòng chọn ngày"
   }
 }
