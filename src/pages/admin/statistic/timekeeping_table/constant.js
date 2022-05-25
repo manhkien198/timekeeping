@@ -1,7 +1,8 @@
 export const dataSource = [
   {
     id: 1,
-    name: 'Test1',
+    fullname: 'Test1',
+    
     1: {
       onl: true,
       description: 'OT',

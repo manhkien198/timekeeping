@@ -2,7 +2,7 @@ import { Table } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { dataSource } from '../constant';
-const TableTimeKeeping = ({ listDayOnMonth }) => {
+const TableTimeKeeping = ({ listDayOnMonth,data }) => {
   const { t } = useTranslation();
   const column = [
     {
@@ -18,11 +18,15 @@ const TableTimeKeeping = ({ listDayOnMonth }) => {
     },
     {
       title: t('time_keeping.fullName'),
-      dataIndex: 'name',
+      dataIndex: 'fullname',
       align: 'center',
       fixed: 'left',
       width: 100,
       key: t('time_keeping.fullName'),
+      render: fullname => {
+      console.log('fullname :', fullname);
+        return <p>{fullname}</p>;
+      },
     },
     ...listDayOnMonth,
     {
@@ -47,7 +51,7 @@ const TableTimeKeeping = ({ listDayOnMonth }) => {
       <Table
         rowKey={'id'}
         columns={column}
-        dataSource={dataSource}
+        dataSource={data}
         scroll={{ x: 800, y: 700 }}
         style={{ maxWidth: 'calc(100vw - 348px)' }}
       />
