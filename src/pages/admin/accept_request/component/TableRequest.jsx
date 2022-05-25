@@ -1,4 +1,4 @@
-import { Button, Popover, Table, Tooltip } from 'antd';
+import { Button, message, Modal, Popover, Table, Tooltip } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import SuccessRequest from '../../../../assets/images/request/Button/True.png';
@@ -6,16 +6,55 @@ import FailRequest from '../../../../assets/images/request/Button/False.png';
 import editIcon from '../../../../assets/images/request/Button/Edit.svg';
 import removeIcon from '../../../../assets/images/request/Button/DeleteOutlined.svg';
 import moment from 'moment';
-import { dataRequest } from '../constant';
-import { EllipsisOutlined } from '@ant-design/icons';
-const TableRequest = () => {
+import { EllipsisOutlined, ExclamationCircleOutlined, StopOutlined } from '@ant-design/icons';
+import AcceptRequestApi from "../../../../api/accept_request/AcceptRequestApi";
+import { useDispatch } from "react-redux";
+import { setReloadTalbe } from "../reducer";
+const TableRequest = (props) => {
+  const {data, setListParam, loading, setLoading} = props
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const handleConfirmOk = async(value)=>{
+    try {
+      const confirm = {
+        "isAccept": true
+      }
+      const res = await AcceptRequestApi.putRequest(value.id,confirm)
+      setLoading(true)
+      dispatch(setReloadTalbe())
+      message.success(t('acceptRequestor.successUpdate'));
+    } catch (error) {
+      message.error(t('acceptRequestor.failUpdate'))
+    }
+  }
+
+  const handleConfirmRequest = (value)=>{
+    try {
+        Modal.confirm({
+          title: t('acceptRequestor.questionConfirm'),
+          icon: <ExclamationCircleOutlined />,
+          centered: true,
+          onOk() {
+            handleConfirmOk(value);
+          },
+          okType: 'danger',
+          okText: t('acceptRequestor.yes'),
+          cancelText: t('acceptRequestor.no'),
+          icon: <StopOutlined style={{ color: '#f00' }} />,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+  }
+
   const Actions = ({ record }) => (
     <div className="request__action" style={{}}>
       <Button
         className="request__action--edit"
         icon={<img src={editIcon} alt="detail" />}
         size="large"
+        onClick={()=>handleConfirmRequest(record)}
       >
         {t('acceptRequestor.edit')}
       </Button>
@@ -42,7 +81,7 @@ const TableRequest = () => {
     },
     {
       title: t('acceptRequestor.staff'),
-      dataIndex: 'staff',
+      dataIndex: 'username',
       align: 'center',
       key: t('acceptRequestor.staff'),
       width: 150,
@@ -57,17 +96,17 @@ const TableRequest = () => {
       key: t('acceptRequestor.date'),
       width: 150,
       render: date => {
-        return <span>{moment(date).format('DD/MM')}</span>;
+        return <span>{date}</span>;
       },
     },
     {
       title: t('acceptRequestor.time'),
-      dataIndex: 'time',
+      dataIndex: 'lateAt',
       align: 'center',
       key: t('acceptRequestor.time'),
       width: 150,
       render: time => {
-        return <span>{moment(time).format('hh:mm')}</span>;
+        return <span>{time}</span>;
       },
     },
     {
@@ -86,7 +125,7 @@ const TableRequest = () => {
     },
     {
       title: t('acceptRequestor.approve'),
-      dataIndex: 'approve',
+      dataIndex: 'accept',
       align: 'center',
       key: t('acceptRequestor.approve'),
       width: 150,
@@ -133,7 +172,7 @@ const TableRequest = () => {
   ];
   return (
     <div>
-      <Table columns={column} dataSource={dataRequest} />
+      <Table columns={column} dataSource={data} loading={loading} />
     </div>
   );
 };

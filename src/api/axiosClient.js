@@ -15,8 +15,8 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(function (config) {
   config.headers = {
     'Content-Type': 'application/json',
-    Authorization: getToken('Auth-Token')
-      ? `Bearer ${getToken('Auth-Token')}`
+    Authorization: getToken('Access_Token')
+      ? `Bearer ${getToken('Access_Token')}`
       : undefined,
   };
   return config;
