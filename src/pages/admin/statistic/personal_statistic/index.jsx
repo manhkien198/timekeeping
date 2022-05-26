@@ -1,8 +1,8 @@
-import { Button, message, Select, Table } from 'antd';
+import { Button, message, Table } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import personalStatisticApi from '../../../../api/personalStatisticApi';
 import UsersApi from '../../../../api/userApi';
@@ -10,17 +10,18 @@ import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import SelectUsers from '../../../../components/SelectUsers';
-import { filterOption } from '../../../../utils/filterOption';
 import { setUsers } from './reducer';
+import { useSelector } from 'react-redux';
+
 function PersonalStatistic(props) {
   const { t } = useTranslation();
-  const [userSelected, setUserSelected] = useState('kienpm');
+  const usersList = useSelector(state => state.personalStatistic.users);
+
+  const [userSelected, setUserSelected] = useState(usersList[0]?.username);
   const [dataSource, setDataSource] = useState([]);
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
   const [loading, setLoading] = useState(true);
-  const { Option } = Select;
   const navi = useNavigate();
-  const usersList = useSelector(state => state.personalStatistic.users);
   const columns = [
     {
       title: t('personal_statistic.day'),
@@ -68,9 +69,6 @@ function PersonalStatistic(props) {
       message.error(error.message);
     }
   };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
   const fetchPersonalStatistic = async () => {
     try {
       const resp = await personalStatisticApi.getAll({
@@ -85,11 +83,9 @@ function PersonalStatistic(props) {
     }
   };
   useEffect(() => {
+    fetchUsers();
     fetchPersonalStatistic();
   }, [userSelected, date]);
-  const handleSelectUser = value => {
-    setUserSelected(value);
-  };
   return (
     <div className="personal__statistic">
       <CusomPageHeader
