@@ -1,55 +1,56 @@
 import { Table, Tooltip } from 'antd';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-const TableTimeKeeping = ({data, month, day,handleShowModal}) => {
+const TableTimeKeeping = ({ data, month, day, handleShowModal }) => {
   const [listDayOnMonth, setListDayOnMonth] = useState([]);
   const { t } = useTranslation();
-  const renderDayOnMonth = ()=>{
-      let arrDay = [];
-      
-      for (let i = 1; i <= day; i++) {
-        let dayObj = {
-          title: i.toString(),
-          dataIndex: 'date',
-          align: 'center',
-          width: 100,
-          key: i.toString(),
-          render: (status,value) => {
-            return (
-              <div>
-                { value?.logTimes && value?.logTimes?.map(item=> {
-                   const date = i<10 ? `0${i}`:i
-                  if(item?.date === `${date}/${month}`&& item?.reasonType !== null){           
-                    return <Tooltip
-                          placement="topLeft"
-                          title={item?.reasonType?.type}
-                          style={{ color: '#E11274', backgroundColor: 'white' }}
+  const renderDayOnMonth = () => {
+    let arrDay = [];
+
+    for (let i = 1; i <= day; i++) {
+      let dayObj = {
+        title: i.toString(),
+        dataIndex: 'date',
+        align: 'center',
+        width: 100,
+        key: i.toString(),
+        render: (status, value) => {
+          return (
+            <div>
+              {value?.logTimes &&
+                value?.logTimes?.map(item => {
+                  const date = i < 10 ? `0${i}` : i;
+                  if (
+                    item?.date === `${date}/${month}` &&
+                    item?.reasonType !== null
+                  ) {
+                    return (
+                      <Tooltip
+                        placement="topLeft"
+                        title={item?.reasonType?.type}
+                        style={{ color: '#E11274', backgroundColor: 'white' }}
+                      >
+                        <span
+                          onClick={() => handleShowModal(value?.fullname, item)}
+                          style={{ color: '#E11274' }}
                         >
-                          <span
-                            onClick={() => handleShowModal(value?.fullname, item)}
-                            style={{ color: '#E11274' }}
-                          >
-                            X
-                          </span>
-                        </Tooltip>
-                    
-                  }else if (item?.date === `${date}/${month}`){
-                    
-                    return <span>X</span>
-                    
+                          X
+                        </span>
+                      </Tooltip>
+                    );
+                  } else if (item?.date === `${date}/${month}`) {
+                    return <span>X</span>;
                   }
                   return <></>;
                 })}
-              </div>
-            );
-            
-          },
-        };
-        arrDay = [...arrDay, dayObj];
-      }
-      setListDayOnMonth([...arrDay]);
-      
-  }
+            </div>
+          );
+        },
+      };
+      arrDay = [...arrDay, dayObj];
+    }
+    setListDayOnMonth([...arrDay]);
+  };
 
   const column = [
     {
@@ -92,11 +93,11 @@ const TableTimeKeeping = ({data, month, day,handleShowModal}) => {
       key: t('time_keeping.action'),
     },
   ];
-  
+
   useEffect(() => {
     renderDayOnMonth();
-  }, [day])
-  
+  }, [day]);
+
   return (
     <div>
       <Table

@@ -5,7 +5,6 @@ import moment from 'moment';
 import { t } from 'i18next';
 function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
   const handleDatePicker = (value, valueString) => {
-  console.log('valueString :', valueString);
     const month = moment(value).month();
     const year = moment(value).year();
       setMonth(month + 1);
