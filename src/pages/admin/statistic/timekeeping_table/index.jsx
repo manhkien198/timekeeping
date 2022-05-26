@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import TableTimeKeeping from './component/TableTimeKeeping';
 import { get_day_of_month } from './constant';
-import { Modal, Tooltip } from 'antd';
+import { Modal, Tooltip,message } from 'antd';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import { useTranslation } from 'react-i18next';
 import Filter from '../../../../components/Filter';
 import TimeKeepingApi from "../../../../api/time_keeping/TimeKeepingApi";
+import moment from "moment";
 function TimeKeepingTable(props) {
-  const [month, setMonth] = useState('5');
+  const [date, setDate] = useState(); 
   const { t } = useTranslation();
-  const [year, setYear] = useState('2022');
+  const [month, setMonth] = useState();
+  const [year, setYear] = useState();
   const [day, setDay] = useState('');
   const [listDayOnMonth, setListDayOnMonth] = useState('');
   const [isShowModal, setIsShowModal] = useState(false);
@@ -18,13 +20,21 @@ function TimeKeepingTable(props) {
   const [dataModal, setDataModal] = useState({})
   const [loading, setLoading]= useState(false);
   const [listParam ,setListParam] = useState({})
+
+  useEffect(() => {
+    const date = new Date();
+    setDate(moment(date).format('DD/MM/YYYY'))
+    setMonth(moment(date).format('MM'))
+    setYear(moment(date).format('YYYY'))
+  }, [])
+  
   useEffect(() => {
     const dayInMonth = get_day_of_month(year, month);
     setDay(dayInMonth);
     setListParam({
-      date: `08/0${month}/${year}`
+      date: `${date}`
     })
-  }, [year, month]);
+  }, [date]);
 
   const handleShowModal = (fullname, item)=>{
     setIsShowModal(true)
@@ -67,9 +77,8 @@ function TimeKeepingTable(props) {
                   return (
                     <span>X</span>
                   )
-                }else{
-                  return;
                 }
+                return;
               })}
             </div>
           );
@@ -81,8 +90,12 @@ function TimeKeepingTable(props) {
   }, [day]);
 
   const getAllData = async()=>{
-    const {data} = await TimeKeepingApi.getAll(listParam)
-    setData(data)
+    try {
+      const {data} = await TimeKeepingApi.getAll(listParam)
+      setData(data)
+    } catch (error) {
+      message.error(error)
+    }
   }
 
   useEffect(() => {
@@ -94,6 +107,7 @@ function TimeKeepingTable(props) {
       <CusomPageHeader
         setMonth={setMonth}
         setYear={setYear}
+        setDate={setDate}
         title={t('page_header.title')}
         subTitle={`${t('page_header.month')}`}
       />
@@ -104,9 +118,10 @@ function TimeKeepingTable(props) {
       </div>
       <div className="modal_detailTimeKeeping">
       <Modal
-      footer={[]}
+      footer={false}
       onCancel={() => setIsShowModal(false)}
       title={t('time_keeping.detail')}
+      width={500}
       visible={isShowModal}
     >
       <div className="modal_content">
