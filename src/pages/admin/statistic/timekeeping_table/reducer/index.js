@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-export const RequestSlide = createSlice({
+export const TimeKeepingSlide = createSlice({
   name: 'accept request',
   initialState: {
     dataRequest: [],
@@ -7,7 +7,7 @@ export const RequestSlide = createSlice({
 
   },
   reducers: {
-    getAllRequest: (state, action) => {
+    getAll: (state, action) => {
       state.dataRequest = action.payload;
     },
     setReloadTalbe: (state, action) => {
@@ -20,6 +20,6 @@ export const RequestSlide = createSlice({
 export const {
   getAllRequest,
   setReloadTalbe
-} = RequestSlide.actions;
+} = TimeKeepingSlide.actions;
 
-export default RequestSlide.reducer;
+export default TimeKeepingSlide.reducer;
