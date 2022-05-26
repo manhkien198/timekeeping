@@ -1,7 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { getToken } from './Cookie';
-
+console.log(getToken("Access_Token"))
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
@@ -15,8 +15,8 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(function (config) {
   config.headers = {
     'Content-Type': 'application/json',
-    Authorization: getToken('Auth-Token')
-      ? `Bearer ${getToken('Auth-Token')}`
+    Authorization: getToken('Access_Token')
+      ? `Bearer ${getToken('Access_Token')}`
       : undefined,
   };
   return config;

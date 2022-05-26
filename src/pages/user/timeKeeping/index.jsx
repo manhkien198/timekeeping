@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Typography,
   PageHeader,
@@ -12,19 +12,45 @@ import './styles.scss';
 import DownOutline from './icon/downOutline';
 import PopupLaterCheckin from './components/popup/popup';
 import { useTranslation } from 'react-i18next';
-import { month, monthFormat} from '../../../components/moment/month'
+import { month, monthFormat } from '../../../components/moment/month';
+import time_keeping from '../../../api/time_keeping.js'
+import moment from 'moment'
+
 const { Title } = Typography;
 const iconDown = <DownOutline />;
 
-
-
 function TimeKeeping(props) {
+  
   const { t } = useTranslation();
-
   const [visible, setVisible] = useState(false);
-
+  const [item, setItem] = useState([])
+  const [date, setDate] = useState('')
+  const [month, setMonth] = useState('')
+  const [year, setYear] = useState('')
   const showModal = () => {
     setVisible(true);
+  };
+
+  const getDataTimeKeeping = async  () =>{
+    try{
+      const  data  = await time_keeping.getAll()
+      setItem(data.data);
+      
+    } catch (error) {
+      console.log(error)
+
+    }
+  
+  }
+  useEffect (() =>{ 
+    getDataTimeKeeping()
+  },[year, month])
+  console.log(month) 
+  const handleDatePicker = value => {
+    const month = moment(value).month();
+    const year = moment(value).year();
+    setMonth(month + 1);
+    setYear(year);
   };
 
   return (
@@ -48,6 +74,9 @@ function TimeKeeping(props) {
               bordered={'none'}
               picker="month"
               allowClear={false}
+              onChange={handleDatePicker}
+              setMonth={setMonth}
+              setYear={setYear}
             />
           </Title>
         </Title>
@@ -61,7 +90,11 @@ function TimeKeeping(props) {
             }}
             level={3}
           >
-            7,7/20
+            {item.map(dt =>(
+              dt.totalWorkedTime
+            ))
+            
+            }/20
           </Title>
         </Title>
 
@@ -85,7 +118,7 @@ function TimeKeeping(props) {
         {t('time_keeping.late')}
       </Button>
       <PopupLaterCheckin Visible={visible} setVisibles={setVisible} />
-      <HistoryTable />
+      <HistoryTable Item={item}/>
     </>
   );
 }

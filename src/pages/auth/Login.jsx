@@ -8,7 +8,7 @@ import { setToken } from '../../api/Cookie';
 import axios from 'axios';
 import qs from 'query-string';
 const Login = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); 
   const navi = useNavigate();
   const onFinish = value => {
     const { username, password } = value;
