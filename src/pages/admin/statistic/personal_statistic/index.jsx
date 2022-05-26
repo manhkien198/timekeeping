@@ -1,35 +1,46 @@
-import { Button, Select, Table } from 'antd';
-import React from 'react';
+import { Button, message, Select, Table } from 'antd';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import personalStatisticApi from '../../../../api/personalStatisticApi';
+import UsersApi from '../../../../api/userApi';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
-import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import SelectUsers from '../../../../components/SelectUsers';
+import { filterOption } from '../../../../utils/filterOption';
+import { setUsers } from './reducer';
 function PersonalStatistic(props) {
   const { t } = useTranslation();
+  const [userSelected, setUserSelected] = useState('kienpm');
+  const [dataSource, setDataSource] = useState([]);
+  const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
+  const [loading, setLoading] = useState(true);
   const { Option } = Select;
   const navi = useNavigate();
+  const usersList = useSelector(state => state.personalStatistic.users);
   const columns = [
     {
       title: t('personal_statistic.day'),
-      dataIndex: 'day',
+      dataIndex: 'date',
     },
     {
       title: t('personal_statistic.check_in'),
-      dataIndex: 'check_in',
+      dataIndex: 'checkInTime',
     },
     {
       title: t('personal_statistic.check_out'),
-      dataIndex: 'check_out',
+      dataIndex: 'checkOutTime',
     },
     {
       title: t('personal_statistic.ot'),
-      dataIndex: 'ot',
+      dataIndex: 'overTime',
     },
     {
       title: t('personal_statistic.come_late'),
-      dataIndex: 'come_late',
+      dataIndex: 'lateTime',
     },
     {
       title: t('personal_statistic.leave_soon'),
@@ -37,7 +48,7 @@ function PersonalStatistic(props) {
     },
     {
       title: t('personal_statistic.hours'),
-      dataIndex: 'hours',
+      dataIndex: 'totalWorkedTime',
     },
     {
       title: t('personal_statistic.state_owned'),
@@ -48,39 +59,48 @@ function PersonalStatistic(props) {
       dataIndex: 'note',
     },
   ];
-  const data = [];
-  const item = {};
-  function randomDate(start, end) {
-    return new Date(
-      start.getTime() + Math.random() * (end.getTime() - start.getTime()),
-    );
-  }
-  columns.forEach((column, id) => {
-    item['day'] = moment(randomDate(new Date(2022, 0, 1), new Date())).format(
-      'DD/MM',
-    );
-    item['check_in'] = moment(new Date(2022, 0, 1, 8, 30)).format('HH:mm');
-    item['check_out'] = moment(new Date(2022, 0, 1, 4, 50)).format('HH:mm');
-    item['ot'] = Math.round(Math.random());
-    item['come_late'] = Math.round(Math.random());
-    item['leave_soon'] = 12;
-    item['hours'] = Math.round(Math.random());
-    item['state_owned'] = Math.round(Math.random());
-    item['note'] = 'Nghỉ ốm';
-    data.push({ ...item });
-  });
+  const dispatch = useDispatch();
+  const fetchUsers = async () => {
+    try {
+      const res = await UsersApi.getAll();
+      dispatch(setUsers(res.data));
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  const fetchPersonalStatistic = async () => {
+    try {
+      const resp = await personalStatisticApi.getAll({
+        username: userSelected,
+        date: date,
+      });
+      setDataSource(resp.data);
+      setLoading(false);
+    } catch (error) {
+      message.error(error.message);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchPersonalStatistic();
+  }, [userSelected, date]);
+  const handleSelectUser = value => {
+    setUserSelected(value);
+  };
   return (
     <div className="personal__statistic">
       <CusomPageHeader
         title={
-          <Select defaultValue="lucy" style={{ width: 240 }}>
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
-
-            <Option value="Yiminghe">yiminghe</Option>
-          </Select>
+          <SelectUsers
+            userSelected={userSelected}
+            setUserSelected={setUserSelected}
+          />
         }
         subTitle={`${t('page_header.month')}`}
+        setDate={setDate}
       />
       <Filter />
       <ButtonGroup
@@ -98,7 +118,12 @@ function PersonalStatistic(props) {
         <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
         <p className="total__number">7.5 / 20</p>
       </div>
-      <Table dataSource={data} columns={columns} rowKey="day" />
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        rowKey="id"
+        loading={loading}
+      />
     </div>
   );
 }

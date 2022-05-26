@@ -79,7 +79,7 @@ export const ADMIN_ROUTES = [
   },
   {
     path: '/personal',
-    title: 'personal',
+    title: 'admin',
     icon: <UserIcon />,
     childs: [],
   },
