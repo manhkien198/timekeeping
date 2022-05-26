@@ -9,21 +9,18 @@ import Filter from '../../../../components/Filter';
 import TimeKeepingApi from "../../../../api/time_keeping/TimeKeepingApi";
 import moment from "moment";
 function TimeKeepingTable(props) {
-  const [date, setDate] = useState(); 
+  const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY')); 
   const { t } = useTranslation();
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
-  const [day, setDay] = useState('');
-  const [listDayOnMonth, setListDayOnMonth] = useState('');
+  const [day, setDay] = useState();
   const [isShowModal, setIsShowModal] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [dataModal, setDataModal] = useState({})
   const [loading, setLoading]= useState(false);
-  const [listParam ,setListParam] = useState({})
 
   useEffect(() => {
     const date = new Date();
-    setDate(moment(date).format('DD/MM/YYYY'))
     setMonth(moment(date).format('MM'))
     setYear(moment(date).format('YYYY'))
   }, [])
@@ -31,67 +28,16 @@ function TimeKeepingTable(props) {
   useEffect(() => {
     const dayInMonth = get_day_of_month(year, month);
     setDay(dayInMonth);
-    setListParam({
-      date: `${date}`
-    })
-  }, [date]);
+  }, [month,year,date]);
 
   const handleShowModal = (fullname, item)=>{
     setIsShowModal(true)
     setDataModal({fullname,...item})
   }
 
-  useEffect(() => {
-    let arrDay = [];
-    for (let i = 1; i <= day; i++) {
-      let dayObj = {
-        title: i.toString(),
-        dataIndex: 'date',
-        align: 'center',
-        width: 100,
-        key: i.toString(),
-        render: (status,value) => {
-          const date = i<10 ? `0${i}`:i
-          const months = `${month}<10`? `0${month}`:`${month}`
-          return (
-            <div>
-              { value.logTimes?.map(item=> {
-                if(item.date === `${date}/${months}`&& item.reasonType !== null){
-                  return (
-                    <Tooltip
-                        placement="topLeft"
-                        title={item.reasonType.type}
-                        style={{ color: '#E11274', backgroundColor: 'white' }}
-                      >
-                        <span
-                          onClick={() => {
-                            handleShowModal(value.fullname, item)
-                          }}
-                          style={{ color: '#E11274' }}
-                        >
-                          X
-                        </span>
-                      </Tooltip>
-                  )
-                }else if (item.date === `${date}/${months}`){
-                  return (
-                    <span>X</span>
-                  )
-                }
-                return;
-              })}
-            </div>
-          );
-        },
-      };
-      arrDay.push(dayObj);
-    }
-    setListDayOnMonth(arrDay);
-  }, [day]);
-
   const getAllData = async()=>{
     try {
-      const {data} = await TimeKeepingApi.getAll(listParam)
+      const {data} = await TimeKeepingApi.getAll({date})
       setData(data)
     } catch (error) {
       message.error(error)
@@ -100,7 +46,7 @@ function TimeKeepingTable(props) {
 
   useEffect(() => {
     getAllData();
-  }, [listParam])
+  }, [date])
   
   return (
     <div className="tableTimeKeeping">
@@ -114,7 +60,7 @@ function TimeKeepingTable(props) {
       <Filter />
       <ButtonGroup />
       <div className="table">
-        <TableTimeKeeping data={data} listDayOnMonth={listDayOnMonth} />
+        <TableTimeKeeping data={data} day={day} month={date?.slice(3,5)} handleShowModal={handleShowModal}  />
       </div>
       <div className="modal_detailTimeKeeping">
       <Modal
