@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { month, monthFormat } from '../../../components/moment/month';
 import time_keeping from '../../../api/time_keeping.js'
 import moment from 'moment'
+import CusomPageHeader from '../../../components/CusomPageHeader';
 
 const { Title } = Typography;
 const iconDown = <DownOutline />;
@@ -24,17 +25,25 @@ function TimeKeeping(props) {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [item, setItem] = useState([])
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'))
   const [month, setMonth] = useState('')
   const [year, setYear] = useState('')
+  const [listParam, setListParam] = useState(()=>{
+    return(
+      {
+        username: "asdzcqwe",
+        date: date,
+      }
+    )
+  })
   const showModal = () => {
     setVisible(true);
   };
 
   const getDataTimeKeeping = async  () =>{
     try{
-      const  data  = await time_keeping.getAll()
-      setItem(data.data);
+      const  data  = await time_keeping.getAll(listParam)
+      setItem(data);
       
     } catch (error) {
       console.log(error)
@@ -44,18 +53,16 @@ function TimeKeeping(props) {
   }
   useEffect (() =>{ 
     getDataTimeKeeping()
-  },[year, month])
-  console.log(month) 
-  const handleDatePicker = value => {
-    const month = moment(value).month();
-    const year = moment(value).year();
-    setMonth(month + 1);
-    setYear(year);
-  };
+  },[listParam])
+
+  useEffect(() => {
+    setListParam({...listParam,date:date})
+  }, [date])
 
   return (
     <>
-      <PageHeader style={{ padding: '0' }}>
+      <CusomPageHeader setMonth={setMonth} setYear={setYear} setDate={setDate} title={t('time_keeping.timekeeping_history')} subTitle={t('time_keeping.month')} />
+      {/* <PageHeader style={{ padding: '0' }}>
         <Title style={{ padding: '0px 19px' }} level={2}>
           {t('time_keeping.timekeeping_history')}
           <Title
@@ -67,7 +74,7 @@ function TimeKeeping(props) {
             level={2}
           >
             {t('time_keeping.month')}{' '}
-            <DatePicker
+            {/* <DatePicker
               suffixIcon={iconDown}
               placeholder={month}
               format={monthFormat}
@@ -77,8 +84,9 @@ function TimeKeeping(props) {
               onChange={handleDatePicker}
               setMonth={setMonth}
               setYear={setYear}
-            />
-          </Title>
+            /> */}
+          
+          {/* </Title>
         </Title>
         <Title style={{ padding: '0px 54px', marginTop: '0' }} level={3}>
           {t('time_keeping.total_worked')}
@@ -112,8 +120,8 @@ function TimeKeeping(props) {
             Filter
             <DownOutline />
           </Space>
-        </Dropdown>
-      </PageHeader>
+        </Dropdown> 
+      </PageHeader> */}
       <Button style={{ color: '#066F9B' }} ghost onClick={showModal}>
         {t('time_keeping.late')}
       </Button>
