@@ -51,10 +51,8 @@ function AcceptRequest(props) {
   }, [loading])
 
   useEffect(() => {
-    let unMounted = false;
     const newParams = { ...listParam };
     convertArrayToParamsWithDash(newParams);
-    if (!unMounted) {
       navigate({
         pathname: location.pathname,
         search: queryString.stringify(newParams, {
@@ -62,11 +60,7 @@ function AcceptRequest(props) {
           skipEmptyString: true,
         }),
       });
-    }
-    return () => {
-      unMounted = true;
-    };
-  }, [listParam])
+    },[listParam])
   
   
   return (

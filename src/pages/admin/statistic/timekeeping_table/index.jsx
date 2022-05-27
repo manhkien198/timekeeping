@@ -59,10 +59,8 @@ function TimeKeepingTable(props) {
   }, [loading])
 
   useEffect(() => {
-    let unMounted = false;
     const newParams = { date };
     convertArrayToParamsWithDash(newParams);
-    if (!unMounted) {
       navigate({
         pathname: location.pathname,
         search: queryString.stringify(newParams, {
@@ -70,11 +68,7 @@ function TimeKeepingTable(props) {
           skipEmptyString: true,
         }),
       });
-    }
-    return () => {
-      unMounted = true;
-    };
-  }, [date])
+    },[date])
 
   return (
     <div className="tableTimeKeeping">
