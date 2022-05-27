@@ -9,10 +9,6 @@ export default function LateCheckin({ HandleConfirm, mess, confirm }) {
   const onFinish = mess => {
     HandleConfirm(mess.reason);
   };
-
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <div className="Popup__checkin-late">
       <Card>
@@ -32,7 +28,6 @@ export default function LateCheckin({ HandleConfirm, mess, confirm }) {
           }}
           size="large"
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
         >
           <Form.Item
             name="reason"

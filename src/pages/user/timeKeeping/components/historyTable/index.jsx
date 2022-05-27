@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import './historyTable.scss';
 import Buttonwarning from '../../icon/buttonwarning';
 
-const iconDown = <DownOutlined />;
-
 function HistoryTable({ Item, showModal }) {
   const { t } = useTranslation();
   const columns = [
@@ -18,7 +16,7 @@ function HistoryTable({ Item, showModal }) {
     {
       title: (
         <>
-          {t('time_keeping.day')} {iconDown}
+          {t('time_keeping.day')} {<DownOutlined />}
         </>
       ),
       dataIndex: 'day',

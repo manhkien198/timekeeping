@@ -8,7 +8,7 @@ export default function ConfirmCheck() {
   return (
     <div>
       <Card
-        style={{ 
+        style={{
           marginLeft: '25px',
           marginTop: '94px',
           border: 'none',

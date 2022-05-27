@@ -20,6 +20,7 @@ function TimeKeeping(props) {
       date: date,
     };
   });
+  
   const showModal = () => {
     setVisible(true);
   };
@@ -32,6 +33,7 @@ function TimeKeeping(props) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getDataTimeKeeping();
   }, [listParam]);
@@ -39,7 +41,6 @@ function TimeKeeping(props) {
   useEffect(() => {
     setListParam({ ...listParam, date: date });
   }, [date]);
-
   return (
     <>
       <CusomPageHeader

@@ -17,6 +17,7 @@ export default function PopupLaterCheckin({ Visible, setVisibles }) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getChekin();
   }, [mess]);
@@ -25,6 +26,7 @@ export default function PopupLaterCheckin({ Visible, setVisibles }) {
     setClick(true);
     setMess(msg);
   };
+
   const handleCancel = () => {
     setVisibles(false);
   };

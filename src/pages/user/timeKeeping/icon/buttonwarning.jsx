@@ -1,6 +1,5 @@
 function Buttonwarning() {
   return (
-    
     <svg
       width="22"
       height="22"
