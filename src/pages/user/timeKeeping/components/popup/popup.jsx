@@ -14,7 +14,6 @@ export default function PopupLaterCheckin({ Visible, setVisibles }) {
       const { request } = await comfirmLate.post(mess);
       setMess(request);
     } catch (error) {
-      console.log(error);
     }
   };
 
