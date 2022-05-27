@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TableTimeKeeping from './component/TableTimeKeeping';
+import queryString from 'query-string';
 import { get_day_of_month } from './constant';
 import { Modal, message } from 'antd';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
@@ -8,7 +9,11 @@ import { useTranslation } from 'react-i18next';
 import Filter from '../../../../components/Filter';
 import TimeKeepingApi from '../../../../api/time_keeping/TimeKeepingApi';
 import moment from 'moment';
+import { convertArrayToParamsWithDash } from "../../../../utils/convertArrayToParamsWithDash";
+import { useLocation, useNavigate } from "react-router-dom";
 function TimeKeepingTable(props) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
   const { t } = useTranslation();
   const [month, setMonth] = useState();
@@ -50,10 +55,20 @@ function TimeKeepingTable(props) {
   }, [date]);
 
   useEffect(() => {
-    setTimeout(() => {
       setLoading(false)
-    }, 1000);
   }, [loading])
+
+  useEffect(() => {
+    const newParams = { date };
+    convertArrayToParamsWithDash(newParams);
+      navigate({
+        pathname: location.pathname,
+        search: queryString.stringify(newParams, {
+          skipNull: true,
+          skipEmptyString: true,
+        }),
+      });
+    },[date])
 
   return (
     <div className="tableTimeKeeping">

@@ -84,14 +84,6 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
       width: 100,
       key: t('time_keeping.workingDay'),
     },
-    {
-      title: t('time_keeping.action'),
-      dataIndex: 'action',
-      align: 'center',
-      fixed: 'right',
-      width: 100,
-      key: t('time_keeping.action'),
-    },
   ];
 
   useEffect(() => {
