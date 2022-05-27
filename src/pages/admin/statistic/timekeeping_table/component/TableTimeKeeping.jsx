@@ -1,7 +1,7 @@
 import { Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-const TableTimeKeeping = ({ data, month, day, handleShowModal }) => {
+const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
   const [listDayOnMonth, setListDayOnMonth] = useState([]);
   const { t } = useTranslation();
   const renderDayOnMonth = () => {
@@ -101,6 +101,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal }) => {
   return (
     <div>
       <Table
+        loading= {loading}
         rowKey={'fullname'}
         columns={column}
         dataSource={data}

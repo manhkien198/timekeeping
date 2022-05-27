@@ -18,7 +18,6 @@ function TimeKeepingTable(props) {
   const [data, setData] = useState([]);
   const [dataModal, setDataModal] = useState({});
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     const date = new Date();
     setMonth(moment(date).format('MM'));
@@ -28,6 +27,7 @@ function TimeKeepingTable(props) {
   useEffect(() => {
     const dayInMonth = get_day_of_month(year, month);
     setDay(dayInMonth);
+    setLoading(true)
   }, [month, year, date]);
 
   const handleShowModal = (fullname, item) => {
@@ -39,6 +39,7 @@ function TimeKeepingTable(props) {
     try {
       const { data } = await TimeKeepingApi.getAll({ date });
       setData(data);
+      setLoading(true)
     } catch (error) {
       message.error(error);
     }
@@ -47,6 +48,12 @@ function TimeKeepingTable(props) {
   useEffect(() => {
     getAllData();
   }, [date]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000);
+  }, [loading])
 
   return (
     <div className="tableTimeKeeping">
@@ -61,6 +68,7 @@ function TimeKeepingTable(props) {
       <ButtonGroup />
       <div className="table">
         <TableTimeKeeping
+          loading= {loading}
           data={data}
           day={day}
           month={date?.slice(3, 5)}
