@@ -9,7 +9,7 @@ export default function Popup({ Visible, setVisibles }) {
   const [click, setClick] = useState(false);
   const [mess, setMess] = useState('');
 
-  const getChekin = async () => {
+  const getCheckin = async () => {
     try {
       const { request } = await comfirmLate.post(mess);
       setMess(request);
@@ -18,7 +18,7 @@ export default function Popup({ Visible, setVisibles }) {
   };
 
   useEffect(() => {
-    getChekin();
+    getCheckin();
   }, [mess]);
 
   const handleConfirm = msg => {
