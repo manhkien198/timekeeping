@@ -1,7 +1,7 @@
 import { message } from "antd";
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AcceptRequestApi from "../../../api/accept_request/AcceptRequestApi";
 import ButtonGroup from '../../../components/ButtonGroup';
 import CusomPageHeader from '../../../components/CusomPageHeader';
@@ -33,6 +33,7 @@ function AcceptRequest(props) {
     } catch (error) {
       message.error(error)
     }
+
   } 
   useEffect(() => {
     getAllRequest();

@@ -19,6 +19,7 @@ export const TIME_OPTIONS = [
   },
 ];
 export const ACCEPT_REQUEST_ADMIN = '/checkin';
-export const DEFAULT_PAGE = 1;
+export const TIME_KEEPING_ADMIN = '/logs';
+export const DEFAULT_PAGE=1;
 export const DEFAULT_LIMIT = 10;
 export const CONFIRM_LATE = '/checkin'
