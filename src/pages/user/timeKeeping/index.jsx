@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HistoryTable from './components/historyTable/index';
 import './styles.scss';
-import PopupLaterCheckin from './components/popup/popup';
+import Popup from './components/popup/popup';
 import { useTranslation } from 'react-i18next';
 import time_keeping from '../../../api/time_keeping.js';
 import moment from 'moment';
@@ -50,7 +50,7 @@ function TimeKeeping(props) {
         title={t('time_keeping.timekeeping_history')}
         subTitle={t('time_keeping.month')}
       />
-      <PopupLaterCheckin Visible={visible} setVisibles={setVisible} />
+      <Popup Visible={visible} setVisibles={setVisible} />
       <HistoryTable Item={item} showModal={showModal} />
     </>
   );

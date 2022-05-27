@@ -5,7 +5,7 @@ import ConfirmCheck from './cofirmCheck/confirmCheck';
 import comfirmLate from '../../../../../api/cofirmLate';
 import './popup.scss';
 
-export default function PopupLaterCheckin({ Visible, setVisibles }) {
+export default function Popup({ Visible, setVisibles }) {
   const [click, setClick] = useState(false);
   const [mess, setMess] = useState('');
 
