@@ -32,7 +32,8 @@ const TableRequest = (props) => {
   const handleConfirmRequest = (value)=>{
     try {
         Modal.confirm({
-          title: t('acceptRequestor.questionConfirm'),
+          title: t('acceptRequestor.titleConfirm'),
+          content: t('acceptRequestor.questionConfirm'),
           icon: <ExclamationCircleOutlined />,
           centered: true,
           onOk() {
@@ -41,7 +42,6 @@ const TableRequest = (props) => {
           okType: 'danger',
           okText: t('acceptRequestor.yes'),
           cancelText: t('acceptRequestor.no'),
-          icon: <StopOutlined style={{ color: '#f00' }} />,
         });
       } catch (error) {
         console.log(error);
