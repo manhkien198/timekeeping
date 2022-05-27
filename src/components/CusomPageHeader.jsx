@@ -26,6 +26,7 @@ function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
           format="MM/YYYY"
           suffixIcon={<DownIcon />}
           onChange={handleDatePicker}
+          allowClear={false}
           style={{
             border: 'none',
             height: 40,

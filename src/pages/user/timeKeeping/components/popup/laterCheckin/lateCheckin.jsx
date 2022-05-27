@@ -3,8 +3,16 @@ import './lateCheckin.scss';
 import { Form, Input, Button, Card } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-export default function LateCheckin({ HandleConfirm }) {
+export default function LateCheckin({ HandleConfirm, mess, confirm }) {
   const { t } = useTranslation();
+
+  const onFinish = mess => {
+    HandleConfirm(mess.reason);
+  };
+
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo);
+  };
   return (
     <div className="Popup__checkin-late">
       <Card>
@@ -23,8 +31,11 @@ export default function LateCheckin({ HandleConfirm }) {
             span: 16,
           }}
           size="large"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
           <Form.Item
+            name="reason"
             style={{
               justifyContent: 'center',
               marginTop: '110px',
@@ -41,8 +52,17 @@ export default function LateCheckin({ HandleConfirm }) {
                 fontSize: '20px',
               }}
             />
+          </Form.Item>
+          <Form.Item
+            style={{
+              justifyContent: 'center',
+              marginTop: '110px',
+              textAlign: 'center',
+            }}
+          >
             <Button
               type="primary"
+              htmlType="submit"
               style={{
                 marginTop: '21px',
                 background: '#E11274',
@@ -51,7 +71,6 @@ export default function LateCheckin({ HandleConfirm }) {
                 width: '229px',
                 height: '51px',
               }}
-              onClick={HandleConfirm}
             >
               {t('popup.send')}
             </Button>

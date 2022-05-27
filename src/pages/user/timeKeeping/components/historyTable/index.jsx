@@ -2,10 +2,11 @@ import { Table } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import './historyTable.scss';
+import Buttonwarning from '../../icon/buttonwarning';
 
 const iconDown = <DownOutlined />;
 
-function HistoryTable({ Item }) {
+function HistoryTable({ Item, showModal }) {
   const { t } = useTranslation();
   const columns = [
     {
@@ -29,6 +30,14 @@ function HistoryTable({ Item }) {
       dataIndex: 'checkin',
       Key: 'checkin',
       align: 'center',
+      render: checkin =>
+        checkin ? (
+          `${checkin}`
+        ) : (
+          <button className="popup_check" onClick={showModal}>
+            <Buttonwarning />
+          </button>
+        ),
     },
     {
       title: 'check out',
@@ -76,7 +85,6 @@ function HistoryTable({ Item }) {
         scroll={{ y: 380 }}
         bordered={true}
       />
-      ;
     </>
   );
 }
