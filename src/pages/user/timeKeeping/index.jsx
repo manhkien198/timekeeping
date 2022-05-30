@@ -6,6 +6,9 @@ import { useTranslation } from 'react-i18next';
 import time_keeping from '../../../api/time_keeping.js';
 import moment from 'moment';
 import CusomPageHeader from '../../../components/CusomPageHeader';
+import { message } from 'antd';
+import jwt_decode from 'jwt-decode';
+import { getToken } from '../../../api/Cookie';
 
 function TimeKeeping(props) {
   const { t } = useTranslation();
@@ -14,13 +17,15 @@ function TimeKeeping(props) {
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
+  const accesstokenParsed = jwt_decode(getToken('Access_Token'));
+  const username = accesstokenParsed.preferred_username;
   const [listParam, setListParam] = useState(() => {
     return {
-      username: 'asdzcqwe',
+      username: username,
       date: date,
     };
   });
-  
+
   const showModal = () => {
     setVisible(true);
   };
@@ -30,7 +35,7 @@ function TimeKeeping(props) {
       const { data } = await time_keeping.getAll(listParam);
       setItem(data);
     } catch (error) {
-      console.log(error);
+      message.error(error);
     }
   };
 
