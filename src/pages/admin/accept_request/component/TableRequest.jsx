@@ -5,20 +5,19 @@ import SuccessRequest from '../../../../assets/images/request/Button/True.png';
 import FailRequest from '../../../../assets/images/request/Button/False.png';
 import editIcon from '../../../../assets/images/request/Button/Edit.svg';
 import removeIcon from '../../../../assets/images/request/Button/DeleteOutlined.svg';
-import moment from 'moment';
-import { EllipsisOutlined, ExclamationCircleOutlined, StopOutlined } from '@ant-design/icons';
+import { EllipsisOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import AcceptRequestApi from "../../../../api/accept_request/AcceptRequestApi";
 import { useDispatch } from "react-redux";
 import { setReloadTalbe } from "../reducer";
 const TableRequest = (props) => {
-  const {data, setListParam, loading, setLoading} = props
+  const {data, loading, setLoading} = props
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const handleConfirmOk = async(value)=>{
     try {
       const confirm = {
-        "isAccept": true
+        isAccept: !value.accept
       }
       const res = await AcceptRequestApi.putRequest(value.id,confirm)
       setLoading(true)
@@ -32,7 +31,8 @@ const TableRequest = (props) => {
   const handleConfirmRequest = (value)=>{
     try {
         Modal.confirm({
-          title: t('acceptRequestor.questionConfirm'),
+          title: t('acceptRequestor.titleConfirm'),
+          content: t('acceptRequestor.questionConfirm'),
           icon: <ExclamationCircleOutlined />,
           centered: true,
           onOk() {
@@ -41,7 +41,6 @@ const TableRequest = (props) => {
           okType: 'danger',
           okText: t('acceptRequestor.yes'),
           cancelText: t('acceptRequestor.no'),
-          icon: <StopOutlined style={{ color: '#f00' }} />,
         });
       } catch (error) {
         console.log(error);
@@ -85,8 +84,8 @@ const TableRequest = (props) => {
       align: 'center',
       key: t('acceptRequestor.staff'),
       width: 150,
-      render: staff => {
-        return <span>{staff}</span>;
+      render: (staff,record) => {
+        return <span>{record.member.username}</span>;
       },
     },
     {
@@ -172,7 +171,7 @@ const TableRequest = (props) => {
   ];
   return (
     <div>
-      <Table columns={column} dataSource={data} loading={loading} />
+      <Table rowKey={'id'} columns={column} dataSource={data} loading={loading} />
     </div>
   );
 };

@@ -2,15 +2,20 @@ import { message } from "antd";
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import AcceptRequestApi from "../../../api/accept_request/AcceptRequestApi";
 import ButtonGroup from '../../../components/ButtonGroup';
 import CusomPageHeader from '../../../components/CusomPageHeader';
 import Filter from '../../../components/Filter';
+import queryString from 'query-string';
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../../../constants/common";
+import { convertArrayToParamsWithDash } from "../../../utils/convertArrayToParamsWithDash";
 import TableRequest from './component/TableRequest';
 
 function AcceptRequest(props) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const {reloadTable} = useSelector(item=> item.requestAdmin)
   const [data, setData] = useState();
   const [loading, setLoading]= useState(false);
@@ -42,8 +47,21 @@ function AcceptRequest(props) {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false)
-    }, 1000);
+    }, 500);
   }, [loading])
+
+  useEffect(() => {
+    const newParams = { ...listParam };
+    convertArrayToParamsWithDash(newParams);
+      navigate({
+        pathname: location.pathname,
+        search: queryString.stringify(newParams, {
+          skipNull: true,
+          skipEmptyString: true,
+        }),
+      });
+    },[listParam])
+  
   
   return (
     <div className="acceptRequest">

@@ -126,6 +126,7 @@
     "approver": "Người phê duyệt",
     "successUpdate": "Cập nhập yêu cầu thành công",
     "failUpdate": "Cập nhập yêu cầu thất bại",
+    "titleConfirm": "Xác nhận",
     "questionConfirm": "Bạn có muốn thay đổi trạng thái không ?",
     "yes": "Có",
     "no": "Không"
