@@ -62,7 +62,11 @@ function AcceptRequest(props) {
   return (
     <div className="acceptRequest">
       <CusomPageHeader title={t('acceptRequestor.request')} />
-      <Filter />
+      <Filter
+        listParam={listParam}
+        setListParam={setListParam}
+        setLoading={setLoading}
+      />
       <ButtonGroup title={t('acceptRequestor.request')} />
       <div className="table">
         <TableRequest
