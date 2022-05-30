@@ -114,10 +114,6 @@ function PersonalStatistic(props) {
           </Button>
         }
       />
-      <div className="personal__statistic__total total">
-        <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
-        <p className="total__number">7.5 / 20</p>
-      </div>
       <Table
         dataSource={dataSource}
         columns={columns}

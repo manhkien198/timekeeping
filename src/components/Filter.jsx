@@ -1,13 +1,22 @@
 import Input from 'antd/lib/input/Input';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
-function Filter() {
+function Filter({ listParam, setListParam, setLoading }) {
   const { t } = useTranslation();
+  const [value, setValue] = useState('');
+  const handleSearchForm = () => {
+    setListParam({ ...listParam, keyword: value });
+    setLoading(true);
+  };
   return (
     <div className="filter">
-      <Input placeholder={t('filter.search')} className="filter__input" />
-      <Button type="link">
+      <Input
+        placeholder={t('filter.search')}
+        onChange={e => setValue(e.target.value)}
+        className="filter__input"
+      />
+      <Button type="link" onClick={handleSearchForm}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="22"
