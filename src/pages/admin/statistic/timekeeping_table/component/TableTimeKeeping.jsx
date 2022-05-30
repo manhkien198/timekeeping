@@ -60,8 +60,8 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
       key: t('time_keeping.id'),
       fixed: 'left',
       width: 150,
-      render: id => {
-        return <p>{id}</p>;
+      render: (id, record, index) => {
+        return <p>{index}</p>;
       },
     },
     {
@@ -93,7 +93,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
   return (
     <div>
       <Table
-        loading= {loading}
+        loading={loading}
         rowKey={'fullname'}
         columns={column}
         dataSource={data}

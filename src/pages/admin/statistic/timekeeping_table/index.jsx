@@ -9,8 +9,9 @@ import { useTranslation } from 'react-i18next';
 import Filter from '../../../../components/Filter';
 import TimeKeepingApi from '../../../../api/time_keeping/TimeKeepingApi';
 import moment from 'moment';
-import { convertArrayToParamsWithDash } from "../../../../utils/convertArrayToParamsWithDash";
-import { useLocation, useNavigate } from "react-router-dom";
+import { convertArrayToParamsWithDash } from '../../../../utils/convertArrayToParamsWithDash';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../../../../constants/common';
 function TimeKeepingTable(props) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,7 +23,14 @@ function TimeKeepingTable(props) {
   const [isShowModal, setIsShowModal] = useState(false);
   const [data, setData] = useState([]);
   const [dataModal, setDataModal] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [listParam, setListParam] = useState({
+    date: date,
+    currentPage: DEFAULT_PAGE,
+    limit: DEFAULT_LIMIT,
+    keyword: '',
+    sortDirection: 'ASC',
+  });
   useEffect(() => {
     const date = new Date();
     setMonth(moment(date).format('MM'));
@@ -32,8 +40,12 @@ function TimeKeepingTable(props) {
   useEffect(() => {
     const dayInMonth = get_day_of_month(year, month);
     setDay(dayInMonth);
-    setLoading(true)
   }, [month, year, date]);
+
+  useEffect(() => {
+    setListParam({ ...listParam, date });
+    setLoading(true);
+  }, [date]);
 
   const handleShowModal = (fullname, item) => {
     setIsShowModal(true);
@@ -42,33 +54,26 @@ function TimeKeepingTable(props) {
 
   const getAllData = async () => {
     try {
-      const { data } = await TimeKeepingApi.getAll({ date });
+      const { data } = await TimeKeepingApi.getAll(listParam);
       setData(data);
-      setLoading(true)
+      setLoading(false);
     } catch (error) {
       message.error(error);
     }
   };
 
   useEffect(() => {
-    getAllData();
-  }, [date]);
-
-  useEffect(() => {
-      setLoading(false)
-  }, [loading])
-
-  useEffect(() => {
-    const newParams = { date };
+    const newParams = { ...listParam };
     convertArrayToParamsWithDash(newParams);
-      navigate({
-        pathname: location.pathname,
-        search: queryString.stringify(newParams, {
-          skipNull: true,
-          skipEmptyString: true,
-        }),
-      });
-    },[date])
+    navigate({
+      pathname: location.pathname,
+      search: queryString.stringify(newParams, {
+        skipNull: true,
+        skipEmptyString: true,
+      }),
+    });
+    getAllData();
+  }, [listParam]);
 
   return (
     <div className="tableTimeKeeping">
@@ -79,11 +84,19 @@ function TimeKeepingTable(props) {
         title={t('page_header.title')}
         subTitle={`${t('page_header.month')}`}
       />
-      <Filter />
-      <ButtonGroup />
+      <Filter
+        listParam={listParam}
+        setListParam={setListParam}
+        setLoading={setLoading}
+      />
+      <ButtonGroup
+        listParam={listParam}
+        setListParam={setListParam}
+        setLoading={setLoading}
+      />
       <div className="table">
         <TableTimeKeeping
-          loading= {loading}
+          loading={loading}
           data={data}
           day={day}
           month={date?.slice(3, 5)}
