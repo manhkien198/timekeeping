@@ -130,5 +130,9 @@
     "reason_msg": "Please enter the reason",
     "acceptor_msg": "Please select the acceptor",
     "date_msg": "Date is required"
+  },
+  "sortByFullName": {
+    "asc": "Tăng dần",
+    "desc": "Giảm dần"
   }
 }

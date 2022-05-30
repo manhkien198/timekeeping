@@ -5,7 +5,7 @@ function ButtonGroup({ children, title, listParam, setListParam, setLoading }) {
   const { t } = useTranslation();
   const { Option } = Select;
 
-  const handleSortBy = value => {
+  const handleSortByFullName = value => {
     setListParam({ ...listParam, sortDirection: value });
     setLoading(true);
   };
@@ -15,10 +15,10 @@ function ButtonGroup({ children, title, listParam, setListParam, setLoading }) {
         className="filter-select"
         defaultValue={t('page_header.filter')}
         style={{ width: 140 }}
-        onChange={handleSortBy}
+        onChange={handleSortByFullName}
       >
-        <Option value="ASC">ASC</Option>
-        <Option value="DESC">DESC</Option>
+        <Option value="ASC">{t('sortByFullName.asc')}</Option>
+        <Option value="DESC">{t('sortByFullName.desc')}</Option>
       </Select>
       {children ? children : ''}
       <Button type="link" style={{ color: '#066F9B', fontWeight: 700 }}>
