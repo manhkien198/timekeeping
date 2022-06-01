@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const layoutReducer = createSlice({
   name: 'layout',
   initialState: {
-    isAdmin: false,
+    isAdmin: true,
   },
   reducers: {
     setIsAdmin: (state, action) => {

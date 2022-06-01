@@ -55,7 +55,7 @@ function TimeKeepingTable(props) {
   const getAllData = async () => {
     try {
       const { data } = await TimeKeepingApi.getAll(listParam);
-      setData(data);
+      setData(data.list);
       setLoading(false);
     } catch (error) {
       message.error(error);
@@ -123,8 +123,8 @@ function TimeKeepingTable(props) {
               <p>{dataModal?.fullname}</p>
               <p>{dataModal?.date}</p>
               <p>{dataModal?.reasonType?.type}</p>
-              <p>{dataModal?.reasonType?.type}</p>
-              <p>{dataModal?.fullname}</p>
+              <p>{dataModal?.reasonType?.name}</p>
+              <p>{dataModal?.approver}</p>
             </div>
           </div>
         </Modal>
