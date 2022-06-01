@@ -140,5 +140,9 @@
     "reason_msg": "Vui lòng nhập lý do",
     "acceptor_msg": "Vui lòng chọn người phê duyệt",
     "date_msg": "Vui lòng chọn ngày"
+  },
+  "sortByFullName": {
+    "asc": "Tăng dần",
+    "desc": "Giảm dần"
   }
 }

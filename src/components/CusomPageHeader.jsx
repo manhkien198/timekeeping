@@ -4,6 +4,7 @@ import DownIcon from './icons/DownIcon';
 import moment from 'moment';
 import { t } from 'i18next';
 function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
+  const momentNow = moment(Date.now()).format('MM/YYYY');
   const handleDatePicker = (value, valueString) => {
     const month = moment(value).month();
     const year = moment(value).year();
@@ -28,13 +29,13 @@ function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
           format="MM/YYYY"
           suffixIcon={<DownIcon />}
           onChange={handleDatePicker}
+          allowClear={false}
           style={{
             border: 'none',
             height: 40,
             width: 180,
           }}
-          allowClear={false}
-          defaultValue={moment('05/2022', 'MM/YYYY')}
+          defaultValue={moment(momentNow, 'MM/YYYY')}
         />
       )}
     </PageHeader>

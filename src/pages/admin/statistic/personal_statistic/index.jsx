@@ -117,7 +117,6 @@ function PersonalStatistic(props) {
           </Button>
         }
       />
-      <TotalDayWork />
       <Table
         dataSource={dataSource}
         columns={columns}

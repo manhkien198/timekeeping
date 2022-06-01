@@ -6,46 +6,46 @@ import FailRequest from '../../../../assets/images/request/Button/False.png';
 import editIcon from '../../../../assets/images/request/Button/Edit.svg';
 import removeIcon from '../../../../assets/images/request/Button/DeleteOutlined.svg';
 import { EllipsisOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import AcceptRequestApi from "../../../../api/accept_request/AcceptRequestApi";
-import { useDispatch } from "react-redux";
-import { setReloadTalbe } from "../reducer";
-const TableRequest = (props) => {
-  const {data, loading, setLoading} = props
+import AcceptRequestApi from '../../../../api/accept_request/AcceptRequestApi';
+import { useDispatch } from 'react-redux';
+import { setReloadTalbe } from '../reducer';
+const TableRequest = props => {
+  const { data, loading, setLoading } = props;
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const handleConfirmOk = async(value)=>{
+  const handleConfirmOk = async value => {
     try {
       const confirm = {
-        isAccept: !value.accept
-      }
-      const res = await AcceptRequestApi.putRequest(value.id,confirm)
-      setLoading(true)
-      dispatch(setReloadTalbe())
+        isAccept: !value.accept,
+      };
+      const res = await AcceptRequestApi.putRequest(value.id, confirm);
+      setLoading(true);
+      dispatch(setReloadTalbe());
       message.success(t('acceptRequestor.successUpdate'));
     } catch (error) {
-      message.error(t('acceptRequestor.failUpdate'))
+      message.error(t('acceptRequestor.failUpdate'));
     }
-  }
+  };
 
-  const handleConfirmRequest = (value)=>{
+  const handleConfirmRequest = value => {
     try {
-        Modal.confirm({
-          title: t('acceptRequestor.titleConfirm'),
-          content: t('acceptRequestor.questionConfirm'),
-          icon: <ExclamationCircleOutlined />,
-          centered: true,
-          onOk() {
-            handleConfirmOk(value);
-          },
-          okType: 'danger',
-          okText: t('acceptRequestor.yes'),
-          cancelText: t('acceptRequestor.no'),
-        });
-      } catch (error) {
-        console.log(error);
-      }
-  }
+      Modal.confirm({
+        title: t('acceptRequestor.titleConfirm'),
+        content: t('acceptRequestor.questionConfirm'),
+        icon: <ExclamationCircleOutlined />,
+        centered: true,
+        onOk() {
+          handleConfirmOk(value);
+        },
+        okType: 'danger',
+        okText: t('acceptRequestor.yes'),
+        cancelText: t('acceptRequestor.no'),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const Actions = ({ record }) => (
     <div className="request__action" style={{}}>
@@ -53,7 +53,7 @@ const TableRequest = (props) => {
         className="request__action--edit"
         icon={<img src={editIcon} alt="detail" />}
         size="large"
-        onClick={()=>handleConfirmRequest(record)}
+        onClick={() => handleConfirmRequest(record)}
       >
         {t('acceptRequestor.edit')}
       </Button>
@@ -74,18 +74,18 @@ const TableRequest = (props) => {
       align: 'center',
       key: t('time_keeping.id'),
       width: 150,
-      render: id => {
-        return <span>{id}</span>;
+      render: (id, record, index) => {
+        return <span>{index}</span>;
       },
     },
     {
       title: t('acceptRequestor.staff'),
-      dataIndex: 'username',
+      dataIndex: 'fullName',
       align: 'center',
       key: t('acceptRequestor.staff'),
       width: 150,
-      render: (staff,record) => {
-        return <span>{record.member.username}</span>;
+      render: (staff, record) => {
+        return <span>{record.member.fullName}</span>;
       },
     },
     {
@@ -171,7 +171,12 @@ const TableRequest = (props) => {
   ];
   return (
     <div>
-      <Table rowKey={'id'} columns={column} dataSource={data} loading={loading} />
+      <Table
+        rowKey={'id'}
+        columns={column}
+        dataSource={data}
+        loading={loading}
+      />
     </div>
   );
 };
