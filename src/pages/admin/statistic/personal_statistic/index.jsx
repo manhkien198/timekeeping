@@ -12,6 +12,7 @@ import Filter from '../../../../components/Filter';
 import SelectUsers from '../../../../components/SelectUsers';
 import { setUsers } from './reducer';
 import { useSelector } from 'react-redux';
+import TotalDayWork from '../../../../components/TotalDayWork';
 
 function PersonalStatistic(props) {
   const { t } = useTranslation();
@@ -65,27 +66,33 @@ function PersonalStatistic(props) {
     try {
       const res = await UsersApi.getAll();
       dispatch(setUsers(res.data));
+      fetchPersonalStatistic(res.data);
     } catch (error) {
       message.error(error.message);
     }
   };
-  const fetchPersonalStatistic = async () => {
+  const fetchPersonalStatistic = async data => {
     try {
       const resp = await personalStatisticApi.getAll({
-        username: userSelected,
+        username: userSelected || data?.[0]?.username,
         date: date,
       });
       setDataSource(resp.data);
       setLoading(false);
     } catch (error) {
-      message.error(error.message);
       setLoading(false);
+      message.error(error.message);
     }
   };
   useEffect(() => {
     fetchUsers();
-    fetchPersonalStatistic();
+  }, []);
+  useEffect(() => {
+    if (userSelected) {
+      fetchPersonalStatistic();
+    }
   }, [userSelected, date]);
+
   return (
     <div className="personal__statistic">
       <CusomPageHeader
@@ -110,10 +117,7 @@ function PersonalStatistic(props) {
           </Button>
         }
       />
-      <div className="personal__statistic__total total">
-        <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
-        <p className="total__number">7.5 / 20</p>
-      </div>
+      <TotalDayWork />
       <Table
         dataSource={dataSource}
         columns={columns}

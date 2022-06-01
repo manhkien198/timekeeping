@@ -126,7 +126,7 @@
     "days": "Days",
     "hours": "Hours",
     "weeks": "Weeks",
-    "time_msg": "Please enter time off",
+    "time_msg": "Please enter overtime",
     "reason_msg": "Please enter the reason",
     "acceptor_msg": "Please select the acceptor",
     "date_msg": "Date is required"

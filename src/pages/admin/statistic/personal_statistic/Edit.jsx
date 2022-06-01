@@ -1,7 +1,10 @@
 import { Button, DatePicker, Form, Input, message, Select } from 'antd';
 import { t } from 'i18next';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BodApi from '../../../../api/bodApi';
+import editApi from '../../../../api/editApi';
 import personalStatisticApi from '../../../../api/personalStatisticApi';
 import SelectUsers from '../../../../components/SelectUsers';
 import { TIME_OPTIONS } from '../../../../constants/common';
@@ -11,9 +14,21 @@ function Edit(props) {
   const [form] = Form.useForm();
   const [reasonTypeList, setReasonTypeList] = useState([]);
   const [userSelected, setUserSelected] = useState();
-  const onFinish = value => {};
+  const [bodList, setBodList] = useState([]);
+  const onFinish = async value => {
+    try {
+      await editApi.edit(
+        {
+          ...value,
+          date: moment(value.date).format('YYYY-MM-DD'),
+        },
+        userSelected,
+      );
+    } catch (error) {
+      console.log('error :', error);
+    }
+  };
   const { Option } = Select;
-
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
@@ -33,8 +48,15 @@ function Edit(props) {
       message.error(error.message);
     }
   };
+  const fetchBodListeners = async () => {
+    try {
+      const resp = await BodApi.getAll();
+      setBodList(resp.data);
+    } catch (error) {}
+  };
   useEffect(() => {
     fetchReasonType();
+    fetchBodListeners();
     form.setFieldsValue({
       reasonTypeId: reasonTypeList ? reasonTypeList[0]?.id : 1,
     });
@@ -42,15 +64,36 @@ function Edit(props) {
   useEffect(() => {
     form.setFieldsValue({
       reasonTypeId: reasonTypeList ? reasonTypeList[0]?.id : 1,
+      subDate: 1,
     });
   }, [reasonTypeList]);
-
+  const handleDateChange = async (date, dateString) => {
+    try {
+      const resp = await editApi.getValueForm({
+        username: userSelected,
+        date: dateString,
+      });
+      form.setFieldsValue({
+        checkInTime: resp.data?.checkInTime,
+        checkOutTime: resp.data?.checkOutTime,
+        overTime: resp.data?.overTime,
+        resonTypeId: resp.data?.resonType?.id,
+        reason: resp.data?.reason,
+        approver: resp.data?.approver,
+        note: resp.data?.note,
+      });
+    } catch (error) {
+      console.log('error :', error);
+    }
+  };
   return (
     <div className="edit-form">
-      <SelectUsers
-        userSelected={userSelected}
-        setUserSelected={setUserSelected}
-      />
+      <div className="edit-user">
+        <SelectUsers
+          userSelected={userSelected}
+          setUserSelected={setUserSelected}
+        />
+      </div>
       <Form
         className="form"
         {...formItemLayout}
@@ -67,7 +110,11 @@ function Edit(props) {
           required={true}
           requiredMark
         >
-          <DatePicker style={{ width: '100%' }} />
+          <DatePicker
+            style={{ width: '100%' }}
+            onChange={handleDateChange}
+            format="DD/MM/YYYY"
+          />
         </Form.Item>
         <Form.Item
           label={t('sidebar.time_keeping')}
@@ -105,6 +152,25 @@ function Edit(props) {
         </Form.Item>
 
         <Form.Item
+          className="form-control"
+          name="overTime"
+          colon={true}
+          label="OT"
+          rules={[
+            {
+              validator(rule, value, callback) {
+                if (form.getFieldValue('reasonTypeId') && !value) {
+                  callback(t('edit.time_msg'));
+                }
+                callback();
+              },
+            },
+          ]}
+        >
+          <Input placeholder={t('personal_statistic.enter_time')} />
+        </Form.Item>
+
+        <Form.Item
           label={t('personal_statistic.absent')}
           colon={true}
           name="reasonTypeId"
@@ -122,52 +188,7 @@ function Edit(props) {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          label={t('personal_statistic.time')}
-          colon={true}
-          className="form-control"
-        >
-          <Form.Item
-            style={{ display: 'inline-block', marginRight: 10 }}
-            className="form-control"
-            name="subtime"
-            rules={[
-              {
-                validator(rule, value, callback) {
-                  if (form.getFieldValue('reasonTypeId') && !value) {
-                    callback(t('edit.time_msg'));
-                  }
-                  callback();
-                },
-              },
-            ]}
-          >
-            <Input placeholder={t('personal_statistic.enter_time')} />
-          </Form.Item>
-          <Form.Item
-            style={{ display: 'inline-block' }}
-            className="form-control"
-            name="subDate"
-          >
-            <Select
-              defaultValue={1}
-              style={{
-                width: 150,
-                color: '#066f9b',
-                fontWeight: 700,
-                fontSize: 20,
-              }}
-              showSearch
-              filterOption={filterOption}
-            >
-              {TIME_OPTIONS.map(x => (
-                <Option key={x.id} value={x.id}>
-                  {x.title}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-        </Form.Item>
+
         <Form.Item
           label={t('personal_statistic.reason')}
           colon={true}
@@ -189,7 +210,7 @@ function Edit(props) {
         <Form.Item
           label={t('personal_statistic.acceptor')}
           colon={true}
-          name="acceptor"
+          name="approver"
           className="form-control"
           rules={[
             {
@@ -202,10 +223,22 @@ function Edit(props) {
             },
           ]}
         >
-          <SelectUsers
-            userSelected={userSelected}
-            setUserSelected={setUserSelected}
-          />
+          <Select
+            style={{
+              width: 300,
+              color: '#066f9b',
+              fontWeight: 700,
+              fontSize: 30,
+            }}
+            showSearch
+            filterOption={filterOption}
+          >
+            {bodList.map(x => (
+              <Option key={x.username} value={x.username}>
+                {x.fullName}
+              </Option>
+            ))}
+          </Select>
         </Form.Item>
         <Form.Item
           label={t('personal_statistic.note')}
