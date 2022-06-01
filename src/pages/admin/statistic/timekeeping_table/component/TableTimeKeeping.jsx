@@ -83,6 +83,9 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
       fixed: 'right',
       width: 100,
       key: t('time_keeping.workingDay'),
+      render: (totalWork, record) => {
+        return <p>{record.totalWorks}</p>;
+      },
     },
   ];
 
@@ -94,7 +97,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
     <div>
       <Table
         loading={loading}
-        rowKey={'fullname'}
+        rowKey={'id'}
         columns={column}
         dataSource={data}
         scroll={{ x: 800, y: 700 }}

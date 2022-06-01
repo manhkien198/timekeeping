@@ -67,7 +67,12 @@ function AcceptRequest(props) {
         setListParam={setListParam}
         setLoading={setLoading}
       />
-      <ButtonGroup title={t('acceptRequestor.request')} />
+      <ButtonGroup
+        title={t('acceptRequestor.request')}
+        listParam={listParam}
+        setListParam={setListParam}
+        setLoading={setLoading}
+      />
       <div className="table">
         <TableRequest
           data={data}
