@@ -7,7 +7,7 @@ import time_keeping from '../../../api/time_keeping.js';
 import moment from 'moment';
 import CusomPageHeader from '../../../components/CusomPageHeader';
 import { message } from 'antd';
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import { getToken } from '../../../api/Cookie';
 
 function TimeKeeping(props) {
@@ -17,15 +17,15 @@ function TimeKeeping(props) {
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
-  const accesstokenParsed = jwt_decode(getToken('Access_Token'));
-  const username = accesstokenParsed.preferred_username;
+  const accesstokenParsed = jwt_decode(getToken("Access_Token"));
+  const username = accesstokenParsed.preferred_username
   const [listParam, setListParam] = useState(() => {
     return {
       username: username,
       date: date,
     };
   });
-
+  
   const showModal = () => {
     setVisible(true);
   };
@@ -38,7 +38,7 @@ function TimeKeeping(props) {
       message.error(error);
     }
   };
-
+  
   useEffect(() => {
     getDataTimeKeeping();
   }, [listParam]);
