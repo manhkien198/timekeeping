@@ -1,4 +1,12 @@
-import { Button, DatePicker, Form, Input, message, Select } from 'antd';
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  message,
+  Select,
+  TimePicker,
+} from 'antd';
 import { t } from 'i18next';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
@@ -7,25 +15,34 @@ import BodApi from '../../../../api/bodApi';
 import editApi from '../../../../api/editApi';
 import personalStatisticApi from '../../../../api/personalStatisticApi';
 import SelectUsers from '../../../../components/SelectUsers';
-import { TIME_OPTIONS } from '../../../../constants/common';
 import { filterOption } from '../../../../utils/filterOption';
-
-function Edit(props) {
+import { useDispatch, useSelector } from 'react-redux';
+import { setReasonTypeList } from './reducer';
+function Edit() {
   const [form] = Form.useForm();
-  const [reasonTypeList, setReasonTypeList] = useState([]);
   const [userSelected, setUserSelected] = useState();
   const [bodList, setBodList] = useState([]);
+  const [isOt, setIsOt] = useState(false);
+  const [isSelect, setIsSelect] = useState(true);
+  const dispatch = useDispatch();
+  const reasonTypeList = useSelector(
+    state => state.personalStatistic.reasonTypeList,
+  );
   const onFinish = async value => {
     try {
       await editApi.edit(
         {
           ...value,
-          date: moment(value.date).format('YYYY-MM-DD'),
+          date: moment(value.date).format('DD/MM/YYYY'),
+          checkInTime: moment(value.time[0]).format('HH:mm:ss'),
+          checkOutTime: moment(value.time[1]).format('HH:mm:ss'),
         },
         userSelected,
       );
+      message.success(t('edit.edit_success'));
+      navi('/statistic/personal');
     } catch (error) {
-      console.log('error :', error);
+      message.error(error.message);
     }
   };
   const { Option } = Select;
@@ -43,11 +60,12 @@ function Edit(props) {
   const fetchReasonType = async () => {
     try {
       const response = await personalStatisticApi.getReasonType();
-      setReasonTypeList(response.data);
+      dispatch(setReasonTypeList(response.data));
     } catch (error) {
       message.error(error.message);
     }
   };
+
   const fetchBodListeners = async () => {
     try {
       const resp = await BodApi.getAll();
@@ -57,16 +75,7 @@ function Edit(props) {
   useEffect(() => {
     fetchReasonType();
     fetchBodListeners();
-    form.setFieldsValue({
-      reasonTypeId: reasonTypeList ? reasonTypeList[0]?.id : 1,
-    });
   }, []);
-  useEffect(() => {
-    form.setFieldsValue({
-      reasonTypeId: reasonTypeList ? reasonTypeList[0]?.id : 1,
-      subDate: 1,
-    });
-  }, [reasonTypeList]);
   const handleDateChange = async (date, dateString) => {
     try {
       const resp = await editApi.getValueForm({
@@ -74,25 +83,42 @@ function Edit(props) {
         date: dateString,
       });
       form.setFieldsValue({
-        checkInTime: resp.data?.checkInTime,
-        checkOutTime: resp.data?.checkOutTime,
+        time: [
+          moment(resp.data?.checkInTime, 'HH:mm'),
+          moment(resp.data?.checkOutTime, 'HH:mm'),
+        ],
         overTime: resp.data?.overTime,
-        resonTypeId: resp.data?.resonType?.id,
+        reasonTypeId: resp.data?.reasonType?.id,
         reason: resp.data?.reason,
         approver: resp.data?.approver,
         note: resp.data?.note,
       });
     } catch (error) {
-      console.log('error :', error);
+      message.error(error.message);
     }
   };
+  const handleOtChange = () => {
+    if (form.isFieldTouched('overTime') && form.getFieldValue('overTime')) {
+      setIsOt(true);
+    } else {
+      setIsOt(false);
+    }
+  };
+  const handleSelectChange = () => {
+    if (
+      form.isFieldTouched('reasonTypeId') &&
+      form.getFieldValue('reasonTypeId')
+    ) {
+      setIsSelect(true);
+    } else {
+      setIsSelect(false);
+    }
+  };
+
   return (
     <div className="edit-form">
       <div className="edit-user">
-        <SelectUsers
-          userSelected={userSelected}
-          setUserSelected={setUserSelected}
-        />
+        <SelectUsers setUserSelected={setUserSelected} />
       </div>
       <Form
         className="form"
@@ -120,35 +146,9 @@ function Edit(props) {
           label={t('sidebar.time_keeping')}
           colon={true}
           className="form-control"
+          name="time"
         >
-          <Form.Item
-            style={{
-              display: 'inline-block',
-              width: 'calc(50% - 12px)',
-              marginRight: 24,
-            }}
-            name="checkInTime"
-            className="form-control"
-          >
-            <Input placeholder={t('personal_statistic.check_in')} />
-          </Form.Item>
-          <Form.Item
-            name="checkOutTime"
-            style={{ display: 'inline-block', width: 'calc(50% - 12px)' }}
-            className="form-control"
-            rules={[
-              {
-                validator(rule, value, callback) {
-                  if (form.getFieldValue('checkInTime') && !value) {
-                    callback(t('edit.checkOutTime_msg'));
-                  }
-                  callback();
-                },
-              },
-            ]}
-          >
-            <Input placeholder={t('personal_statistic.check_out')} />
-          </Form.Item>
+          <TimePicker.RangePicker />
         </Form.Item>
 
         <Form.Item
@@ -156,18 +156,12 @@ function Edit(props) {
           name="overTime"
           colon={true}
           label="OT"
-          rules={[
-            {
-              validator(rule, value, callback) {
-                if (form.getFieldValue('reasonTypeId') && !value) {
-                  callback(t('edit.time_msg'));
-                }
-                callback();
-              },
-            },
-          ]}
         >
-          <Input placeholder={t('personal_statistic.enter_time')} />
+          <Input
+            placeholder={t('personal_statistic.enter_time')}
+            onChange={handleOtChange}
+            disabled={isSelect}
+          />
         </Form.Item>
 
         <Form.Item
@@ -180,6 +174,8 @@ function Edit(props) {
             showSearch
             optionFilterProp="children"
             filterOption={filterOption}
+            onChange={handleSelectChange}
+            disabled={isOt}
           >
             {reasonTypeList.map(x => (
               <Option key={x.id} value={x.id}>
@@ -250,10 +246,17 @@ function Edit(props) {
         </Form.Item>
         <Form.Item className="btn-group-wrapper">
           <div className="btn-group">
-            <Button type="danger" onClick={() => form.resetFields()}>
+            <Button
+              type="danger"
+              onClick={() => {
+                form.resetFields();
+                setIsSelect(false);
+                setIsOt(false);
+              }}
+            >
               {t('personal_statistic.reset')}
             </Button>
-            <Button type="danger" htmlType="submit">
+            <Button type="primary" htmlType="submit">
               {t('personal_statistic.update')}
             </Button>
             <Button type="primary" onClick={() => navi('/statistic/personal')}>

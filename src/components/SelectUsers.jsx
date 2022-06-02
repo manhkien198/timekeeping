@@ -1,19 +1,27 @@
-import { Form, Select } from 'antd';
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { Form, message, Select } from 'antd';
+import { useEffect, useState } from 'react';
 import { filterOption } from '../utils/filterOption';
-
-function SelectUsers({ userSelected, setUserSelected }) {
+import { useSelector } from 'react-redux';
+import UsersApi from '../api/userApi';
+function SelectUsers({ setParams, params }) {
   const handleChangeUserSelected = value => {
-    setUserSelected(value);
+    setParams({ ...params, username: value });
   };
-  const usersList = useSelector(state => state.personalStatistic.users);
   const { Option } = Select;
   const [form] = Form.useForm();
+  const [users, setUsers] = useState([]);
+  const fetchUsers = async () => {
+    try {
+      const res = await UsersApi.getAll();
+      setUsers(res.data);
+      form.setFieldsValue({ users: params.username || res.data[0]?.username });
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
   useEffect(() => {
-    form.setFieldsValue({ users: usersList[0]?.username || userSelected });
-  }, [usersList]);
-
+    fetchUsers();
+  }, []);
   return (
     <Form form={form} className="form">
       <Form.Item name="users" className="form-item">
@@ -28,7 +36,7 @@ function SelectUsers({ userSelected, setUserSelected }) {
           filterOption={filterOption}
           onChange={handleChangeUserSelected}
         >
-          {usersList.map(x => (
+          {users.map(x => (
             <Option key={x.username} value={x.username}>
               {x.fullName}
             </Option>

@@ -26,7 +26,8 @@
     "unpaid_leave": "Unpaid leave",
     "paid_leave": "Paid leave",
     "total_day_off": "Total Day Off",
-    "rest": "Rest"
+    "rest": "Rest",
+    "ot": "OT"
   },
   "filter": {
     "search": "Search"
@@ -129,7 +130,8 @@
     "time_msg": "Please enter overtime",
     "reason_msg": "Please enter the reason",
     "acceptor_msg": "Please select the acceptor",
-    "date_msg": "Date is required"
+    "date_msg": "Date is required",
+    "edit_success": "Edit successfully"
   },
   "sortByFullName": {
     "asc": "Tăng dần",

@@ -2,8 +2,8 @@ import { Button, message, Table } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import personalStatisticApi from '../../../../api/personalStatisticApi';
 import UsersApi from '../../../../api/userApi';
 import ButtonGroup from '../../../../components/ButtonGroup';
@@ -11,18 +11,31 @@ import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import SelectUsers from '../../../../components/SelectUsers';
 import { setUsers } from './reducer';
-import { useSelector } from 'react-redux';
-import TotalDayWork from '../../../../components/TotalDayWork';
-
+import qs from 'query-string';
 function PersonalStatistic(props) {
   const { t } = useTranslation();
-  const usersList = useSelector(state => state.personalStatistic.users);
-
-  const [userSelected, setUserSelected] = useState(usersList[0]?.username);
+  const location = useLocation();
+  const queryParams = qs.parse(location.search);
+  const [userList, setUserList] = useState([]);
+  const [params, setParams] = useState({
+    ...queryParams,
+    date: queryParams.date
+      ? queryParams.date
+      : moment(Date.now()).format('DD/MM/YYYY'),
+    username: queryParams.username || userList?.[0]?.username,
+  });
   const [dataSource, setDataSource] = useState([]);
-  const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
   const [loading, setLoading] = useState(true);
   const navi = useNavigate();
+  useEffect(() => {
+    navi({
+      pathname: window.location.pathname,
+      search: qs.stringify(params, {
+        skipEmptyString: true,
+      }),
+    });
+  }, [navi, params]);
+
   const columns = [
     {
       title: t('personal_statistic.day'),
@@ -59,6 +72,7 @@ function PersonalStatistic(props) {
     {
       title: t('personal_statistic.note'),
       dataIndex: 'note',
+      render: (_, row) => <p>{row?.reasonType?.name}</p>,
     },
   ];
   const dispatch = useDispatch();
@@ -66,16 +80,16 @@ function PersonalStatistic(props) {
     try {
       const res = await UsersApi.getAll();
       dispatch(setUsers(res.data));
-      fetchPersonalStatistic(res.data);
+      setUserList(res.data);
     } catch (error) {
       message.error(error.message);
     }
   };
-  const fetchPersonalStatistic = async data => {
+  const fetchPersonalStatistic = async () => {
     try {
       const resp = await personalStatisticApi.getAll({
-        username: userSelected || data?.[0]?.username,
-        date: date,
+        username: params.username || userList?.[0]?.username,
+        date: params.date,
       });
       setDataSource(resp.data);
       setLoading(false);
@@ -87,23 +101,18 @@ function PersonalStatistic(props) {
   useEffect(() => {
     fetchUsers();
   }, []);
+
   useEffect(() => {
-    if (userSelected) {
-      fetchPersonalStatistic();
-    }
-  }, [userSelected, date]);
+    fetchPersonalStatistic();
+  }, [params]);
 
   return (
     <div className="personal__statistic">
       <CusomPageHeader
-        title={
-          <SelectUsers
-            userSelected={userSelected}
-            setUserSelected={setUserSelected}
-          />
-        }
+        title={<SelectUsers setParams={setParams} params={params} />}
+        params={params}
+        setParams={setParams}
         subTitle={`${t('page_header.month')}`}
-        setDate={setDate}
       />
       <Filter />
       <ButtonGroup

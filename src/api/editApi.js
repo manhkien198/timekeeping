@@ -2,8 +2,8 @@ import axiosClient from './axiosClient';
 
 const editApi = {
   edit(params, user) {
-    const url = `/log/members/${user}`;
-    return axiosClient.post(url, { params });
+    const url = `/logs/member/${user}`;
+    return axiosClient.put(url, params);
   },
   getValueForm(params) {
     const url = `/log/members`;
