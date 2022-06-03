@@ -1,4 +1,5 @@
 import { message } from 'antd';
+import { ID_DESC } from '../constants/common';
 import i18n from '../translation/i18n';
 
 export const exportToExcel = async (
@@ -13,7 +14,7 @@ export const exportToExcel = async (
     const orderby = filter.orderby;
     const curPage = filter.page;
     const numberPerPage = filter.limit;
-    if (orderby?.includes('id-DESC'))
+    if (orderby?.includes(ID_DESC))
       return totalRecords - index - (curPage - 1) * numberPerPage;
     return (curPage - 1) * numberPerPage + index + 1;
   };

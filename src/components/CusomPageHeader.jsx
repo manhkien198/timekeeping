@@ -20,7 +20,6 @@ function CusomPageHeader({
       setMonth(month + 1);
       setYear(year);
     }
-    // setDate(`01/${valueString}`);
     setParams({ ...params, date: `01/${valueString}` });
   };
   return (
