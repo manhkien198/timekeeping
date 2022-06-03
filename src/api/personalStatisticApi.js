@@ -8,9 +8,6 @@ const personalStatisticApi = {
   getReasonType(params) {
     return axiosClient.get(REASON_TYPE_URL, { params });
   },
-  edit(user, params) {
-    const url = `${EDIT_URL}/${user}`;
-    return axiosClient.get(url, { params });
-  },
+
 };
 export default personalStatisticApi;
