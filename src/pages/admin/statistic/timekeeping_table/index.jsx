@@ -12,6 +12,7 @@ import moment from 'moment';
 import { convertArrayToParamsWithDash } from '../../../../utils/convertArrayToParamsWithDash';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../../../../constants/common';
+import qs from 'query-string';
 function TimeKeepingTable(props) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,6 +47,12 @@ function TimeKeepingTable(props) {
     setListParam({ ...listParam, date });
     setLoading(true);
   }, [date]);
+
+  useEffect(() => {
+    const newParams = qs.parse(location.search);
+    const { date } = newParams;
+    console.log(moment(date).format('DD/YYYY'));
+  }, [location]);
 
   const handleShowModal = (fullname, item) => {
     setIsShowModal(true);

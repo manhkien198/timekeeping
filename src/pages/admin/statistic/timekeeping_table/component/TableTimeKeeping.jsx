@@ -59,7 +59,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
       align: 'center',
       key: t('time_keeping.id'),
       fixed: 'left',
-      width: 150,
+      width: 70,
       render: (id, record, index) => {
         return <p>{index}</p>;
       },
@@ -69,7 +69,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
       dataIndex: 'fullname',
       align: 'center',
       fixed: 'left',
-      width: 100,
+      width: 200,
       key: t('time_keeping.fullName'),
       render: fullname => {
         return <p>{fullname}</p>;
