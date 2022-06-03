@@ -26,7 +26,8 @@
     "unpaid_leave": "Nghỉ không lương",
     "paid_leave": "Nghỉ có lương",
     "total_day_off": "Tổng ngày phép",
-    "rest": "Ngày phép còn lại"
+    "rest": "Ngày phép còn lại",
+    "ot": "OT"
   },
   "filter": {
     "search": "Tìm kiếm"
@@ -136,10 +137,11 @@
     "days": "Ngày",
     "hours": "Giờ",
     "weeks": "Tuần",
-    "time_msg": "Vui lòng nhập thời gian nghỉ",
+    "time_msg": "Vui lòng nhập thời gian làm thêm",
     "reason_msg": "Vui lòng nhập lý do",
     "acceptor_msg": "Vui lòng chọn người phê duyệt",
-    "date_msg": "Vui lòng chọn ngày"
+    "date_msg": "Vui lòng chọn ngày",
+    "edit_success": "Sửa thành công"
   },
   "sortByFullName": {
     "asc": "Tăng dần",

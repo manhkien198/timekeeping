@@ -1,13 +1,15 @@
 .edit-form {
-  .ant-select-selection-item{
+  .ant-select-selection-item {
     display: flex;
     align-items: center;
   }
-  .ant-select-selector{
+  .edit-user {
+    margin-bottom: 100px;
+  }
+  .ant-select-selector {
     border: none !important;
   }
   .form {
-    margin-top: 100px;
     .form-control {
       display: flex;
       align-items: center;
@@ -22,7 +24,7 @@
         height: 44px;
       }
     }
-    .btn-group-wrapper{
+    .btn-group-wrapper {
       display: flex;
       justify-content: flex-end;
       margin-right: 42px;
@@ -31,7 +33,6 @@
   .btn-group {
     display: flex;
     gap: 25px;
-  
   }
   button {
     padding: 13px 27px;

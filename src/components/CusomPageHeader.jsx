@@ -1,9 +1,17 @@
-import React from 'react';
 import { DatePicker, PageHeader } from 'antd';
-import DownIcon from './icons/DownIcon';
-import moment from 'moment';
 import { t } from 'i18next';
-function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
+import moment from 'moment';
+import DownIcon from './icons/DownIcon';
+function CusomPageHeader({
+  title,
+  subTitle,
+  setMonth,
+  setYear,
+  setDate,
+  date,
+  params,
+  setParams,
+}) {
   const momentNow = moment(Date.now()).format('MM/YYYY');
   const handleDatePicker = (value, valueString) => {
     const month = moment(value).month();
@@ -12,7 +20,7 @@ function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
       setMonth(month + 1);
       setYear(year);
     }
-    setDate(`01/${valueString}`);
+    setParams({ ...params, date: `01/${valueString}` });
   };
   return (
     <PageHeader
@@ -35,7 +43,11 @@ function CusomPageHeader({ title, subTitle, setMonth, setYear, setDate }) {
             height: 40,
             width: 180,
           }}
-          defaultValue={moment(momentNow, 'MM/YYYY')}
+          defaultValue={
+            moment(params.date, 'DD/MM/YYYY')
+              ? moment(params.date, 'DD/MM/YYYY')
+              : moment(momentNow, 'MM/YYYY')
+          }
         />
       )}
     </PageHeader>
