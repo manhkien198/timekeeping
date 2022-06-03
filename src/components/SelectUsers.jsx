@@ -1,8 +1,7 @@
 import { Form, message, Select } from 'antd';
 import { useEffect, useState } from 'react';
-import { filterOption } from '../utils/filterOption';
-import { useSelector } from 'react-redux';
 import UsersApi from '../api/userApi';
+import { filterOption } from '../utils/filterOption';
 function SelectUsers({ setParams, params }) {
   const handleChangeUserSelected = value => {
     setParams({ ...params, username: value });
@@ -19,6 +18,9 @@ function SelectUsers({ setParams, params }) {
       message.error(error.message);
     }
   };
+  useEffect(() => {
+    form.setFieldsValue({ users: params.username || users[0]?.username });
+  }, [params]);
   useEffect(() => {
     fetchUsers();
   }, []);

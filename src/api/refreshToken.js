@@ -11,7 +11,7 @@ export const refreshToken = async refresh_token => {
       qs.stringify({
         grant_type: 'refresh_token',
         refresh_token: refresh_token,
-        client_id: 'auth-platform',
+        client_id: process.env.REACT_APP_AUTH_PLATFORM,
       }),
       { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
     )

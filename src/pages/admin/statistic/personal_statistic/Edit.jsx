@@ -155,7 +155,7 @@ function Edit() {
           className="form-control"
           name="overTime"
           colon={true}
-          label="OT"
+          label={t('general_table.ot')}
         >
           <Input
             placeholder={t('personal_statistic.enter_time')}

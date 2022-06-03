@@ -22,7 +22,7 @@ function PersonalStatistic(props) {
     date: queryParams.date
       ? queryParams.date
       : moment(Date.now()).format('DD/MM/YYYY'),
-    username: queryParams.username || userList?.[0]?.username,
+    username: userList ? userList?.[0]?.username : queryParams.username,
   });
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -80,6 +80,12 @@ function PersonalStatistic(props) {
     try {
       const res = await UsersApi.getAll();
       dispatch(setUsers(res.data));
+      setParams({
+        ...params,
+        username: queryParams.username
+          ? queryParams.username
+          : res.data[0].username,
+      });
       setUserList(res.data);
     } catch (error) {
       message.error(error.message);
