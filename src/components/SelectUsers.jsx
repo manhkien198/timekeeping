@@ -13,14 +13,14 @@ function SelectUsers({ setParams, params }) {
     try {
       const res = await UsersApi.getAll();
       setUsers(res.data);
-      form.setFieldsValue({ users: params.username || res.data[0]?.username });
+      form.setFieldsValue({
+        users: params.username || res.data[0]?.username,
+      });
     } catch (error) {
       message.error(error.message);
     }
   };
-  useEffect(() => {
-    form.setFieldsValue({ users: params.username || users[0]?.username });
-  }, [params]);
+
   useEffect(() => {
     fetchUsers();
   }, []);

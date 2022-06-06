@@ -1,7 +1,13 @@
+import Cookies from 'js-cookie';
+import moment from 'moment';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { getToken } from './api/Cookie';
+import { refreshToken } from './api/refreshToken';
 import './App.css';
 import './assets/scss/app.scss';
+import { REFRESH_TOKEN_TIME_UNIT } from './constants/common';
 import MainLayout from './layouts';
 import AcceptRequest from './pages/admin/accept_request';
 import GeneralStatistic from './pages/admin/statistic/general_statistic';
@@ -17,7 +23,30 @@ import TimeKeeping from './pages/user/timeKeeping';
 
 function App() {
   const isAdmin = useSelector(state => state.layout.isAdmin);
+  const navi = useNavigate();
+  const sendRequest = async () => {
+    const refresh_token = Cookies.get('Refresh_Token');
+    const expires_in = getToken('expires_in');
+    if (refresh_token) {
+      try {
+        await refreshToken({ refresh_token });
 
+        setTimeout(async () => {
+          await sendRequest();
+          console.log('refresh token at: ', moment().format('h:mm:ss'));
+        }, Number(expires_in) * REFRESH_TOKEN_TIME_UNIT);
+      } catch {
+        navi('/login');
+      }
+    } else {
+      navi('/login');
+    }
+  };
+
+  useEffect(() => {
+    sendRequest();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Routes>
       <Route path="login" element={<Login />} />

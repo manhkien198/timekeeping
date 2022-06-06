@@ -24,3 +24,4 @@ export const DEFAULT_PAGE = 1;
 export const DEFAULT_LIMIT = 10;
 export const CONFIRM_LATE = '/checkin';
 export const ID_DESC = 'id-DESC';
+export const REFRESH_TOKEN_TIME_UNIT = 900;
