@@ -61,7 +61,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
       fixed: 'left',
       width: 70,
       render: (id, record, index) => {
-        return <p>{index}</p>;
+        return <p>{index + 1}</p>;
       },
     },
     {

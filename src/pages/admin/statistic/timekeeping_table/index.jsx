@@ -50,9 +50,9 @@ function TimeKeepingTable(props) {
 
   useEffect(() => {
     const newParams = qs.parse(location.search);
-    const { date } = newParams;
-    console.log(moment(date).format('DD/YYYY'));
-  }, [location]);
+    const { date, sortDirection } = newParams;
+    setListParam({ ...listParam, ...newParams });
+  }, []);
 
   const handleShowModal = (fullname, item) => {
     setIsShowModal(true);
@@ -90,6 +90,8 @@ function TimeKeepingTable(props) {
         setDate={setDate}
         title={t('page_header.title')}
         subTitle={`${t('page_header.month')}`}
+        params={listParam}
+        setParams={setListParam}
       />
       <Filter
         listParam={listParam}

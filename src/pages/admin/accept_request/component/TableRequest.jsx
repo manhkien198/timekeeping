@@ -75,7 +75,7 @@ const TableRequest = props => {
       key: t('time_keeping.id'),
       width: 150,
       render: (id, record, index) => {
-        return <span>{index}</span>;
+        return <span>{index + 1}</span>;
       },
     },
     {
@@ -94,8 +94,8 @@ const TableRequest = props => {
       align: 'center',
       key: t('acceptRequestor.date'),
       width: 150,
-      render: date => {
-        return <span>{date}</span>;
+      render: (date, record) => {
+        return <span>{record.date}</span>;
       },
     },
     {
