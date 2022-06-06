@@ -29,7 +29,7 @@ function App() {
     const expires_in = getToken('expires_in');
     if (refresh_token) {
       try {
-        await refreshToken({ refresh_token });
+        await refreshToken(refresh_token);
 
         setTimeout(async () => {
           await sendRequest();
