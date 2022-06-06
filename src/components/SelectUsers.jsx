@@ -1,29 +1,51 @@
-import { Select } from 'antd';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { Form, message, Select } from 'antd';
+import { useEffect, useState } from 'react';
+import UsersApi from '../api/userApi';
 import { filterOption } from '../utils/filterOption';
-
-function SelectUsers({ userSelected, setUserSelected }) {
+function SelectUsers({ setParams, params }) {
   const handleChangeUserSelected = value => {
-    setUserSelected(value);
+    setParams({ ...params, username: value });
   };
-  const usersList = useSelector(state => state.personalStatistic.users);
   const { Option } = Select;
-
+  const [form] = Form.useForm();
+  const [users, setUsers] = useState([]);
+  const fetchUsers = async () => {
+    try {
+      const res = await UsersApi.getAll();
+      setUsers(res.data);
+      form.setFieldsValue({ users: params.username || res.data[0]?.username });
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+  useEffect(() => {
+    form.setFieldsValue({ users: params.username || users[0]?.username });
+  }, [params]);
+  useEffect(() => {
+    fetchUsers();
+  }, []);
   return (
-    <Select
-      defaultValue={usersList[0]?.username}
-      style={{ width: 240, color: '#066f9b', fontWeight: 700, fontSize: 30 }}
-      showSearch
-      filterOption={filterOption}
-      onChange={handleChangeUserSelected}
-    >
-      {usersList.map(x => (
-        <Option key={x.username} value={x.username}>
-          {x.fullName}
-        </Option>
-      ))}
-    </Select>
+    <Form form={form} className="form">
+      <Form.Item name="users" className="form-item">
+        <Select
+          style={{
+            width: 240,
+            color: '#066f9b',
+            fontWeight: 700,
+            fontSize: 30,
+          }}
+          showSearch
+          filterOption={filterOption}
+          onChange={handleChangeUserSelected}
+        >
+          {users.map(x => (
+            <Option key={x.username} value={x.username}>
+              {x.fullName}
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
+    </Form>
   );
 }
 

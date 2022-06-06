@@ -1,26 +1,41 @@
-import { Button, message, Select, Table } from 'antd';
+import { Button, message, Table } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import personalStatisticApi from '../../../../api/personalStatisticApi';
 import UsersApi from '../../../../api/userApi';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import SelectUsers from '../../../../components/SelectUsers';
-import { filterOption } from '../../../../utils/filterOption';
 import { setUsers } from './reducer';
+import qs from 'query-string';
 function PersonalStatistic(props) {
   const { t } = useTranslation();
-  const [userSelected, setUserSelected] = useState('kienpm');
+  const location = useLocation();
+  const queryParams = qs.parse(location.search);
+  const [userList, setUserList] = useState([]);
+  const [params, setParams] = useState({
+    ...queryParams,
+    date: queryParams.date
+      ? queryParams.date
+      : moment(Date.now()).format('DD/MM/YYYY'),
+    username: userList ? userList?.[0]?.username : queryParams.username,
+  });
   const [dataSource, setDataSource] = useState([]);
-  const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
   const [loading, setLoading] = useState(true);
-  const { Option } = Select;
   const navi = useNavigate();
-  const usersList = useSelector(state => state.personalStatistic.users);
+  useEffect(() => {
+    navi({
+      pathname: window.location.pathname,
+      search: qs.stringify(params, {
+        skipEmptyString: true,
+      }),
+    });
+  }, [navi, params]);
+
   const columns = [
     {
       title: t('personal_statistic.day'),
@@ -57,6 +72,7 @@ function PersonalStatistic(props) {
     {
       title: t('personal_statistic.note'),
       dataIndex: 'note',
+      render: (_, row) => <p>{row?.reasonType?.name}</p>,
     },
   ];
   const dispatch = useDispatch();
@@ -64,43 +80,45 @@ function PersonalStatistic(props) {
     try {
       const res = await UsersApi.getAll();
       dispatch(setUsers(res.data));
+      setParams({
+        ...params,
+        username: queryParams.username
+          ? queryParams.username
+          : res.data[0].username,
+      });
+      setUserList(res.data);
     } catch (error) {
+      message.error(error.message);
+    }
+  };
+  const fetchPersonalStatistic = async () => {
+    try {
+      const resp = await personalStatisticApi.getAll({
+        username: params.username || userList?.[0]?.username,
+        date: params.date,
+      });
+      setDataSource(resp.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
       message.error(error.message);
     }
   };
   useEffect(() => {
     fetchUsers();
   }, []);
-  const fetchPersonalStatistic = async () => {
-    try {
-      const resp = await personalStatisticApi.getAll({
-        username: userSelected,
-        date: date,
-      });
-      setDataSource(resp.data);
-      setLoading(false);
-    } catch (error) {
-      message.error(error.message);
-      setLoading(false);
-    }
-  };
+
   useEffect(() => {
     fetchPersonalStatistic();
-  }, [userSelected, date]);
-  const handleSelectUser = value => {
-    setUserSelected(value);
-  };
+  }, [params]);
+
   return (
     <div className="personal__statistic">
       <CusomPageHeader
-        title={
-          <SelectUsers
-            userSelected={userSelected}
-            setUserSelected={setUserSelected}
-          />
-        }
+        title={<SelectUsers setParams={setParams} params={params} />}
+        params={params}
+        setParams={setParams}
         subTitle={`${t('page_header.month')}`}
-        setDate={setDate}
       />
       <Filter />
       <ButtonGroup
