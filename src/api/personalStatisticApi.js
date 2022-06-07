@@ -1,5 +1,5 @@
 import axiosClient from './axiosClient';
-import { EDIT_URL, PERSONAL_STATISTIC_URL, REASON_TYPE_URL } from './common';
+import { PERSONAL_STATISTIC_URL, REASON_TYPE_URL } from './common';
 
 const personalStatisticApi = {
   getAll(params) {
@@ -8,6 +8,5 @@ const personalStatisticApi = {
   getReasonType(params) {
     return axiosClient.get(REASON_TYPE_URL, { params });
   },
-
 };
 export default personalStatisticApi;

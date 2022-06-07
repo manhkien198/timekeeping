@@ -1,7 +1,16 @@
 import { Button, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-function ButtonGroup({ children, title, listParam, setListParam, setLoading }) {
+function ButtonGroup({
+  children,
+  title,
+  listParam,
+  setListParam,
+  setLoading,
+  total,
+  totalWork,
+  type = 1,
+}) {
   const { t } = useTranslation();
   const { Option } = Select;
 
@@ -30,7 +39,9 @@ function ButtonGroup({ children, title, listParam, setListParam, setLoading }) {
           className="personal__statistic__total total"
         >
           <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
-          <p className="total__number">7.5 / 20</p>
+          <p className="total__number">
+            {type === 1 ? total : `${total}/${totalWork}`}
+          </p>
         </div>
       ) : (
         ''
