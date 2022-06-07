@@ -10,7 +10,7 @@ import {
 import { t } from 'i18next';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import BodApi from '../../../../api/bodApi';
 import editApi from '../../../../api/editApi';
 import personalStatisticApi from '../../../../api/personalStatisticApi';
@@ -18,9 +18,19 @@ import SelectUsers from '../../../../components/SelectUsers';
 import { filterOption } from '../../../../utils/filterOption';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReasonTypeList } from './reducer';
+import qs from 'query-string';
+
 function Edit() {
   const [form] = Form.useForm();
-  const [userSelected, setUserSelected] = useState();
+  const location = useLocation();
+  const queryParams = qs.parse(location.search);
+  const usersList = useSelector(state => state.personalStatistic.users);
+  const [params, setParams] = useState({
+    username: queryParams.username || usersList[0].username,
+    date: queryParams.date
+      ? queryParams.date
+      : moment(Date.now()).format('DD/MM/YYYY'),
+  });
   const [bodList, setBodList] = useState([]);
   const [isOt, setIsOt] = useState(false);
   const [isSelect, setIsSelect] = useState(true);
@@ -37,7 +47,7 @@ function Edit() {
           checkInTime: moment(value.time[0]).format('HH:mm:ss'),
           checkOutTime: moment(value.time[1]).format('HH:mm:ss'),
         },
-        userSelected,
+        params.username,
       );
       message.success(t('edit.edit_success'));
       navi('/statistic/personal');
@@ -79,7 +89,7 @@ function Edit() {
   const handleDateChange = async (date, dateString) => {
     try {
       const resp = await editApi.getValueForm({
-        username: userSelected,
+        username: params.username,
         date: dateString,
       });
       form.setFieldsValue({
@@ -118,7 +128,7 @@ function Edit() {
   return (
     <div className="edit-form">
       <div className="edit-user">
-        <SelectUsers setUserSelected={setUserSelected} />
+        <SelectUsers params={params} setParams={setParams} />
       </div>
       <Form
         className="form"

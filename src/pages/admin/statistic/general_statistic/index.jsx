@@ -8,6 +8,7 @@ import generalStatisticApi from '../../../../api/generalStatisticApi';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
+import { getNumbersOfWeekend } from '../../../../utils/getNumbersOfWeekend';
 function GeneralStatistic() {
   const { t } = useTranslation();
 
@@ -78,8 +79,11 @@ function GeneralStatistic() {
       },
     },
   ];
-  const data = dataSource.map((x, id) => ({ id, ...x }));
-
+  const data = dataSource?.logTimeReportList?.map((x, id) => ({ id, ...x }));
+  const numbersOfWeekend = getNumbersOfWeekend(
+    moment(params.date).format('DD/MM/YYYY'),
+  );
+  const restOfWorkDay = moment(params.date).daysInMonth() - numbersOfWeekend;
   return (
     <>
       <CusomPageHeader
@@ -89,7 +93,7 @@ function GeneralStatistic() {
         setParams={setParams}
       />
       <Filter />
-      <ButtonGroup />
+      <ButtonGroup total={dataSource.totalWages} totalWork={restOfWorkDay} />
       <Table dataSource={data} columns={columns} rowKey="id" />
     </>
   );

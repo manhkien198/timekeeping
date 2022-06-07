@@ -7,13 +7,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { setToken } from '../../api/Cookie';
 import bg from '../../assets/images/login/bg.png';
 import logo from '../../assets/images/login/logoHivetech.png';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import { setUsername } from './authReducer';
 
 const Login = () => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   const navi = useNavigate();
-  const dispatch= useDispatch();
+  const dispatch = useDispatch();
   const onFinish = value => {
     const { username, password } = value;
     axios
@@ -32,6 +32,8 @@ const Login = () => {
       .then(response => {
         setToken(response.data.access_token, 'Access_Token');
         setToken(response.data.refresh_token, 'Refresh_Token');
+        setToken(response.data.expires_in, 'expires_in');
+
         const accesstokenParsed = jwt_decode(response.data.access_token);
         dispatch(setUsername(accesstokenParsed.preferred_username));
         navi('/');

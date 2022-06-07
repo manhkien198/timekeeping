@@ -1,8 +1,9 @@
 import { Button, message, Table } from 'antd';
 import moment from 'moment';
+import qs from 'query-string';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import personalStatisticApi from '../../../../api/personalStatisticApi';
 import UsersApi from '../../../../api/userApi';
@@ -10,8 +11,8 @@ import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import SelectUsers from '../../../../components/SelectUsers';
+import { getNumbersOfWeekend } from '../../../../utils/getNumbersOfWeekend';
 import { setUsers } from './reducer';
-import qs from 'query-string';
 function PersonalStatistic(props) {
   const { t } = useTranslation();
   const location = useLocation();
@@ -22,7 +23,7 @@ function PersonalStatistic(props) {
     date: queryParams.date
       ? queryParams.date
       : moment(Date.now()).format('DD/MM/YYYY'),
-    username: userList ? userList?.[0]?.username : queryParams.username,
+    username: userList?.[0]?.username || queryParams.username,
   });
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,7 +73,13 @@ function PersonalStatistic(props) {
     {
       title: t('personal_statistic.note'),
       dataIndex: 'note',
-      render: (_, row) => <p>{row?.reasonType?.name}</p>,
+      render: (_, row) => (
+        <p>
+          {row.reasonType
+            ? `${row?.reasonType?.type} : ${row?.reasonType?.name}`
+            : ''}
+        </p>
+      ),
     },
   ];
   const dispatch = useDispatch();
@@ -109,9 +116,14 @@ function PersonalStatistic(props) {
   }, []);
 
   useEffect(() => {
-    fetchPersonalStatistic();
+    if (userList.length) {
+      fetchPersonalStatistic();
+    }
   }, [params]);
-
+  const numbersOfWeekend = getNumbersOfWeekend(
+    moment(params.date).format('DD/MM/YYYY'),
+  );
+  const restOfWorkDay = moment(params.date).daysInMonth() - numbersOfWeekend;
   return (
     <div className="personal__statistic">
       <CusomPageHeader
@@ -122,18 +134,23 @@ function PersonalStatistic(props) {
       />
       <Filter />
       <ButtonGroup
+        total={dataSource.totalWages}
+        totalWork={restOfWorkDay}
+        type={2}
         children={
           <Button
             type="link"
             style={{ color: '#066F9B', fontWeight: 700 }}
-            onClick={() => navi('/statistic/personal/edit')}
+            onClick={() =>
+              navi(`/statistic/personal/edit?username=${params.username}`)
+            }
           >
             {t('personal_statistic.edit')}
           </Button>
         }
       />
       <Table
-        dataSource={dataSource}
+        dataSource={dataSource.logTimeReportList}
         columns={columns}
         rowKey="id"
         loading={loading}

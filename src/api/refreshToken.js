@@ -18,6 +18,7 @@ export const refreshToken = async refresh_token => {
     .then(response => {
       setToken(response.data.access_token, 'Access_Token');
       setToken(response.data.refresh_token, 'Refresh_Token');
+      setToken(response.data.expires_in, 'expires_in');
     })
     .catch(error => {
       message.error(i18n.t('login.timeout'));
