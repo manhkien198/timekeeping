@@ -8,20 +8,19 @@ const iconDown = <DownOutline />;
 const { Title } = Typography;
 const { Option } = Select;
 
-
-function Calendar(props) {
-  const {t} = useTranslation()
+function Request(props) {
+  const { t } = useTranslation();
   const ask = [
-    t("request.resignation"),
-    t("request.overtime"),
-    t("request.late")
-    ];
-  
+    t('request.resignation'),
+    t('request.overtime'),
+    t('request.late'),
+  ];
+
   return (
     <>
       <PageHeader style={{ padding: '0' }}>
         <Title style={{ padding: '0px 19px' }} level={2}>
-          {t("request.request")}:
+          {t('request.request')}:
           <Title
             style={{
               display: 'inline',
@@ -31,7 +30,7 @@ function Calendar(props) {
             level={2}
           >
             <Select
-              defaultValue={t("request.resignation")}
+              defaultValue={t('request.resignation')}
               suffixIcon={iconDown}
               style={{
                 color: '#066F9B',
@@ -59,4 +58,4 @@ function Calendar(props) {
   );
 }
 
-export default Calendar;
+export default Request;

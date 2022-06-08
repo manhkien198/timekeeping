@@ -26,8 +26,8 @@ function ButtonGroup({
         style={{ width: 140 }}
         onChange={handleSortByFullName}
       >
-        <Option value="ASC">{t('sortByFullName.asc')}</Option>
-        <Option value="DESC">{t('sortByFullName.desc')}</Option>
+        <Option value="ASC">{t('sort.approved')}</Option>
+        <Option value="DESC">{t('sort.unapproved')}</Option>
       </Select>
       {children ? children : ''}
       <Button type="link" style={{ color: '#066F9B', fontWeight: 700 }}>
@@ -40,7 +40,11 @@ function ButtonGroup({
         >
           <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
           <p className="total__number">
-            {type === 1 ? total : `${total}/${totalWork}`}
+            {type === 1
+              ? total
+              : total
+              ? `${total}/${totalWork}`
+              : `0/${totalWork}`}
           </p>
         </div>
       ) : (

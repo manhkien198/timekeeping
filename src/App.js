@@ -18,7 +18,7 @@ import ForgotPassword from './pages/auth/ForgotPassword';
 import Login from './pages/auth/Login';
 import Personal from './pages/personal';
 import Setting from './pages/setting';
-import Calendar from './pages/user/calendar';
+import Request from './pages/user/calendar';
 import TimeKeeping from './pages/user/timeKeeping';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
     const expires_in = getToken('expires_in');
     if (refresh_token) {
       try {
-        await refreshToken({ refresh_token });
+        await refreshToken(refresh_token);
 
         setTimeout(async () => {
           await sendRequest();
@@ -57,7 +57,7 @@ function App() {
           <>
             <Route path="time_keeping" element={<TimeKeeping />} />
             <Route index element={<TimeKeeping />} />
-            <Route path="calendar" element={<Calendar />} />
+            <Route path="request" element={<Request />} />
           </>
         ) : (
           <>
