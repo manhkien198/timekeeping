@@ -3,7 +3,6 @@ import moment from 'moment';
 import qs from 'query-string';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import generalStatisticApi from '../../../../api/generalStatisticApi';
 import UsersApi from '../../../../api/userApi';
@@ -64,36 +63,47 @@ function GeneralStatistic() {
       dataIndex: 'fullName',
     },
     {
-      title: t('general_table.work_day'),
-      dataIndex: 'workDays',
+      title: `Tháng ${params.date.split('/')[1]}`,
+      children: [
+        {
+          title: t('general_table.work_day'),
+          dataIndex: 'workDays',
+        },
+        {
+          title: t('general_table.paid_leave'),
+          dataIndex: 'pdays',
+        },
+        {
+          title: t('general_table.unpaid_leave'),
+          dataIndex: 'offDays',
+        },
+        {
+          title: t('general_table.ot'),
+          dataIndex: 'overTimes',
+        },
+      ],
     },
+
     {
-      title: t('general_table.paid_leave'),
-      dataIndex: 'pdays',
-    },
-    {
-      title: t('general_table.unpaid_leave'),
-      dataIndex: 'offDays',
-    },
-    {
-      title: t('general_table.ot'),
-      dataIndex: 'overTimes',
-    },
-    {
-      title: t('general_table.total_day_off'),
-      dataIndex: 'total_day_off',
-      render: () => <span>12</span>,
-    },
-    {
-      title: t('general_table.day_off'),
-      dataIndex: 'pdaysUsed',
-    },
-    {
-      title: t('general_table.day_off'),
-      dataIndex: 'rest',
-      render: (_, row) => {
-        return <span>{12 - row.pdaysUsed}</span>;
-      },
+      title: `Năm ${params.date.split('/')[2]}`,
+      children: [
+        {
+          title: t('general_table.total_day_off'),
+          dataIndex: 'total_day_off',
+          render: () => <span>12</span>,
+        },
+        {
+          title: t('general_table.used_day'),
+          dataIndex: 'pdaysUsed',
+        },
+        {
+          title: t('general_table.rest_day'),
+          dataIndex: 'rest',
+          render: (_, row) => {
+            return <span>{12 - row.pdaysUsed}</span>;
+          },
+        },
+      ],
     },
   ];
   const data = dataSource?.logTimeReportList?.map((x, id) => ({
@@ -118,7 +128,7 @@ function GeneralStatistic() {
         totalWork={restOfWorkDay}
         items={dataBtnGroup}
       />
-      <Table dataSource={data} columns={columns} rowKey="id" />
+      <Table dataSource={data} columns={columns} rowKey="id" bordered />
     </>
   );
 }
