@@ -20,6 +20,11 @@
 .statistic .ant-menu-submenu-arrow {
   display: none !important;
 }
+.statistic {
+  .ant-menu-item {
+    padding-left: 0 !important;
+  }
+}
 .main-layout {
   flex-direction: row;
   height: calc(100vh - 72px);
@@ -29,6 +34,7 @@
   left: 0;
   top: 72px;
   height: 100vh;
+  transition: all 0.2s linear !important;
 }
 #components-layout-demo-custom-trigger .trigger {
   padding: 0 24px;
@@ -56,7 +62,6 @@
 }
 .site-layout .site-layout-background {
   background: #fff;
-  border-top: 1px solid rgb(231, 231, 231);
   margin: 0 !important;
 }
 .ant-layout-sider {
@@ -78,7 +83,6 @@
 .ant-menu {
   height: 100%;
   padding-left: 20px;
-  position: relative;
 }
 .general__item {
   position: absolute;
@@ -87,4 +91,19 @@
 }
 .ant-menu-sub {
   background: #fff !important;
+}
+.logo {
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgb(231, 231, 231);
+  p {
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 30px;
+  }
+}
+.logo-none {
+  display: none;
 }

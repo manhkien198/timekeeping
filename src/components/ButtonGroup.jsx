@@ -8,6 +8,8 @@ function ButtonGroup({
   setListParam,
   setLoading,
   total,
+  isExport = true,
+  items,
   totalWork,
   type = 1,
 }) {
@@ -23,16 +25,19 @@ function ButtonGroup({
       <Select
         className="filter-select"
         defaultValue={t('page_header.filter')}
-        style={{ width: 140 }}
+        style={{ width: 240 }}
         onChange={handleSortByFullName}
       >
-        <Option value="ASC">{t('sort.approved')}</Option>
-        <Option value="DESC">{t('sort.unapproved')}</Option>
+        {items.map(x => (
+          <Option value={x.id}>{x.title}</Option>
+        ))}
       </Select>
       {children ? children : ''}
-      <Button type="link" style={{ color: '#066F9B', fontWeight: 700 }}>
-        {t('page_header.export')}
-      </Button>
+      {isExport && (
+        <Button type="link" style={{ color: '#066F9B', fontWeight: 700 }}>
+          {t('page_header.export')}
+        </Button>
+      )}
       {title !== t('acceptRequestor.request') ? (
         <div
           style={{ marginTop: '20px' }}

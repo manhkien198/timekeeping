@@ -1,17 +1,34 @@
-import { Table } from 'antd';
+import { message, Table } from 'antd';
 import moment from 'moment';
 import qs from 'query-string';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import generalStatisticApi from '../../../../api/generalStatisticApi';
+import UsersApi from '../../../../api/userApi';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import { getNumbersOfWeekend } from '../../../../utils/getNumbersOfWeekend';
 function GeneralStatistic() {
   const { t } = useTranslation();
+  const [userList, setUserList] = useState([]);
+  const fetchUsers = async () => {
+    try {
+      const res = await UsersApi.getAll();
 
+      setUserList(res.data);
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  const dataBtnGroup = userList
+    ? userList.map((user, id) => ({ ...user, id, title: user.fullName }))
+    : [];
   const location = useLocation();
   const queryParams = qs.parse(location.search);
   const [params, setParams] = useState({
@@ -96,7 +113,11 @@ function GeneralStatistic() {
         setParams={setParams}
       />
       <Filter />
-      <ButtonGroup total={dataSource.totalWages} totalWork={restOfWorkDay} />
+      <ButtonGroup
+        total={dataSource.totalWages}
+        totalWork={restOfWorkDay}
+        items={dataBtnGroup}
+      />
       <Table dataSource={data} columns={columns} rowKey="id" />
     </>
   );

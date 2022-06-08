@@ -29,7 +29,7 @@ function SelectUsers({ setParams, params }) {
       <Form.Item name="users" className="form-item">
         <Select
           style={{
-            width: 240,
+            width: 300,
             color: '#066f9b',
             fontWeight: 700,
             fontSize: 30,
