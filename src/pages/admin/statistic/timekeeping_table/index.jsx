@@ -12,9 +12,11 @@ import moment from 'moment';
 import { convertArrayToParamsWithDash } from '../../../../utils/convertArrayToParamsWithDash';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../../../../constants/common';
+import qs from 'query-string';
 function TimeKeepingTable(props) {
   const location = useLocation();
   const navigate = useNavigate();
+  const queryParams = qs.parse(location.search)
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
   const { t } = useTranslation();
   const [month, setMonth] = useState();
@@ -25,11 +27,14 @@ function TimeKeepingTable(props) {
   const [dataModal, setDataModal] = useState({});
   const [loading, setLoading] = useState(true);
   const [listParam, setListParam] = useState({
-    date: date,
+    date: queryParams.date
+    ? queryParams.date
+    : date,
     currentPage: DEFAULT_PAGE,
     limit: DEFAULT_LIMIT,
     keyword: '',
     sortDirection: 'ASC',
+    ...queryParams
   });
   useEffect(() => {
     const date = new Date();
@@ -41,11 +46,6 @@ function TimeKeepingTable(props) {
     const dayInMonth = get_day_of_month(year, month);
     setDay(dayInMonth);
   }, [month, year, date]);
-
-  useEffect(() => {
-    setListParam({ ...listParam, date });
-    setLoading(true);
-  }, [date]);
 
   const handleShowModal = (fullname, item) => {
     setIsShowModal(true);
@@ -83,6 +83,8 @@ function TimeKeepingTable(props) {
         setDate={setDate}
         title={t('page_header.title')}
         subTitle={`${t('page_header.month')}`}
+        params={listParam}
+        setParams={setListParam}
       />
       <Filter
         listParam={listParam}

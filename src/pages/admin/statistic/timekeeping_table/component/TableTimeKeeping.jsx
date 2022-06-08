@@ -15,10 +15,11 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
         width: 100,
         key: i.toString(),
         render: (status, value) => {
+      
           return (
             <div>
-              {value?.logTimes &&
-                value?.logTimes?.map(item => {
+              {value?.logTimeReportList &&
+                value?.logTimeReportList?.map(item => {
                   const date = i < 10 ? `0${i}` : i;
                   if (
                     item?.date === `${date}/${month}` &&
@@ -59,9 +60,9 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
       align: 'center',
       key: t('time_keeping.id'),
       fixed: 'left',
-      width: 150,
+      width: 70,
       render: (id, record, index) => {
-        return <p>{index}</p>;
+        return <p>{index + 1}</p>;
       },
     },
     {
@@ -69,7 +70,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
       dataIndex: 'fullname',
       align: 'center',
       fixed: 'left',
-      width: 100,
+      width: 200,
       key: t('time_keeping.fullName'),
       render: fullname => {
         return <p>{fullname}</p>;

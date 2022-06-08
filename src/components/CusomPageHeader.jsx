@@ -8,7 +8,6 @@ function CusomPageHeader({
   setMonth,
   setYear,
   setDate,
-  date,
   params,
   setParams,
 }) {
@@ -20,6 +19,7 @@ function CusomPageHeader({
       setMonth(month + 1);
       setYear(year);
     }
+    setDate(`01/${valueString}`);
     setParams({ ...params, date: `01/${valueString}` });
   };
   return (
@@ -44,8 +44,8 @@ function CusomPageHeader({
             width: 180,
           }}
           defaultValue={
-            moment(params.date, 'DD/MM/YYYY')
-              ? moment(params.date, 'DD/MM/YYYY')
+            moment(params?.date, 'DD/MM/YYYY')
+              ? moment(params?.date, 'DD/MM/YYYY')
               : moment(momentNow, 'MM/YYYY')
           }
         />
