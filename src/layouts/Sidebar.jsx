@@ -47,6 +47,9 @@ function Sidebar({ collapsed }) {
 
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} width={270}>
+      <div className={!collapsed ? 'logo' : 'logo-none'}>
+        <p>CO.SY</p>
+      </div>
       <Menu
         theme="light"
         mode="inline"
