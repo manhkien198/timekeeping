@@ -64,7 +64,7 @@
     "cancel": "Hủy"
   },
   "login": {
-    "header": "HiveTech Recruits Management",
+    "header": "HiveTech TimeKeeping",
     "title": "LOGIN",
     "loginFailed": "Tài khoản hoặc mật khẩu không chính xác",
     "lockedAccount": "Tài khoản đang bị khóa, liên hệ Admin để được hỗ trợ",

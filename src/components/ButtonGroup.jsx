@@ -8,6 +8,7 @@ function ButtonGroup({
   setListParam,
   setLoading,
   total,
+  items,
   totalWork,
   type = 1,
 }) {
@@ -26,8 +27,9 @@ function ButtonGroup({
         style={{ width: 140 }}
         onChange={handleSortByFullName}
       >
-        <Option value="ASC">{t('sort.approved')}</Option>
-        <Option value="DESC">{t('sort.unapproved')}</Option>
+        {items.map(x => (
+          <Option value={x.id}>{x.title}</Option>
+        ))}
       </Select>
       {children ? children : ''}
       <Button type="link" style={{ color: '#066F9B', fontWeight: 700 }}>
