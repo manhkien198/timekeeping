@@ -1,4 +1,4 @@
-import { Menu } from 'antd';
+import { Divider, Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { useEffect, useState } from 'react';
@@ -6,6 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { clearCookie } from '../api/Cookie';
+import LogoutIcon from '../components/icons/LogoutIcon';
+import SettingIcon from '../components/icons/SettingIcon';
+import UserIcon from '../components/icons/UserIcon';
 import {
   DEFAULT_SELECTED_ADMIN,
   DEFAULT_SELECTED_MENU_SIDEBAR,
@@ -13,6 +16,8 @@ import {
 } from '../constants/common';
 
 import { ADMIN_ROUTES, LIST_ROUTES } from '../constants/common/routes';
+import AdminSidebar from './AdminSidebar';
+import UserSidebar from './UserSidebar';
 function Sidebar({ collapsed }) {
   const { t } = useTranslation();
   const location = useLocation();
@@ -55,41 +60,31 @@ function Sidebar({ collapsed }) {
             : DEFAULT_SELECTED_ADMIN,
         ]}
       >
-        {!isAdmin
-          ? LIST_ROUTES.map(x => (
-              <Menu.Item key={x.path} icon={x.icon}>
-                <Link to={x.path}>{t(`sidebar.${x.title}`)}</Link>
-              </Menu.Item>
-            ))
-          : ADMIN_ROUTES.map(x => {
-              return x.childs?.length ? (
-                <SubMenu
-                  key={x.path}
-                  icon={x.icon}
-                  title={t(`sidebar.${x.title}`)}
-                >
-                  {x.childs.map(y => (
-                    <Menu.Item key={y.path} icon={y.icon}>
-                      <Link to={y.path}>{t(`sidebar.${y.title}`)}</Link>
-                    </Menu.Item>
-                  ))}
-                </SubMenu>
-              ) : (
-                <Menu.Item
-                  key={x.path}
-                  icon={x.icon}
-                  className={x.className ? x.className : ''}
-                >
-                  {x.title === LOGOUT ? (
-                    <Link to={x.path} onClick={() => clearCookie()}>
-                      {t(`sidebar.${x.title}`)}
-                    </Link>
-                  ) : (
-                    <Link to={x.path}>{t(`sidebar.${x.title}`)}</Link>
-                  )}
-                </Menu.Item>
-              );
-            })}
+        <div>
+          {!isAdmin ? <UserSidebar /> : <AdminSidebar collapsed={collapsed} />}
+        </div>
+        <div className="general__item">
+          {!collapsed && <Divider />}
+          <Menu.Item key="/personal" icon={<UserIcon />} className="menu__item">
+            <Link to="/personal">
+              {!collapsed
+                ? isAdmin
+                  ? t(`sidebar.admin`)
+                  : t(`sidebar.personal`)
+                : ''}
+            </Link>
+          </Menu.Item>
+          <Menu.Item
+            key="/setting"
+            icon={<SettingIcon />}
+            className="menu__item"
+          >
+            <Link to="/setting">{collapsed ? '' : t(`sidebar.setting`)}</Link>
+          </Menu.Item>
+          <Menu.Item key="/login" icon={<LogoutIcon />} className="menu__item">
+            <Link to="/login">{collapsed ? '' : t(`sidebar.logout`)}</Link>
+          </Menu.Item>
+        </div>
       </Menu>
     </Sider>
   );

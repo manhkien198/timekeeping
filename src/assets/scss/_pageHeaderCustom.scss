@@ -3,7 +3,7 @@
   align-items: center;
   padding-left: 0;
   .ant-page-header-heading-title {
-    font-weight: 400;
+    font-weight: 700;
     font-style: normal;
     font-size: 30px;
     overflow: unset;
@@ -34,4 +34,8 @@
   .ant-select-arrow {
     color: #066f9b;
   }
+}
+.ant-select-selector {
+  border: none !important;
+  box-shadow: unset !important;
 }

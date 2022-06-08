@@ -7,7 +7,7 @@
   },
   "sidebar": {
     "time_keeping": "Chấm công",
-    "calendar": "Calendar",
+    "request": "Yêu cầu",
     "personal": "Cá nhân",
     "setting": "Cài đặt",
     "logout": "Đăng xuất",
@@ -143,8 +143,8 @@
     "date_msg": "Vui lòng chọn ngày",
     "edit_success": "Sửa thành công"
   },
-  "sortByFullName": {
-    "asc": "Tăng dần",
-    "desc": "Giảm dần"
+  "sort": {
+    "approved": "Phê duyệt",
+    "unapproved": "Chưa phê duyệt"
   }
 }

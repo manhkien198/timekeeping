@@ -7,7 +7,7 @@
   },
   "sidebar": {
     "time_keeping": "Time Keeping",
-    "calendar": "Calendar",
+    "request": "Request",
     "personal": "Personal",
     "setting": "Setting",
     "logout": "Log out",
@@ -133,8 +133,8 @@
     "date_msg": "Date is required",
     "edit_success": "Edit successfully"
   },
-  "sortByFullName": {
-    "asc": "Tăng dần",
-    "desc": "Giảm dần"
+  "sort": {
+    "approved": "Approved",
+    "unapproved": "Unapproved"
   }
 }

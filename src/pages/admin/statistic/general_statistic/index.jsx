@@ -79,7 +79,10 @@ function GeneralStatistic() {
       },
     },
   ];
-  const data = dataSource?.logTimeReportList?.map((x, id) => ({ id, ...x }));
+  const data = dataSource?.logTimeReportList?.map((x, id) => ({
+    id: id + 1,
+    ...x,
+  }));
   const numbersOfWeekend = getNumbersOfWeekend(
     moment(params.date).format('DD/MM/YYYY'),
   );
