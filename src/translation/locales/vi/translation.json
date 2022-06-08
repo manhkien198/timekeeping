@@ -27,7 +27,9 @@
     "paid_leave": "Nghỉ có lương",
     "total_day_off": "Tổng ngày phép",
     "rest": "Ngày phép còn lại",
-    "ot": "OT"
+    "ot": "OT",
+    "used_day": "Ngày P đã nghỉ",
+    "rest_day": "Ngày P còn lại"
   },
   "filter": {
     "search": "Tìm kiếm"

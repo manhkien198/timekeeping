@@ -27,7 +27,9 @@
     "paid_leave": "Paid leave",
     "total_day_off": "Total Day Off",
     "rest": "Rest",
-    "ot": "OT"
+    "ot": "OT",
+    "used_day": "Used Day",
+    "rest_day": "Rest Day"
   },
   "filter": {
     "search": "Search"
