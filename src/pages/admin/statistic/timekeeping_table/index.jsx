@@ -16,6 +16,7 @@ import qs from 'query-string';
 function TimeKeepingTable(props) {
   const location = useLocation();
   const navigate = useNavigate();
+  const queryParams = qs.parse(location.search)
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
   const { t } = useTranslation();
   const [month, setMonth] = useState();
@@ -26,11 +27,14 @@ function TimeKeepingTable(props) {
   const [dataModal, setDataModal] = useState({});
   const [loading, setLoading] = useState(true);
   const [listParam, setListParam] = useState({
-    date: date,
+    date: queryParams.date
+    ? queryParams.date
+    : date,
     currentPage: DEFAULT_PAGE,
     limit: DEFAULT_LIMIT,
     keyword: '',
     sortDirection: 'ASC',
+    ...queryParams
   });
   useEffect(() => {
     const date = new Date();
@@ -42,17 +46,6 @@ function TimeKeepingTable(props) {
     const dayInMonth = get_day_of_month(year, month);
     setDay(dayInMonth);
   }, [month, year, date]);
-
-  useEffect(() => {
-    setListParam({ ...listParam, date });
-    setLoading(true);
-  }, [date]);
-
-  useEffect(() => {
-    const newParams = qs.parse(location.search);
-    const { date, sortDirection } = newParams;
-    setListParam({ ...listParam, ...newParams });
-  }, []);
 
   const handleShowModal = (fullname, item) => {
     setIsShowModal(true);
