@@ -15,10 +15,11 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
         width: 100,
         key: i.toString(),
         render: (status, value) => {
+      
           return (
             <div>
-              {value?.logTimes &&
-                value?.logTimes?.map(item => {
+              {value?.logTimeReportList &&
+                value?.logTimeReportList?.map(item => {
                   const date = i < 10 ? `0${i}` : i;
                   if (
                     item?.date === `${date}/${month}` &&
