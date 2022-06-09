@@ -101,7 +101,9 @@
     "request": "Yêu Cầu",
     "resignation": "xin nghỉ",
     "overtime": "xin Tăng ca",
-    "late": "xin đi muộn"
+    "late": "xin đi muộn",
+    "approve": "phê duyệt",
+    "unapprove": "không phê duyệt"
   },
   "popup": {
     "hello": "xin chào ",

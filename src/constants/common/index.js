@@ -28,11 +28,11 @@ export const REFRESH_TOKEN_TIME_UNIT = 900;
 export const STATUS_REQUEST= [
   {
     id:1,
-    title:"Chưa phê duyệt"
+    title:i18n.t('request.approve')
   },
   {
     id:2,
-    title:"Phê duyệt"
+    title:i18n.t('request.unapprove')
   }
 ]
 // export const STATUS_

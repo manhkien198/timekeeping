@@ -32,15 +32,15 @@ const TableRequest = props => {
     try {
       Modal.confirm({
         title: (
-          <span style={{fontSize:'20px', fontWeight:'bold'}}>{t('acceptRequestor.titleConfirm')}</span>),
-        content: ( <span style={{fontSize:'15px'}}>{t('acceptRequestor.questionConfirm')}</span>),
+        <span className="fs-20 fw-bold">{t('acceptRequestor.titleConfirm')}</span>),
+        content: ( <span className="fs-15">{t('acceptRequestor.questionConfirm')}</span>),
         icon: <ExclamationCircleOutlined />,
         onOk() {
           handleConfirmOk(value);
         },
         okType: 'danger',
-        okText: (<span style={{fontSize:'15px'}}>{t('acceptRequestor.yes')}</span>),
-        cancelText: (<span style={{fontSize:'15px'}}>{t('acceptRequestor.no')}</span>),
+        okText: (<span className="fs-15">{t('acceptRequestor.yes')}</span>),
+        cancelText: (<span className="fs-15">{t('acceptRequestor.no')}</span>),
       });
     } catch (error) {
       console.log(error);

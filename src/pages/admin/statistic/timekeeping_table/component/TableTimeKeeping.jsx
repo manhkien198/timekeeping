@@ -4,18 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { isWeekend } from "../constant";
 const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) => {
   const [listDayOnMonth, setListDayOnMonth] = useState([]);
- new Date('2022-09-24');
   const { t } = useTranslation();
   const renderDayOnMonth = () => {
     let arrDay = [];
-
     for (let i = 1; i <= day; i++) {
       const date = i < 10 ? `0${i}` : i;
       let day = new Date(`${year}/${month}/${date}`)
       let dayObj = {
         title: (
           <div>
-            {isWeekend(day) ? <span style={{color: '#E11274'}}>{i.toString()}</span>: <span>{i.toString()}</span>}
+            {isWeekend(day) ? <span className="weekend">{i.toString()}</span>: <span>{i.toString()}</span>}
           </div>
         ),
         dataIndex: 'date',
@@ -37,11 +35,12 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) 
                       <Tooltip
                         placement="topLeft"
                         title={item?.reasonType?.type}
-                        style={{ color: '#E11274', backgroundColor: 'white' }}
+                        className="weekend"
+                        style={{ backgroundColor: 'white' }}
                       >
                         <span
                           onClick={() => handleShowModal(value?.fullname, item)}
-                          style={{ color: '#E11274' }}
+                          className="weekend"
                         >
                           X
                         </span>
@@ -52,11 +51,11 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) 
                     <Tooltip
                     placement="topLeft"
                     title={item?.reasonType?.type}
-                    style={{ color: '#E11274', backgroundColor: 'white' }}
+                    className="weekend bg-white"
                   >
                     <span
                       onClick={() => handleShowModal(value?.fullname, item)}
-                      style={{ color: '#E11274' }}
+                      className="weekend"
                     >
                       O
                     </span>
