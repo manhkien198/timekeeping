@@ -11,7 +11,7 @@ import TimeKeepingApi from '../../../../api/time_keeping/TimeKeepingApi';
 import moment from 'moment';
 import { convertArrayToParamsWithDash } from '../../../../utils/convertArrayToParamsWithDash';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../../../../constants/common';
+import { DEFAULT_LIMIT, DEFAULT_PAGE, STATUS_REQUEST } from '../../../../constants/common';
 import qs from 'query-string';
 function TimeKeepingTable(props) {
   const location = useLocation();
@@ -85,6 +85,7 @@ function TimeKeepingTable(props) {
         subTitle={`${t('page_header.month')}`}
         params={listParam}
         setParams={setListParam}
+        
       />
       <Filter
         listParam={listParam}
@@ -95,12 +96,14 @@ function TimeKeepingTable(props) {
         listParam={listParam}
         setListParam={setListParam}
         setLoading={setLoading}
+        items={STATUS_REQUEST}
       />
       <div className="table">
         <TableTimeKeeping
           loading={loading}
           data={data}
           day={day}
+          year={year}
           month={date?.slice(3, 5)}
           handleShowModal={handleShowModal}
         />

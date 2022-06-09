@@ -1,15 +1,21 @@
 import { Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
+import { isWeekend } from "../constant";
+const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) => {
   const [listDayOnMonth, setListDayOnMonth] = useState([]);
   const { t } = useTranslation();
   const renderDayOnMonth = () => {
     let arrDay = [];
-
     for (let i = 1; i <= day; i++) {
+      const date = i < 10 ? `0${i}` : i;
+      let day = new Date(`${year}/${month}/${date}`)
       let dayObj = {
-        title: i.toString(),
+        title: (
+          <div>
+            {isWeekend(day) ? <span className="weekend">{i.toString()}</span>: <span>{i.toString()}</span>}
+          </div>
+        ),
         dataIndex: 'date',
         align: 'center',
         width: 100,
@@ -20,26 +26,44 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
             <div>
               {value?.logTimeReportList &&
                 value?.logTimeReportList?.map(item => {
-                  const date = i < 10 ? `0${i}` : i;
                   if (
                     item?.date === `${date}/${month}` &&
                     item?.reasonType !== null
-                  ) {
+                  ){
+                    if(item.checkInTime !== null){
                     return (
                       <Tooltip
                         placement="topLeft"
                         title={item?.reasonType?.type}
-                        style={{ color: '#E11274', backgroundColor: 'white' }}
+                        className="weekend"
+                        style={{ backgroundColor: 'white' }}
                       >
                         <span
                           onClick={() => handleShowModal(value?.fullname, item)}
-                          style={{ color: '#E11274' }}
+                          className="weekend"
                         >
                           X
                         </span>
                       </Tooltip>
-                    );
-                  } else if (item?.date === `${date}/${month}`) {
+                    )
+                  }else{
+                    return (
+                    <Tooltip
+                    placement="topLeft"
+                    title={item?.reasonType?.type}
+                    className="weekend bg-white"
+                  >
+                    <span
+                      onClick={() => handleShowModal(value?.fullname, item)}
+                      className="weekend"
+                    >
+                      O
+                    </span>
+                  </Tooltip>
+                    )
+                  }
+                  }
+                   else if (item?.date === `${date}/${month}`) {
                     return <span>X</span>;
                   }
                   return <></>;
@@ -97,7 +121,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading }) => {
   return (
     <div>
       <Table
-        loading={loading}
+        // loading={loading}
         rowKey={'id'}
         columns={column}
         dataSource={data}

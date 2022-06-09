@@ -1,62 +1,79 @@
-.acceptRequest{
-  .title_filterMonth{
+.acceptRequest {
+  .title_filterMonth {
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 0;
   }
-  .datePicker_month{
+
+  .datePicker_month {
     width: 200px;
     border: none;
     color: #066F9B;
   }
-  .ant-form-item-label > label::after {
+
+  .ant-form-item-label>label::after {
     content: "";
   }
+
   #dateTime {
     font-size: 30px;
     font-weight: 700;
     color: #066f9b;
   }
-  .ant-row{
+
+  .ant-row {
     display: flex;
     align-items: center;
   }
+
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     border: none;
     font-size: 20px;
     font-weight: 700;
     color: #066F9B;
   }
-  .ant-select-selection-item{
+
+  .ant-select-selection-item {
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
   }
-  .ant-select-selection-item::after{
+
+  .ant-select-selection-item::after {
     background-color: #066F9B;
   }
-  .ant-select-single.ant-select-show-arrow .ant-select-selection-item{
+
+  .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
     padding-right: 50px;
   }
-  thead .ant-table-cell{
+
+  thead .ant-table-cell {
     font-weight: bold;
   }
-  tbody .ant-table-cell{
+
+  tbody .ant-table-cell {
     font-size: 20px;
   }
-  .request__action{
+
+  .request__action {
     display: flex;
     flex-direction: column;
-    button{
+
+    button {
       display: flex;
       align-items: center;
       gap: 5px;
     }
   }
 }
-.reason_content{
+
+.reason_content {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.ant-btn {
+  height: auto !important;
 }

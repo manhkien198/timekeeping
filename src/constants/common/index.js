@@ -25,3 +25,14 @@ export const DEFAULT_LIMIT = 10;
 export const CONFIRM_LATE = '/checkin';
 export const ID_DESC = 'id-DESC';
 export const REFRESH_TOKEN_TIME_UNIT = 900;
+export const STATUS_REQUEST= [
+  {
+    id:1,
+    title:i18n.t('request.approve')
+  },
+  {
+    id:2,
+    title:i18n.t('request.unapprove')
+  }
+]
+// export const STATUS_
