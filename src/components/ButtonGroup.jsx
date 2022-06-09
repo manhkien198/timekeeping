@@ -21,7 +21,7 @@ function ButtonGroup({
     setLoading(true);
   };
   return (
-    <div style={{ marginBottom: 42 }}>
+    <div >
       <Select
         className="filter-select"
         defaultValue={t('page_header.filter')}

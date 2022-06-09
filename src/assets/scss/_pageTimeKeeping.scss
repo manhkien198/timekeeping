@@ -55,8 +55,16 @@
     font-size: 20px;
   }
 
+  .page-header-content {
+    padding: 0;
+  }
+
   .ant-table-body::-webkit-scrollbar {
     height: 10px !important;
+  }
+
+  .ant-table-expanded-row-fixed {
+    min-height: 400px;
   }
 }
 
