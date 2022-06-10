@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import CalendarIcon from '../components/icons/CalendarIcon';
 import SendIcon from '../components/icons/SendIcon';
 
-function UserSidebar(props) {
+function UserSidebar() {
   const { t } = useTranslation();
   return (
     <>

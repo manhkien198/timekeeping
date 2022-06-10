@@ -1,5 +1,4 @@
 import { Menu } from 'antd';
-import SubMenu from 'antd/lib/menu/SubMenu';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -9,6 +8,8 @@ import ChartIcon from '../components/icons/ChartIcon';
 import StatisticIcon from '../components/icons/StatisticIcon';
 import SubUserIcon from '../components/icons/SubUserIcon';
 
+const { SubMenu } = Menu;
+
 function AdminSidebar({ collapsed }) {
   const { t } = useTranslation();
   return (
@@ -16,6 +17,7 @@ function AdminSidebar({ collapsed }) {
       <Menu.Item key="/accept_request" icon={<AcceptIcon />}>
         <Link to="/accept_request">{t(`sidebar.accept_request`)}</Link>
       </Menu.Item>
+
       <SubMenu
         key="/statistic"
         icon={<StatisticIcon />}

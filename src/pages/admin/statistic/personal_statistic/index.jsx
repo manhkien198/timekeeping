@@ -68,6 +68,7 @@ function PersonalStatistic(props) {
     {
       title: t('personal_statistic.hours'),
       dataIndex: 'totalWorkedTime',
+      render: _ => <span>{_ ? _.toFixed(2) : ''}</span>,
     },
     {
       title: t('personal_statistic.state_owned'),
@@ -137,7 +138,7 @@ function PersonalStatistic(props) {
       />
       <Filter />
       <ButtonGroup
-        total={dataSource.totalWages}
+        total={dataSource.totalWorks}
         totalWork={restOfWorkDay}
         items={dataBtnGroup}
         type={2}
