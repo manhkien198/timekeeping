@@ -11,7 +11,7 @@ import TimeKeepingApi from '../../../../api/time_keeping/TimeKeepingApi';
 import moment from 'moment';
 import { convertArrayToParamsWithDash } from '../../../../utils/convertArrayToParamsWithDash';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { DEFAULT_LIMIT, DEFAULT_PAGE, STATUS_REQUEST } from '../../../../constants/common';
+import { DEFAULT_LIMIT, DEFAULT_PAGE, TYPE_ONLEAVE } from '../../../../constants/common';
 import qs from 'query-string';
 function TimeKeepingTable(props) {
   const location = useLocation();
@@ -55,6 +55,7 @@ function TimeKeepingTable(props) {
   const getAllData = async () => {
     try {
       const { data } = await TimeKeepingApi.getAll(listParam);
+      const {data:total} =await TimeKeepingApi.getTotalWorking({date: listParam.date})
       setData(data.list);
       setLoading(false);
     } catch (error) {
@@ -96,7 +97,7 @@ function TimeKeepingTable(props) {
         listParam={listParam}
         setListParam={setListParam}
         setLoading={setLoading}
-        items={STATUS_REQUEST}
+        items={TYPE_ONLEAVE}
       />
       <div className="table">
         <TableTimeKeeping

@@ -15,8 +15,6 @@ function TimeKeeping(props) {
   const [visible, setVisible] = useState(false);
   const [item, setItem] = useState([]);
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
   const accesstokenParsed = jwt_decode(getToken("Access_Token"));
   const username = accesstokenParsed.preferred_username
   const [listParam, setListParam] = useState(() => {
@@ -49,11 +47,10 @@ function TimeKeeping(props) {
   return (
     <>
       <CusomPageHeader
-        setMonth={setMonth}
-        setYear={setYear}
         setDate={setDate}
         title={t('time_keeping.timekeeping_history')}
         subTitle={t('time_keeping.month')}
+        params={listParam}
       />
       <Popup Visible={visible} setVisibles={setVisible} />
       <HistoryTable Item={item} showModal={showModal} />
