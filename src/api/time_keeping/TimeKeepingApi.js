@@ -1,4 +1,4 @@
-import { TIME_KEEPING_ADMIN } from '../../constants/common';
+import { TIME_KEEPING_ADMIN, TOTAL_TIME_KEEING } from '../../constants/common';
 import axiosClient from '../axiosClient';
 const TimeKeepingApi = {
   getAll(params) {
@@ -19,5 +19,8 @@ const TimeKeepingApi = {
     const url = `${TIME_KEEPING_ADMIN}/${id}`;
     return axiosClient.delete(url);
   },
+  getTotalWorking(params){
+    return axiosClient.get(TOTAL_TIME_KEEING, {params});
+  }
 };
 export default TimeKeepingApi;

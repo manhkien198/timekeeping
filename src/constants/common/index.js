@@ -20,6 +20,7 @@ export const TIME_OPTIONS = [
 ];
 export const ACCEPT_REQUEST_ADMIN = '/checkin';
 export const TIME_KEEPING_ADMIN = '/logs';
+export const TOTAL_TIME_KEEING = '/logs/total-wages'
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_LIMIT = 10;
 export const CONFIRM_LATE = '/checkin';
@@ -27,17 +28,17 @@ export const ID_DESC = 'id-DESC';
 export const REFRESH_TOKEN_TIME_UNIT = 900;
 export const STATUS_REQUEST= [
   {
-    id:0,
+    id:'',
     title:i18n.t('request.default')
+  },
+  {
+    id:0,
+    title:i18n.t('request.unapprove')
   },
   {
     id:1,
     title:i18n.t('request.approve')
   },
-  {
-    id:2,
-    title:i18n.t('request.unapprove')
-  }
 ]
 export const TYPE_ONLEAVE = [
   {

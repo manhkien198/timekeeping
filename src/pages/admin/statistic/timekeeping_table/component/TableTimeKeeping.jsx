@@ -121,7 +121,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) 
   return (
     <div>
       <Table
-        // loading={loading}
+        loading={loading}
         rowKey={'id'}
         columns={column}
         dataSource={data}
