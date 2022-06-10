@@ -1,3 +1,4 @@
+import { CalendarOutlined } from "@ant-design/icons";
 import { Menu } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +9,7 @@ function UserSidebar(props) {
   const { t } = useTranslation();
   return (
     <>
-      <Menu.Item key="/time_keeping" icon={<SendIcon />}>
+      <Menu.Item key="/time_keeping" icon={<CalendarOutlined color="#000000" />}>
         <Link to="/time_keeping">{t(`sidebar.time_keeping`)}</Link>
       </Menu.Item>
       <Menu.Item key="/request" icon={<SendIcon />}>
