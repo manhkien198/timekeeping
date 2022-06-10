@@ -17,7 +17,7 @@ function ButtonGroup({
   const { Option } = Select;
 
   const handleSortByFullName = value => {
-    setListParam({ ...listParam, sortDirection: value });
+    setListParam({ ...listParam, filter:value});
     setLoading(true);
   };
   return (

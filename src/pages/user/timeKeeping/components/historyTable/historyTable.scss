@@ -1,30 +1,30 @@
-.ant-table-cell {
-    font-family: "Inter", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-}
-.ant-table-thead .ant-table-cell {
-    font-weight: 700;
-}
-.ant-table-body {
-    &::-webkit-scrollbar {
-        height: 100px;
-        width: 13px;
-    }
+// .ant-table-cell {
+//     font-family: "Inter", sans-serif;
+//     font-style: normal;
+//     font-weight: 400;
+//     font-size: 20px;
+//     line-height: 24px;
+// }
+// .ant-table-thead .ant-table-cell {
+//     font-weight: 700;
+// }
+// .ant-table-body {
+//     &::-webkit-scrollbar {
+//         height: 100px;
+//         width: 13px;
+//     }
 
-    &::-webkit-scrollbar-track {
-        background: transparent;
-    }
+//     &::-webkit-scrollbar-track {
+//         background: transparent;
+//     }
 
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba(#333, 0.2);
-        border: 3px solid transparent;
-        border-radius: 4px;
-    }
-}
-.popup_check {
-    border: none;
-    background: none;
-}
+//     &::-webkit-scrollbar-thumb {
+//         background-color: rgba(#333, 0.2);
+//         border: 3px solid transparent;
+//         border-radius: 4px;
+//     }
+// }
+// .popup_check {
+//     border: none;
+//     background: none;
+// }

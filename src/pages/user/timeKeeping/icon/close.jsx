@@ -10,9 +10,9 @@ function Close(props) {
       <path
         d="M34 4L4 34"
         stroke="#066F9B"
-        stroke-width="7"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M4 4L34 34"
