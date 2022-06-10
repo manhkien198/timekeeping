@@ -73,8 +73,6 @@ function HistoryTable({ Item, showModal }) {
         pagination={false}
         columns={columns}
         dataSource={logTimeReportList}
-        // scroll={{ y: 380 }}
-        // bordered={true}
       />
     </>
   );
