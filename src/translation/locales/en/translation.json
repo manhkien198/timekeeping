@@ -97,7 +97,9 @@
     "request": "request",
     "resignation": "resignation",
     "overtime": "overtime",
-    "late": "late for work"
+    "late": "late for work",
+    "approve": "approve",
+    "unapprove": "unapprove"
   },
   "popup": {
     "hello": "hello ",

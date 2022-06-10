@@ -8,7 +8,7 @@ import ButtonGroup from '../../../components/ButtonGroup';
 import CusomPageHeader from '../../../components/CusomPageHeader';
 import Filter from '../../../components/Filter';
 import queryString from 'query-string';
-import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../../../constants/common';
+import { DEFAULT_LIMIT, DEFAULT_PAGE, STATUS_REQUEST } from '../../../constants/common';
 import { convertArrayToParamsWithDash } from '../../../utils/convertArrayToParamsWithDash';
 import TableRequest from './component/TableRequest';
 
@@ -72,6 +72,7 @@ function AcceptRequest(props) {
         listParam={listParam}
         setListParam={setListParam}
         setLoading={setLoading}
+        items={STATUS_REQUEST}
       />
       <div className="table">
         <TableRequest
