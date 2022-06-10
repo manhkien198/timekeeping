@@ -73,7 +73,7 @@ const TableRequest = props => {
       dataIndex: 'id',
       align: 'center',
       key: t('time_keeping.id'),
-      width: 150,
+      width: 80,
       render: (id, record, index) => {
         return <span>{index + 1}</span>;
       },

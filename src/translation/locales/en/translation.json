@@ -82,7 +82,7 @@
   "time_keeping": {
     "id": "Id",
     "fullName": "Full Name",
-    "day": "day",
+    "day": "Day",
     "workingDay": "Working Day",
     "action": "Action",
     "timekeeping_history": "timekeeping history",
@@ -91,7 +91,10 @@
     "late": "check in late",
     "note": "note",
     "activity": "Activity",
-    "detail": "Detail"
+    "detail": "Detail",
+    "checkIn": "Check In",
+    "checkOut": "Check Out",
+    "ot": "OT"
   },
   "request": {
     "request": "request",
@@ -99,7 +102,8 @@
     "overtime": "overtime",
     "late": "late for work",
     "approve": "approve",
-    "unapprove": "unapprove"
+    "unapprove": "unapprove",
+    "default": "Default"
   },
   "popup": {
     "hello": "hello ",
@@ -140,5 +144,24 @@
   "sort": {
     "approved": "Approved",
     "unapproved": "Unapproved"
+  },
+  "type_onLeave": {
+    "P": "P",
+    "1/2P": "1/2P",
+    "Ro": "Ro",
+    "1/2Ro": "1/2Ro",
+    "CO": "CO",
+    "O": "O",
+    "TS": "TS",
+    "CT": "CT",
+    "KH": "KH",
+    "1/2KH": "1/2KH",
+    "TG": "TG",
+    "1/2TG": "1/2TG",
+    "VS": "VS",
+    "1/2VS": "1/2VS",
+    "NS": "NS",
+    "NB": "NB",
+    "OT": "OT"
   }
 }

@@ -17,11 +17,11 @@ function ButtonGroup({
   const { Option } = Select;
 
   const handleSortByFullName = value => {
-    setListParam({ ...listParam, sortDirection: value });
+    setListParam({ ...listParam, filter:value});
     setLoading(true);
   };
   return (
-    <div style={{ marginBottom: 42 }}>
+    <div >
       <Select
         className="filter-select"
         defaultValue={t('page_header.filter')}
