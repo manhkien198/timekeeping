@@ -9,7 +9,7 @@ function UserSidebar(props) {
   const { t } = useTranslation();
   return (
     <>
-      <Menu.Item key="/time_keeping" icon={<CalendarOutlined color="#000000" />}>
+      <Menu.Item key="/time_keeping" icon={<CalendarOutlined className="sidebarIcon" />}>
         <Link to="/time_keeping">{t(`sidebar.time_keeping`)}</Link>
       </Menu.Item>
       <Menu.Item key="/request" icon={<SendIcon />}>
