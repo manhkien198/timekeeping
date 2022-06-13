@@ -1,5 +1,9 @@
 import { Button, Select } from 'antd';
+import { Excel } from 'antd-table-saveas-excel';
 import { useTranslation } from 'react-i18next';
+import generalStatisticApi from '../api/generalStatisticApi';
+import { DEFAULT_STYLE_EXCEL } from '../constants/common';
+import { exportToExcel } from '../utils/exportToExcel';
 
 function ButtonGroup({
   children,
@@ -11,30 +15,57 @@ function ButtonGroup({
   isExport = true,
   items,
   totalWork,
+  api,
   type = 1,
+  totalRecord,
+  columns,
+  changeData,
+  filter = true,
 }) {
   const { t } = useTranslation();
   const { Option } = Select;
+  const handleExportToExcel = data => {
+    const excel = new Excel();
+
+    excel.setTHeadStyle(DEFAULT_STYLE_EXCEL).setTBodyStyle(DEFAULT_STYLE_EXCEL);
+    excel
+      .addSheet('Statistic')
+      .addColumns(columns)
+      .addDataSource(changeData ? changeData(data) : data)
+      .saveAs('Statistic.xlsx');
+  };
+
+  const handleOk = () => {
+    exportToExcel(totalRecord, listParam, api, handleExportToExcel);
+  };
 
   const handleSortByFullName = value => {
-    setListParam({ ...listParam, filter:value});
+    setListParam({ ...listParam, filter: value });
     setLoading(true);
   };
   return (
-    <div >
-      <Select
-        className="filter-select"
-        defaultValue={t('page_header.filter')}
-        style={{ width: 240 }}
-        onChange={handleSortByFullName}
-      >
-        {items.map(x => (
-          <Option value={x.id}>{x.title}</Option>
-        ))}
-      </Select>
+    <div>
+      {filter ? (
+        <Select
+          className="filter-select"
+          defaultValue={t('page_header.filter')}
+          style={{ width: 240 }}
+          onChange={handleSortByFullName}
+        >
+          {items
+            ? items.map(x => <Option value={x.id}>{x.title}</Option>)
+            : null}
+        </Select>
+      ) : (
+        ''
+      )}
       {children ? children : ''}
       {isExport && (
-        <Button type="link" style={{ color: '#066F9B', fontWeight: 700 }}>
+        <Button
+          type="link"
+          style={{ color: '#066F9B', fontWeight: 700 }}
+          onClick={handleOk}
+        >
           {t('page_header.export')}
         </Button>
       )}
@@ -46,7 +77,7 @@ function ButtonGroup({
           <h2 className="total__title">{t('personal_statistic.total_work')}</h2>
           <p className="total__number">
             {type === 1
-              ? total
+              ? totalWork
               : total
               ? `${total}/${totalWork}`
               : `0/${totalWork}`}

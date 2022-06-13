@@ -8,11 +8,11 @@
   .datePicker_month {
     width: 200px;
     border: none;
-    color: #066F9B;
+    color: #066f9b;
   }
 
-  .ant-form-item-label>label::after {
-    content: "";
+  .ant-form-item-label > label::after {
+    content: '';
   }
 
   #dateTime {
@@ -30,7 +30,7 @@
     border: none;
     font-size: 20px;
     font-weight: 700;
-    color: #066F9B;
+    color: #066f9b;
   }
 
   .ant-select-selection-item {
@@ -40,7 +40,7 @@
   }
 
   .ant-select-selection-item::after {
-    background-color: #066F9B;
+    background-color: #066f9b;
   }
 
   .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
@@ -67,25 +67,6 @@
     min-height: 400px;
   }
 }
-
-.modal_content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-
-  p {
-    font-size: 20px;
-  }
-}
-
-.ant-modal-title {
-  font-weight: bold;
-}
-
-.ant-modal-footer {
-  padding: 0;
-}
-
 .sidebarIcon {
   color: #000000;
 }
