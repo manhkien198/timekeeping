@@ -4,6 +4,7 @@ import personalStatisticReducer from '../pages/admin/statistic/personal_statisti
 import authReducer from '../pages/auth/authReducer/index';
 import RequestSlide from '../pages/admin/accept_request/reducer';
 import TimeKeepingSlide from "../pages/admin/statistic/timekeeping_table/reducer";
+import TimeKeepingUser from "../pages/user/timeKeeping/reducer";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     requestAdmin: RequestSlide,
     timeKeepingAdmin: TimeKeepingSlide,
     authReducer: authReducer,
+    timeKeepingUser: TimeKeepingUser
   },
 });
