@@ -18,39 +18,18 @@ function ButtonGroup({
   type = 1,
   totalRecord,
   columns,
+  changeData,
 }) {
   const { t } = useTranslation();
   const { Option } = Select;
-
-  const cols = columns.map(x => {
-    if (x.children?.length) {
-      x.children.map(col => {
-        if (col.dataIndex === 'total_day_off') {
-          col.render = () => 12;
-        } else if (col.dataIndex === 'rest') {
-          col.render = (_, row) => 12 - row?.pdaysUsed;
-        }
-        return col;
-      });
-    }
-    return x;
-  });
-
   const handleExportToExcel = data => {
-    const newData = data.map((x, idx) => ({
-      ...x,
-      rest: x.pdaysUsed ? 12 - x.pdaysUsed : 12,
-      id: idx + 1,
-      total_day_off: 12,
-    }));
-
     const excel = new Excel();
 
     excel.setTHeadStyle(DEFAULT_STYLE_EXCEL).setTBodyStyle(DEFAULT_STYLE_EXCEL);
     excel
-      .addSheet('LOL')
-      .addColumns(cols)
-      .addDataSource(newData)
+      .addSheet('Statistic')
+      .addColumns(columns)
+      .addDataSource(changeData ? changeData(data) : data)
       .saveAs('GeneralStatistic.xlsx');
   };
 

@@ -11,7 +11,9 @@ import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import SelectUsers from '../../../../components/SelectUsers';
+import { DATE_FORMAT } from '../../../../constants/common';
 import { getNumbersOfWeekend } from '../../../../utils/getNumbersOfWeekend';
+import { dataExport } from '../../../../utils/newDataExportStatistic';
 import { setUsers } from './reducer';
 function PersonalStatistic(props) {
   const { t } = useTranslation();
@@ -133,10 +135,22 @@ function PersonalStatistic(props) {
       fetchPersonalStatistic();
     }
   }, [params]);
-  const numbersOfWeekend = getNumbersOfWeekend(
-    moment(params.date).format('DD/MM/YYYY'),
-  );
-  const restOfWorkDay = moment(params.date).daysInMonth() - numbersOfWeekend;
+  const numbersOfWeekend = getNumbersOfWeekend(params.date);
+  const restOfWorkDay =
+    moment(params.date, DATE_FORMAT).daysInMonth() - numbersOfWeekend;
+  const colExport = columns.map(x => {
+    if (x.children?.length) {
+      x.children.map(col => {
+        if (col.dataIndex === 'total_day_off') {
+          col.render = () => 12;
+        } else if (col.dataIndex === 'rest') {
+          col.render = (_, row) => 12 - row?.pdaysUsed;
+        }
+        return col;
+      });
+    }
+    return x;
+  });
   return (
     <div className="personal__statistic">
       <CusomPageHeader
@@ -151,6 +165,11 @@ function PersonalStatistic(props) {
         totalWork={restOfWorkDay}
         items={dataBtnGroup}
         type={2}
+        listParam={params}
+        setListParam={setParams}
+        columns={colExport}
+        changeData={dataExport}
+        totalRecord={dataSource.logTimeReportList?.length}
         children={
           <Button
             type="link"

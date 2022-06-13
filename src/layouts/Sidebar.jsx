@@ -22,7 +22,6 @@ function Sidebar({ collapsed }) {
   const { t } = useTranslation();
   const location = useLocation();
   const [selectedKey, setSelectedKey] = useState('');
-  console.log('selectedKey :', selectedKey);
   const isAdmin = useSelector(state => state.layout.isAdmin);
   useEffect(() => {
     if (location.pathname.startsWith('/time_keeping')) {

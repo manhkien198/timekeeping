@@ -1,4 +1,4 @@
-import { message, Table, Modal, Button } from 'antd';
+import { message, Table } from 'antd';
 import moment from 'moment';
 import qs from 'query-string';
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import UsersApi from '../../../../api/userApi';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
+import { DATE_FORMAT } from '../../../../constants/common';
 import { getNumbersOfWeekend } from '../../../../utils/getNumbersOfWeekend';
 function GeneralStatistic() {
   const { t } = useTranslation();
@@ -37,7 +38,6 @@ function GeneralStatistic() {
       : moment(Date.now()).format('DD/MM/YYYY'),
   });
   const [dataSource, setDataSource] = useState([]);
-  const [visible, setVisible] = useState(false);
   const navi = useNavigate();
   const fetchGeneralStatisTicData = async () => {
     const resp = await generalStatisticApi.getAll({ ...params });
@@ -121,10 +121,10 @@ function GeneralStatistic() {
     id: id + 1,
     ...x,
   }));
-  const numbersOfWeekend = getNumbersOfWeekend(
-    moment(params.date).format('DD/MM/YYYY'),
-  );
-  const restOfWorkDay = moment(params.date).daysInMonth() - numbersOfWeekend;
+  console.log('data', data);
+  const numbersOfWeekend = getNumbersOfWeekend(params.date);
+  const restOfWorkDay =
+    moment(params.date, DATE_FORMAT).daysInMonth() - numbersOfWeekend;
 
   return (
     <>

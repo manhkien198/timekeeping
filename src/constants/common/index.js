@@ -115,3 +115,4 @@ export const DEFAULT_STYLE_EXCEL = {
   h: 'left',
   v: 'left',
 };
+export const DATE_FORMAT = 'DD/MM/YYYY';
