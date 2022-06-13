@@ -33,7 +33,8 @@
     "emptyData": "No data",
     "loadingData": "Loading {{pageNumber}}/{{total}}...",
     "loaded": "Loaded",
-    "failToFetchList": "Fail to fetch list."
+    "failToFetchList": "Fail to fetch list.",
+    "month": "Month"
   },
   "filter": {
     "search": "Search"

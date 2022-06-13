@@ -67,7 +67,7 @@ function GeneralStatistic() {
       align: 'center',
     },
     {
-      title: `Tháng ${params.date.split('/')[1]}`,
+      title: `${t('general_table.month')} ${params.date.split('/')[1]}`,
       children: [
         {
           title: t('general_table.work_day'),
@@ -121,7 +121,6 @@ function GeneralStatistic() {
     id: id + 1,
     ...x,
   }));
-  console.log('data', data);
   const numbersOfWeekend = getNumbersOfWeekend(params.date);
   const restOfWorkDay =
     moment(params.date, DATE_FORMAT).daysInMonth() - numbersOfWeekend;
