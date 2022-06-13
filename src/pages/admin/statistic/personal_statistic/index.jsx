@@ -44,39 +44,48 @@ function PersonalStatistic(props) {
     {
       title: t('personal_statistic.day'),
       dataIndex: 'date',
+      align: 'center',
     },
     {
       title: t('personal_statistic.check_in'),
       dataIndex: 'checkInTime',
+      align: 'center',
     },
     {
       title: t('personal_statistic.check_out'),
       dataIndex: 'checkOutTime',
+      align: 'center',
     },
     {
       title: t('personal_statistic.ot'),
       dataIndex: 'overTime',
+      align: 'center',
     },
     {
       title: t('personal_statistic.come_late'),
       dataIndex: 'lateTime',
+      align: 'center',
     },
     {
       title: t('personal_statistic.leave_soon'),
       dataIndex: 'leave_soon',
+      align: 'center',
     },
     {
       title: t('personal_statistic.hours'),
       dataIndex: 'totalWorkedTime',
+      align: 'center',
       render: _ => <span>{_ ? _.toFixed(2) : ''}</span>,
     },
     {
       title: t('personal_statistic.state_owned'),
       dataIndex: 'state_owned',
+      align: 'center',
     },
     {
       title: t('personal_statistic.note'),
       dataIndex: 'note',
+      align: 'center',
       render: (_, row) => (
         <p>
           {row.reasonType

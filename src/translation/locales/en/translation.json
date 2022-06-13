@@ -29,7 +29,11 @@
     "rest": "Rest",
     "ot": "OT",
     "used_day": "Used Day",
-    "rest_day": "Rest Day"
+    "rest_day": "Rest Day",
+    "emptyData": "No data",
+    "loadingData": "Loading {{pageNumber}}/{{total}}...",
+    "loaded": "Loaded",
+    "failToFetchList": "Fail to fetch list."
   },
   "filter": {
     "search": "Search"

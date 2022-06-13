@@ -1,4 +1,4 @@
-import { message, Table } from 'antd';
+import { message, Table, Modal, Button } from 'antd';
 import moment from 'moment';
 import qs from 'query-string';
 import { useEffect, useState } from 'react';
@@ -37,6 +37,7 @@ function GeneralStatistic() {
       : moment(Date.now()).format('DD/MM/YYYY'),
   });
   const [dataSource, setDataSource] = useState([]);
+  const [visible, setVisible] = useState(false);
   const navi = useNavigate();
   const fetchGeneralStatisTicData = async () => {
     const resp = await generalStatisticApi.getAll({ ...params });
@@ -53,14 +54,17 @@ function GeneralStatistic() {
   useEffect(() => {
     fetchGeneralStatisTicData();
   }, [params]);
+
   const columns = [
     {
       title: t('general_table.cardinal_numbers'),
       dataIndex: 'id',
+      align: 'center',
     },
     {
       title: t('general_table.employees'),
       dataIndex: 'fullName',
+      align: 'center',
     },
     {
       title: `Tháng ${params.date.split('/')[1]}`,
@@ -68,18 +72,22 @@ function GeneralStatistic() {
         {
           title: t('general_table.work_day'),
           dataIndex: 'workDays',
+          align: 'center',
         },
         {
           title: t('general_table.paid_leave'),
           dataIndex: 'pdays',
+          align: 'center',
         },
         {
           title: t('general_table.unpaid_leave'),
           dataIndex: 'offDays',
+          align: 'center',
         },
         {
           title: t('general_table.ot'),
           dataIndex: 'overTimes',
+          align: 'center',
         },
       ],
     },
@@ -90,17 +98,20 @@ function GeneralStatistic() {
         {
           title: t('general_table.total_day_off'),
           dataIndex: 'total_day_off',
+          align: 'center',
           render: () => <span>12</span>,
         },
         {
           title: t('general_table.used_day'),
           dataIndex: 'pdaysUsed',
+          align: 'center',
         },
         {
           title: t('general_table.rest_day'),
           dataIndex: 'rest',
+          align: 'center',
           render: (_, row) => {
-            return <span>{12 - row.pdaysUsed}</span>;
+            return <span>{12 - row?.pdaysUsed}</span>;
           },
         },
       ],
@@ -114,6 +125,7 @@ function GeneralStatistic() {
     moment(params.date).format('DD/MM/YYYY'),
   );
   const restOfWorkDay = moment(params.date).daysInMonth() - numbersOfWeekend;
+
   return (
     <>
       <CusomPageHeader
@@ -127,6 +139,10 @@ function GeneralStatistic() {
         total={dataSource.totalWages}
         totalWork={restOfWorkDay}
         items={dataBtnGroup}
+        totalRecord={data?.length}
+        columns={columns}
+        listParam={params}
+        setListParam={setParams}
       />
       <Table dataSource={data} columns={columns} rowKey="id" bordered />
     </>

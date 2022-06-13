@@ -8,6 +8,7 @@ import AcceptIcon from '../components/icons/AcceptIcon';
 import CalendarIcon from '../components/icons/CalendarIcon';
 import ChartIcon from '../components/icons/ChartIcon';
 import LogoutIcon from '../components/icons/LogoutIcon';
+import SendIcon from '../components/icons/SendIcon';
 import SettingIcon from '../components/icons/SettingIcon';
 import StatisticIcon from '../components/icons/StatisticIcon';
 import SubUserIcon from '../components/icons/SubUserIcon';
@@ -17,8 +18,6 @@ import {
   DEFAULT_SELECTED_MENU_SIDEBAR,
 } from '../constants/common';
 
-import AdminSidebar from './AdminSidebar';
-import UserSidebar from './UserSidebar';
 function Sidebar({ collapsed }) {
   const { t } = useTranslation();
   const location = useLocation();
@@ -47,8 +46,6 @@ function Sidebar({ collapsed }) {
     }
   }, [location.pathname]);
 
-  console.log('location.pathname :', location.pathname);
-
   return (
     <Sider trigger={null} collapsible collapsed={collapsed} width={270}>
       <div className={!collapsed ? 'logo' : 'logo-none'}>
@@ -68,7 +65,14 @@ function Sidebar({ collapsed }) {
         ]}
       >
         {!isAdmin ? (
-          <UserSidebar />
+          <>
+            <Menu.Item key="/time_keeping" icon={<CalendarIcon />}>
+              <Link to="/time_keeping">{t(`sidebar.time_keeping`)}</Link>
+            </Menu.Item>
+            <Menu.Item key="/request" icon={<SendIcon />}>
+              <Link to="/request">{t(`sidebar.request`)}</Link>
+            </Menu.Item>
+          </>
         ) : (
           <>
             <Menu.Item
