@@ -1,17 +1,18 @@
 import { message, Modal, Table, Tooltip } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SuccessRequest from '../../../../assets/images/request/Button/True.png';
 import FailRequest from '../../../../assets/images/request/Button/False.png';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import AcceptRequestApi from '../../../../api/accept_request/AcceptRequestApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setReloadTalbe } from '../reducer';
 import { checkOrderbyValue } from "../constant";
 import { ASC, ASCEND, DESC } from "../../../../constants/common";
 
 const TableRequest = props => {
   const { data, loading, setLoading, listParam, setListParam } = props;
+  const {pagination} = useSelector(item=> item.requestAdmin) 
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -50,6 +51,8 @@ const TableRequest = props => {
 
   const onChange = (pagination, filter, sorter) => {
     const params = {
+      currentPage: pagination.current,
+      limit: pagination.pageSize,
       orderby: sorter.order ? sorter.field :"",
       sortDirection: sorter.order ? sorter.order === ASCEND ? ASC : DESC: ""
     };
@@ -151,6 +154,7 @@ const TableRequest = props => {
         dataSource={data}
         loading={loading}
         onChange={onChange}
+        pagination={{...pagination}}
       />
     </div>
   );

@@ -1,12 +1,14 @@
 import { Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ASC, ASCEND, DESC } from "../../../../../constants/common";
 import { checkOrderbyValue, isWeekend } from "../constant";
 import { setReloadTalbe } from "../reducer";
 const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year, listParam, setListParam, setLoading }) => {
   const [listDayOnMonth, setListDayOnMonth] = useState([]);
+  const {totalPage,reloadTable} = useSelector(item=> item.timeKeepingAdmin)
+  const [pagination, setPagination] = useState({limit: listParam?.current,pageSize:listParam?.limit, total:totalPage});
   const { t } = useTranslation();
   const renderDayOnMonth = () => {
     let arrDay = [];
@@ -83,6 +85,8 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year, li
 
   const onChange = (pagination, filter, sorter) => {
     const params = {
+      currentPage: pagination.current,
+      limit: pagination.pageSize,
       orderby: sorter.order ? sorter.field :"",
       sortDirection: sorter.order ? sorter.order === ASCEND ? ASC : DESC : ""
     };
@@ -90,7 +94,6 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year, li
     setLoading(true);
     dispatch(setReloadTalbe());
   };
-
   const column = [
     {
       title: t('time_keeping.id'),
@@ -142,6 +145,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year, li
     renderDayOnMonth();
   }, [day]);
 
+ 
   return (
     <div>
       <Table
@@ -152,6 +156,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year, li
         scroll={{ x: 800, y: 700 }}
         style={{ maxWidth: 'calc(100vw - 348px)' }}
         onChange={onChange}
+        pagination={pagination}
       />
     </div>
   );

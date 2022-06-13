@@ -13,8 +13,11 @@ import { convertArrayToParamsWithDash } from '../../../../utils/convertArrayToPa
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DEFAULT_LIMIT, DEFAULT_PAGE, TYPE_ONLEAVE } from '../../../../constants/common';
 import qs from 'query-string';
+import { useDispatch } from "react-redux";
+import { setPagnation } from "./reducer";
 function TimeKeepingTable(props) {
   const location = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryParams = qs.parse(location.search)
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
@@ -55,6 +58,7 @@ function TimeKeepingTable(props) {
     try {
       const { data } = await TimeKeepingApi.getAll(listParam);
       setData(data.list);
+      dispatch(setPagnation({totalPage:data.totalPages, currentPage: data.currentPage, limit:data.limit, total: data.totalElements }))
       setLoading(false);
     } catch (error) {
       message.error(error);
