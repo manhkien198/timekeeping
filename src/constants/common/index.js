@@ -120,3 +120,5 @@ export const ASC = 'ASC';
 export const DESC = 'DESC';
 export const ASCEND = 'ascend';
 export const DESCEND = 'descend';
+export const PENDING = 'PENDING';
+export const ACCEPT = 'ACCEPT';

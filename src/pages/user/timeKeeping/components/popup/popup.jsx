@@ -1,34 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Modal } from 'antd';
+import React, { useState } from 'react';
+import { Form, Modal } from 'antd';
 import LateCheckin from './laterCheckin/lateCheckin';
 import ConfirmCheck from './cofirmCheck/confirmCheck';
 import comfirmLate from '../../../../../api/cofirmLate';
 import './popup.scss';
 
-export default function Popup({ Visible, setVisibles }) {
+const Popup = ({ Visible, setVisibles, item }) => {
   const [click, setClick] = useState(false);
-  const [mess, setMess] = useState('');
+  const [form] = Form.useForm();
 
-  const getCheckIn = async () => {
+  const handleConfirm = async value => {
     try {
-      const { request } = await comfirmLate.post(mess);
-      setMess(request);
+      await comfirmLate.post(value);
     } catch (error) {
+      console.log('error :', error);
     }
-  };
-
-  useEffect(() => {
-    getCheckIn();
-  }, [mess]);
-
-  const handleConfirm = msg => {
     setClick(true);
-    setMess(msg);
   };
 
   const handleCancel = () => {
     setVisibles(false);
   };
+
   return (
     <>
       <Modal
@@ -41,9 +34,10 @@ export default function Popup({ Visible, setVisibles }) {
         {click ? (
           <ConfirmCheck />
         ) : (
-          <LateCheckin HandleConfirm={handleConfirm} mess={mess} />
+          <LateCheckin handleConfirm={handleConfirm} item={item} />
         )}
       </Modal>
     </>
   );
-}
+};
+export default Popup;

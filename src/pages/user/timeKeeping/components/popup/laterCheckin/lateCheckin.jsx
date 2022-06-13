@@ -2,19 +2,23 @@ import React from 'react';
 import './lateCheckin.scss';
 import { Form, Input, Button, Card } from 'antd';
 import { useTranslation } from 'react-i18next';
-
-export default function LateCheckin({ HandleConfirm, mess, confirm }) {
+import moment from 'moment';
+let timeDay = new Date();
+export default function LateCheckin({ handleConfirm, item }) {
   const { t } = useTranslation();
-
-  const onFinish = mess => {
-    HandleConfirm(mess.reason);
+  const { form } = Form.useForm();
+  const validateMessages = {
+    required: t('popup.validate'),
   };
   return (
     <div className="Popup__checkin-late">
       <Card>
-        <p>{t('popup.hello')} Lê Như Ngọc,</p>
         <p>
-          {t('popup.now')} 8:32 {t('popup.day')} 12/05/2022
+          {t('popup.hello')} {item?.fullname}
+        </p>
+        <p>
+          {t('popup.now')} {moment(timeDay, 'HH:mm').format('HH:mm')}{' '}
+          {t('popup.day')} {moment(timeDay, 'DD/MM/YYYY').format('DD/MM/YYYY')}
         </p>
         <p>{t('popup.connect_wifi')}</p>
 
@@ -27,7 +31,8 @@ export default function LateCheckin({ HandleConfirm, mess, confirm }) {
             span: 16,
           }}
           size="large"
-          onFinish={onFinish}
+          onFinish={handleConfirm}
+          validateMessages={validateMessages}
         >
           <Form.Item
             name="reason"
@@ -36,6 +41,11 @@ export default function LateCheckin({ HandleConfirm, mess, confirm }) {
               marginTop: '110px',
               textAlign: 'center',
             }}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
           >
             <Input
               placeholder="Lý do chưa check - in"
