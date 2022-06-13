@@ -141,7 +141,9 @@ function GeneralStatistic() {
         items={dataBtnGroup}
         totalRecord={data?.length}
         columns={columns}
+        filter={false}
         listParam={params}
+        api={generalStatisticApi}
         setListParam={setParams}
       />
       <Table dataSource={data} columns={columns} rowKey="id" bordered />

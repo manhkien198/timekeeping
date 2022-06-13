@@ -15,10 +15,12 @@ function ButtonGroup({
   isExport = true,
   items,
   totalWork,
+  api,
   type = 1,
   totalRecord,
   columns,
   changeData,
+  filter = true,
 }) {
   const { t } = useTranslation();
   const { Option } = Select;
@@ -30,16 +32,11 @@ function ButtonGroup({
       .addSheet('Statistic')
       .addColumns(columns)
       .addDataSource(changeData ? changeData(data) : data)
-      .saveAs('GeneralStatistic.xlsx');
+      .saveAs('Statistic.xlsx');
   };
 
   const handleOk = () => {
-    exportToExcel(
-      totalRecord,
-      listParam,
-      generalStatisticApi,
-      handleExportToExcel,
-    );
+    exportToExcel(totalRecord, listParam, api, handleExportToExcel);
   };
 
   const handleSortByFullName = value => {
@@ -48,16 +45,20 @@ function ButtonGroup({
   };
   return (
     <div>
-      <Select
-        className="filter-select"
-        defaultValue={t('page_header.filter')}
-        style={{ width: 240 }}
-        onChange={handleSortByFullName}
-      >
-        {items.map(x => (
-          <Option value={x.id}>{x.title}</Option>
-        ))}
-      </Select>
+      {filter ? (
+        <Select
+          className="filter-select"
+          defaultValue={t('page_header.filter')}
+          style={{ width: 240 }}
+          onChange={handleSortByFullName}
+        >
+          {items
+            ? items.map(x => <Option value={x.id}>{x.title}</Option>)
+            : null}
+        </Select>
+      ) : (
+        ''
+      )}
       {children ? children : ''}
       {isExport && (
         <Button

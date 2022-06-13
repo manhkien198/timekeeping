@@ -20,9 +20,7 @@ function PersonalStatistic(props) {
   const location = useLocation();
   const queryParams = qs.parse(location.search);
   const [userList, setUserList] = useState([]);
-  const dataBtnGroup = userList
-    ? userList.map((user, id) => ({ ...user, id, title: user.fullName }))
-    : [];
+
   const [params, setParams] = useState({
     ...queryParams,
     date: queryParams.date
@@ -163,12 +161,13 @@ function PersonalStatistic(props) {
       <ButtonGroup
         total={dataSource.totalWorks}
         totalWork={restOfWorkDay}
-        items={dataBtnGroup}
         type={2}
         listParam={params}
         setListParam={setParams}
         columns={colExport}
         changeData={dataExport}
+        api={personalStatisticApi}
+        filter={false}
         totalRecord={dataSource.logTimeReportList?.length}
         children={
           <Button
