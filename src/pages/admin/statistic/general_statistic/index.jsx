@@ -66,7 +66,6 @@ function GeneralStatistic() {
     fetchGeneralStatisTicData();
   }, [params]);
   const handleTableChange = (pagination, filter, sorter) => {
-    console.log('sorter :', sorter);
     const { current: page, pageSize: limit } = pagination;
     setParams(prev => ({
       ...prev,
