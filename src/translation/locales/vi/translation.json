@@ -98,7 +98,9 @@
     "detail": "Chi tiết",
     "checkIn": "Check In",
     "checkOut": "Check Out",
-    "ot": "OT"
+    "ot": "OT",
+    "toolTipWorkingDay": "Click để sắp sếp theo tổng số giờ làm",
+    "toolTipFullName": "Click để sắp sếp theo tên nhân viên"
   },
   "request": {
     "request": "Yêu Cầu",
@@ -107,7 +109,9 @@
     "late": "xin đi muộn",
     "approve": "phê duyệt",
     "unapprove": "không phê duyệt",
-    "default": "Mặc định"
+    "default": "Mặc định",
+    "toolTipStaff": "Click để sắp sếp theo nhân viên",
+    "toolTipDate": "Click để sắp sếp theo ngày"
   },
   "popup": {
     "hello": "xin chào ",

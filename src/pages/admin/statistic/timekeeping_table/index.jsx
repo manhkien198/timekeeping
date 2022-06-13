@@ -33,7 +33,6 @@ function TimeKeepingTable(props) {
     currentPage: DEFAULT_PAGE,
     limit: DEFAULT_LIMIT,
     keyword: '',
-    sortDirection: 'ASC',
     ...queryParams
   });
   useEffect(() => {
@@ -107,6 +106,9 @@ function TimeKeepingTable(props) {
           year={year}
           month={date?.slice(3, 5)}
           handleShowModal={handleShowModal}
+          listParam={listParam}
+          setLoading={setLoading}
+          setListParam={setListParam}
         />
       </div>
       <div className="modal_detailTimeKeeping">

@@ -78,6 +78,7 @@ function AcceptRequest(props) {
         <TableRequest
           data={data}
           setListParam={setListParam}
+          listParam={listParam}
           loading={loading}
           setLoading={setLoading}
         />
