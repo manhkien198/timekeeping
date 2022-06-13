@@ -1,16 +1,18 @@
-import { Button, message, Modal, Popover, Table, Tooltip } from 'antd';
-import React from 'react';
+import { message, Modal, Table, Tooltip } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SuccessRequest from '../../../../assets/images/request/Button/True.png';
 import FailRequest from '../../../../assets/images/request/Button/False.png';
-import editIcon from '../../../../assets/images/request/Button/Edit.svg';
-import removeIcon from '../../../../assets/images/request/Button/DeleteOutlined.svg';
-import { EllipsisOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import AcceptRequestApi from '../../../../api/accept_request/AcceptRequestApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setReloadTalbe } from '../reducer';
+import { checkOrderbyValue } from "../constant";
+import { ASC, ASCEND, DESC } from "../../../../constants/common";
+
 const TableRequest = props => {
-  const { data, loading, setLoading } = props;
+  const { data, loading, setLoading, listParam, setListParam } = props;
+  const {pagination} = useSelector(item=> item.requestAdmin) 
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -47,26 +49,18 @@ const TableRequest = props => {
     }
   };
 
-  const Actions = ({ record }) => (
-    <div className="request__action" style={{}}>
-      <Button
-        className="request__action--edit"
-        icon={<img src={editIcon} alt="detail" />}
-        size="large"
-        onClick={() => handleConfirmRequest(record)}
-      >
-        {t('acceptRequestor.edit')}
-      </Button>
+  const onChange = (pagination, filter, sorter) => {
+    const params = {
+      currentPage: pagination.current,
+      limit: pagination.pageSize,
+      orderby: sorter.order ? sorter.field :"",
+      sortDirection: sorter.order ? sorter.order === ASCEND ? ASC : DESC: ""
+    };
+    setListParam(prev => ({ ...prev, ...params }));
+    setLoading(true);
+    dispatch(setReloadTalbe());
+  };
 
-      <Button
-        className="request__action--delete"
-        icon={<img src={removeIcon} alt="detail" />}
-        size="large"
-      >
-        {t('acceptRequestor.delete')}
-      </Button>
-    </div>
-  );
   const column = [
     {
       title: t('time_keeping.id'),
@@ -87,6 +81,11 @@ const TableRequest = props => {
       render: (staff, record) => {
         return <span>{record.member.fullName}</span>;
       },
+      showSorterTooltip: {
+        title: t('request.toolTipStaff'),
+      },
+      sorter: true,
+      defaultSortOrder: checkOrderbyValue(listParam, 'fullName'),
     },
     {
       title: t('acceptRequestor.date'),
@@ -97,6 +96,11 @@ const TableRequest = props => {
       render: (date, record) => {
         return <span>{record.date}</span>;
       },
+      showSorterTooltip: {
+        title: t('request.toolTipDate'),
+      },
+      sorter: true,
+      defaultSortOrder: checkOrderbyValue(listParam, 'date'),
     },
     {
       title: t('acceptRequestor.time'),
@@ -149,6 +153,8 @@ const TableRequest = props => {
         columns={column}
         dataSource={data}
         loading={loading}
+        onChange={onChange}
+        pagination={{...pagination}}
       />
     </div>
   );

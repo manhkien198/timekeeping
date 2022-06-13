@@ -13,8 +13,11 @@ import { convertArrayToParamsWithDash } from '../../../../utils/convertArrayToPa
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DEFAULT_LIMIT, DEFAULT_PAGE, TYPE_ONLEAVE } from '../../../../constants/common';
 import qs from 'query-string';
+import { useDispatch } from "react-redux";
+import { setPagnation } from "./reducer";
 function TimeKeepingTable(props) {
   const location = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryParams = qs.parse(location.search)
   const [date, setDate] = useState(moment(Date.now()).format('DD/MM/YYYY'));
@@ -33,7 +36,6 @@ function TimeKeepingTable(props) {
     currentPage: DEFAULT_PAGE,
     limit: DEFAULT_LIMIT,
     keyword: '',
-    sortDirection: 'ASC',
     ...queryParams
   });
   useEffect(() => {
@@ -55,8 +57,8 @@ function TimeKeepingTable(props) {
   const getAllData = async () => {
     try {
       const { data } = await TimeKeepingApi.getAll(listParam);
-      const {data:total} =await TimeKeepingApi.getTotalWorking({date: listParam.date})
       setData(data.list);
+      dispatch(setPagnation({totalPage:data.totalPages, currentPage: data.currentPage, limit:data.limit, total: data.totalElements }))
       setLoading(false);
     } catch (error) {
       message.error(error);
@@ -107,6 +109,9 @@ function TimeKeepingTable(props) {
           year={year}
           month={date?.slice(3, 5)}
           handleShowModal={handleShowModal}
+          listParam={listParam}
+          setLoading={setLoading}
+          setListParam={setListParam}
         />
       </div>
       <div className="modal_detailTimeKeeping">

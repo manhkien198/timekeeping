@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import AcceptRequestApi from '../../../api/accept_request/AcceptRequestApi';
 import ButtonGroup from '../../../components/ButtonGroup';
@@ -11,10 +11,12 @@ import queryString from 'query-string';
 import { DEFAULT_LIMIT, DEFAULT_PAGE, STATUS_REQUEST } from '../../../constants/common';
 import { convertArrayToParamsWithDash } from '../../../utils/convertArrayToParamsWithDash';
 import TableRequest from './component/TableRequest';
+import { setPagnation } from "./reducer";
 
 function AcceptRequest(props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch  = useDispatch()
   const location = useLocation();
   const { reloadTable } = useSelector(item => item.requestAdmin);
   const [data, setData] = useState();
@@ -27,11 +29,11 @@ function AcceptRequest(props) {
       default: '',
     };
   });
-
   const getAllRequest = async () => {
     try {
       const { data } = await AcceptRequestApi.getAll(listParam);
       setData(data.list);
+      dispatch(setPagnation({totalPage:data.totalPages, currentPage: data.currentPage, limit:data.limit, total: data.totalElements }))
       setLoading(true);
     } catch (error) {
       message.error(error);
@@ -78,6 +80,7 @@ function AcceptRequest(props) {
         <TableRequest
           data={data}
           setListParam={setListParam}
+          listParam={listParam}
           loading={loading}
           setLoading={setLoading}
         />

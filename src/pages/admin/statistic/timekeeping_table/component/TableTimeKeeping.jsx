@@ -1,9 +1,14 @@
 import { Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { isWeekend } from "../constant";
-const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { ASC, ASCEND, DESC } from "../../../../../constants/common";
+import { checkOrderbyValue, isWeekend } from "../constant";
+import { setReloadTalbe } from "../reducer";
+const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year, listParam, setListParam, setLoading }) => {
   const [listDayOnMonth, setListDayOnMonth] = useState([]);
+  const {totalPage,reloadTable} = useSelector(item=> item.timeKeepingAdmin)
+  const [pagination, setPagination] = useState({limit: listParam?.current,pageSize:listParam?.limit, total:totalPage});
   const { t } = useTranslation();
   const renderDayOnMonth = () => {
     let arrDay = [];
@@ -76,7 +81,19 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) 
     }
     setListDayOnMonth([...arrDay]);
   };
+  const dispatch = useDispatch()
 
+  const onChange = (pagination, filter, sorter) => {
+    const params = {
+      currentPage: pagination.current,
+      limit: pagination.pageSize,
+      orderby: sorter.order ? sorter.field :"",
+      sortDirection: sorter.order ? sorter.order === ASCEND ? ASC : DESC : ""
+    };
+    setListParam(prev => ({ ...prev, ...params }));
+    setLoading(true);
+    dispatch(setReloadTalbe());
+  };
   const column = [
     {
       title: t('time_keeping.id'),
@@ -99,6 +116,11 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) 
       render: fullname => {
         return <p>{fullname}</p>;
       },
+      showSorterTooltip: {
+        title: t('time_keeping.toolTipFullName'),
+      },
+      sorter: true,
+      defaultSortOrder: checkOrderbyValue(listParam, 'fullname'),
     },
     ...listDayOnMonth,
     {
@@ -106,11 +128,16 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) 
       dataIndex: 'workingDay',
       align: 'center',
       fixed: 'right',
-      width: 100,
+      width: 200,
       key: t('time_keeping.workingDay'),
       render: (totalWork, record) => {
         return <p>{record.totalWorks}</p>;
       },
+      showSorterTooltip: {
+        title: t('time_keeping.toolTipWorkingDay'),
+      },
+      sorter: true,
+      defaultSortOrder: checkOrderbyValue(listParam, 'workingDay'),
     },
   ];
 
@@ -118,6 +145,7 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) 
     renderDayOnMonth();
   }, [day]);
 
+ 
   return (
     <div>
       <Table
@@ -127,6 +155,8 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year }) 
         dataSource={data}
         scroll={{ x: 800, y: 700 }}
         style={{ maxWidth: 'calc(100vw - 348px)' }}
+        onChange={onChange}
+        pagination={pagination}
       />
     </div>
   );

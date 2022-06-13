@@ -4,7 +4,7 @@ export const TimeKeepingSlide = createSlice({
   initialState: {
     dataRequest: [],
     reloadTable: false,
-
+    pagination: {},
   },
   reducers: {
     getAll: (state, action) => {
@@ -13,13 +13,17 @@ export const TimeKeepingSlide = createSlice({
     setReloadTalbe: (state, action) => {
       state.reloadTable = !state.reloadTable;
     },
+    setPagnation: (state,action) =>{
+      state.totalPage = action.payload
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
 export const {
   getAllRequest,
-  setReloadTalbe
+  setReloadTalbe,
+  setPagnation
 } = TimeKeepingSlide.actions;
 
 export default TimeKeepingSlide.reducer;

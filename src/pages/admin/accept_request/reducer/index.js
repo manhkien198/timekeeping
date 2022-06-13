@@ -4,7 +4,7 @@ export const RequestSlide = createSlice({
   initialState: {
     dataRequest: [],
     reloadTable: false,
-
+    pagination: {},
   },
   reducers: {
     getAllRequest: (state, action) => {
@@ -13,13 +13,17 @@ export const RequestSlide = createSlice({
     setReloadTalbe: (state, action) => {
       state.reloadTable = !state.reloadTable;
     },
+    setPagnation: (state,action) =>{
+      state.pagination = action.payload
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
 export const {
   getAllRequest,
-  setReloadTalbe
+  setReloadTalbe,
+  setPagnation
 } = RequestSlide.actions;
 
 export default RequestSlide.reducer;

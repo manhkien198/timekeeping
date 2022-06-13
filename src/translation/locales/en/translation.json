@@ -100,7 +100,9 @@
     "detail": "Detail",
     "checkIn": "Check In",
     "checkOut": "Check Out",
-    "ot": "OT"
+    "ot": "OT",
+    "toolTipWorkingDay": "Click to sort by total working day",
+    "toolTipFullName": "Click to sort by the staff"
   },
   "request": {
     "request": "request",
@@ -109,7 +111,9 @@
     "late": "late for work",
     "approve": "approve",
     "unapprove": "unapprove",
-    "default": "Default"
+    "default": "Default",
+    "toolTipStaff": "Click to sort by the staff",
+    "toolTipDate": "Click to sort by date"
   },
   "popup": {
     "hello": "hello ",

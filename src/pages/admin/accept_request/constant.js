@@ -1,3 +1,5 @@
+import { ASC, ASCEND, DESCEND } from "../../../constants/common";
+
 export const dataRequest = [
   {
     id: 1,
@@ -6,3 +8,14 @@ export const dataRequest = [
     approve: true,
   },
 ];
+export const checkOrderbyValue = (listParams, field)=>{
+    let orderBy = '';
+    if (listParams?.orderby) {
+      const arrFromOrder = listParams.orderby.split('-');
+      if (arrFromOrder[0] === field) {
+        orderBy = arrFromOrder[1] === ASC ? ASCEND : DESCEND;
+      }
+    }
+  
+    return orderBy;
+  };
