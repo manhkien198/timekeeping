@@ -20,7 +20,11 @@
   max-width: 60px !important;
   width: 60px !important;
 }
-
+.ant-menu-sub {
+  .ant-menu-item {
+    padding: 20px !important;
+  }
+}
 .statistic .ant-menu-submenu-arrow {
   display: none !important;
 }
@@ -29,6 +33,15 @@
   .ant-menu-item {
     padding-left: 0 !important;
   }
+}
+.removePadding.ant-menu-submenu {
+  .ant-menu-submenu-title {
+    padding-left: 0 !important;
+  }
+}
+
+.removePadding.ant-menu-item {
+  padding-left: 0 !important;
 }
 
 .main-layout {

@@ -1,23 +1,23 @@
 import { Divider, Menu } from 'antd';
 import Sider from 'antd/lib/layout/Sider';
-import SubMenu from 'antd/lib/menu/SubMenu';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { clearCookie } from '../api/Cookie';
+import AcceptIcon from '../components/icons/AcceptIcon';
+import CalendarIcon from '../components/icons/CalendarIcon';
+import ChartIcon from '../components/icons/ChartIcon';
 import LogoutIcon from '../components/icons/LogoutIcon';
+import SendIcon from '../components/icons/SendIcon';
 import SettingIcon from '../components/icons/SettingIcon';
+import StatisticIcon from '../components/icons/StatisticIcon';
+import SubUserIcon from '../components/icons/SubUserIcon';
 import UserIcon from '../components/icons/UserIcon';
 import {
   DEFAULT_SELECTED_ADMIN,
   DEFAULT_SELECTED_MENU_SIDEBAR,
-  LOGOUT,
 } from '../constants/common';
 
-import { ADMIN_ROUTES, LIST_ROUTES } from '../constants/common/routes';
-import AdminSidebar from './AdminSidebar';
-import UserSidebar from './UserSidebar';
 function Sidebar({ collapsed }) {
   const { t } = useTranslation();
   const location = useLocation();
@@ -63,9 +63,52 @@ function Sidebar({ collapsed }) {
             : DEFAULT_SELECTED_ADMIN,
         ]}
       >
-        <div>
-          {!isAdmin ? <UserSidebar /> : <AdminSidebar collapsed={collapsed} />}
-        </div>
+        {!isAdmin ? (
+          <>
+            <Menu.Item key="/time_keeping" icon={<CalendarIcon />}>
+              <Link to="/time_keeping">{t(`sidebar.time_keeping`)}</Link>
+            </Menu.Item>
+            <Menu.Item key="/request" icon={<SendIcon />}>
+              <Link to="/request">{t(`sidebar.request`)}</Link>
+            </Menu.Item>
+          </>
+        ) : (
+          <>
+            <Menu.Item
+              className="removePadding"
+              key="/accept_request"
+              icon={<AcceptIcon />}
+            >
+              <Link to="/accept_request">{t(`sidebar.accept_request`)}</Link>
+            </Menu.Item>
+
+            <Menu.SubMenu
+              key="/statistic"
+              icon={<StatisticIcon />}
+              title={t(`sidebar.statistic`)}
+              className={
+                collapsed ? 'statistic removePadding' : 'removePadding'
+              }
+            >
+              <Menu.Item key="/statistic/timekeeping" icon={<CalendarIcon />}>
+                <Link to="/statistic/timekeeping">
+                  {t(`sidebar.timekeeping_table`)}
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/statistic/general" icon={<ChartIcon />}>
+                <Link to="/statistic/general">
+                  {t(`sidebar.general_table`)}
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="/statistic/personal" icon={<SubUserIcon />}>
+                <Link to="/statistic/personal">
+                  {t(`sidebar.personal_statistic`)}
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+          </>
+        )}
+
         <div className="general__item">
           {!collapsed && <Divider />}
           <Menu.Item key="/personal" icon={<UserIcon />} className="menu__item">

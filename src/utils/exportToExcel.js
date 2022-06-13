@@ -21,10 +21,13 @@ export const exportToExcel = async (
 
   try {
     if (!totalRecords) {
-      message.error({ content: i18n.t('request.emptyData'), duration: 1 });
+      message.error({
+        content: i18n.t('general_table.emptyData'),
+        duration: 1,
+      });
     } else {
       message.loading({
-        content: i18n.t('request.loadingData', {
+        content: i18n.t('general_table.loadingData', {
           pageNumber,
           total: Math.ceil(totalRecords / 100),
         }),
@@ -39,11 +42,11 @@ export const exportToExcel = async (
       // call api with full record ( limit = totalRecords )
       const response = await fetchApi.getAll(newParams);
       const items = nth
-        ? response.data.data.map((item, i) => ({
+        ? response.data.logTimeReportList.map((item, i) => ({
             ...item,
             id: calculateNth(i, newParams),
           }))
-        : response.data.data;
+        : response.data.logTimeReportList;
       if (items && items.length > 0) {
         handleExportToExcel(items);
         pageNumber++;
@@ -57,7 +60,7 @@ export const exportToExcel = async (
           );
         } else {
           message.success({
-            content: i18n.t('request.loaded'),
+            content: i18n.t('general_table.loaded'),
             key: 'export-request',
             duration: 2,
           });
@@ -65,6 +68,6 @@ export const exportToExcel = async (
       }
     }
   } catch (error) {
-    message.error(i18n.t('request.failToFetchListRequest'));
+    message.error(i18n.t('general_table.failToFetchList'));
   }
 };
