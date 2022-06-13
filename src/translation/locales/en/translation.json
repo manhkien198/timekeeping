@@ -68,7 +68,8 @@
     "enter_note": "Nhập ghi chú",
     "reset": "Nhập lại",
     "update": "Cập nhật",
-    "cancel": "Hủy"
+    "cancel": "Hủy",
+    "titleChangeSorter": "Click to change sorter"
   },
   "login": {
     "header": "HiveTech TimeKeeping",

@@ -94,8 +94,12 @@ function Edit() {
       });
       form.setFieldsValue({
         time: [
-          moment(resp.data?.checkInTime, 'HH:mm'),
-          moment(resp.data?.checkOutTime, 'HH:mm'),
+          resp.data?.checkInTime
+            ? moment(resp.data?.checkInTime, 'HH:mm')
+            : null,
+          resp.data?.checkOutTime
+            ? moment(resp.data?.checkOutTime, 'HH:mm')
+            : null,
         ],
         overTime: resp.data?.overTime,
         reasonTypeId: resp.data?.reasonType?.id,

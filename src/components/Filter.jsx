@@ -16,6 +16,7 @@ function Filter({ listParam, setListParam, setLoading }) {
         placeholder={t('filter.search')}
         onChange={e => setValue(e.target.value)}
         className="filter__input"
+        defaultValue={listParam.keyword || ''}
       />
       <Button type="link" onClick={handleSearchForm}>
         <Icon />
