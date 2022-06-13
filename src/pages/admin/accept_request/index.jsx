@@ -41,7 +41,7 @@ function AcceptRequest(props) {
   };
   useEffect(() => {
     getAllRequest();
-  }, [reloadTable]);
+  }, [listParam, reloadTable]);
 
   useEffect(() => {
     setTimeout(() => {
