@@ -62,6 +62,7 @@ function App() {
         ) : (
           <>
             <Route path="accept_request" element={<AcceptRequest />} />
+            <Route index element={<AcceptRequest />} />
             <Route
               path="statistic/timekeeping"
               element={<TimeKeepingTable />}

@@ -116,3 +116,7 @@ export const DEFAULT_STYLE_EXCEL = {
   v: 'left',
 };
 export const DATE_FORMAT = 'DD/MM/YYYY';
+export const ASC = 'ASC';
+export const DESC = 'DESC';
+export const ASCEND = 'ascend';
+export const DESCEND = 'descend';

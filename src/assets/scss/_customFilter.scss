@@ -4,10 +4,17 @@
   margin-bottom: 21px;
 
   &__input {
-    width: 70%;
-    height: 50px;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #e5e5e5;
+    input {
+      width: 70%;
+      height: 50px;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #e5e5e5;
+    }
+    .ant-input-group-addon {
+      background-color: #e5e5e5;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
   }
 }

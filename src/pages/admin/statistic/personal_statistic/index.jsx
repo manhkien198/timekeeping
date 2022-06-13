@@ -11,7 +11,8 @@ import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import SelectUsers from '../../../../components/SelectUsers';
-import { DATE_FORMAT } from '../../../../constants/common';
+import { ASC, ASCEND, DATE_FORMAT, DESC } from '../../../../constants/common';
+import { checkOrderbyValue } from '../../../../utils/checkOrderByValue';
 import { getNumbersOfWeekend } from '../../../../utils/getNumbersOfWeekend';
 import { dataExport } from '../../../../utils/newDataExportStatistic';
 import { setUsers } from './reducer';
@@ -27,6 +28,9 @@ function PersonalStatistic(props) {
       ? queryParams.date
       : moment(Date.now()).format('DD/MM/YYYY'),
     username: userList?.[0]?.username || queryParams.username,
+    sortBy: '',
+    sortDirection: '',
+    keyword: queryParams.keyword ? queryParams.keyword : '',
   });
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,6 +49,11 @@ function PersonalStatistic(props) {
       title: t('personal_statistic.day'),
       dataIndex: 'date',
       align: 'center',
+      showSorterTooltip: {
+        title: t('personal_statistic.titleChangeSorter'),
+      },
+      sorter: true,
+      defaultSortOrder: checkOrderbyValue(params, 'date'),
     },
     {
       title: t('personal_statistic.check_in'),
@@ -79,8 +88,14 @@ function PersonalStatistic(props) {
     },
     {
       title: t('personal_statistic.state_owned'),
-      dataIndex: 'state_owned',
+      dataIndex: 'wage',
       align: 'center',
+      showSorterTooltip: {
+        title: t('personal_statistic.titleChangeSorter'),
+      },
+      sorter: true,
+      defaultSortOrder: checkOrderbyValue(params, 'wage'),
+      render: _ => <span>{_ ? _.toFixed(2) : ''}</span>,
     },
     {
       title: t('personal_statistic.note'),
@@ -89,7 +104,9 @@ function PersonalStatistic(props) {
       render: (_, row) => (
         <p>
           {row.reasonType
-            ? `${row?.reasonType?.type} : ${row?.reasonType?.name}`
+            ? `${row?.reasonType?.type} ${
+                row?.reason ? `: ${row?.reason}` : ''
+              }`
             : ''}
         </p>
       ),
@@ -116,6 +133,9 @@ function PersonalStatistic(props) {
       const resp = await personalStatisticApi.getAll({
         username: params.username || userList?.[0]?.username,
         date: params.date,
+        sortBy: params.sortBy ? params.sortBy : null,
+        sortDirection: params.sortDirection ? params.sortDirection : null,
+        keyword: params.keyword ? params.keyword : '',
       });
       setDataSource(resp.data);
       setLoading(false);
@@ -149,6 +169,16 @@ function PersonalStatistic(props) {
     }
     return x;
   });
+  const handleTableChange = (pagination, filter, sorter) => {
+    const { current: page, pageSize: limit } = pagination;
+    setParams(prev => ({
+      ...prev,
+      page,
+      limit,
+      sortBy: sorter.field,
+      sortDirection: sorter.order === ASCEND ? ASC : DESC,
+    }));
+  };
   return (
     <div className="personal__statistic">
       <CusomPageHeader
@@ -157,7 +187,11 @@ function PersonalStatistic(props) {
         setParams={setParams}
         subTitle={`${t('page_header.month')}`}
       />
-      <Filter />
+      <Filter
+        listParam={params}
+        setListParam={setParams}
+        setLoading={setLoading}
+      />
       <ButtonGroup
         total={dataSource.totalWorks}
         totalWork={restOfWorkDay}
@@ -186,6 +220,7 @@ function PersonalStatistic(props) {
         columns={columns}
         rowKey="id"
         loading={loading}
+        onChange={handleTableChange}
       />
     </div>
   );

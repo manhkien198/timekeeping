@@ -1,25 +1,26 @@
-import Input from 'antd/lib/input/Input';
-import React, { useState } from 'react';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import Icon from './Icon';
 function Filter({ listParam, setListParam, setLoading }) {
   const { t } = useTranslation();
-  const [value, setValue] = useState('');
-  const handleSearchForm = () => {
+  const { Search } = Input;
+  const handleSearchForm = value => {
     setListParam({ ...listParam, keyword: value.trim() });
     setLoading(true);
   };
   return (
     <div className="filter">
-      <Input
+      <Search
         placeholder={t('filter.search')}
-        onChange={e => setValue(e.target.value)}
         className="filter__input"
+        defaultValue={listParam.keyword || ''}
+        onSearch={handleSearchForm}
+        enterButton={
+          <Button type="link">
+            <Icon />
+          </Button>
+        }
       />
-      <Button type="link" onClick={handleSearchForm}>
-        <Icon />
-      </Button>
     </div>
   );
 }

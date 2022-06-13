@@ -9,11 +9,13 @@ import UsersApi from '../../../../api/userApi';
 import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
-import { DATE_FORMAT } from '../../../../constants/common';
+import { ASC, ASCEND, DATE_FORMAT, DESC } from '../../../../constants/common';
+import { checkOrderbyValue } from '../../../../utils/checkOrderByValue';
 import { getNumbersOfWeekend } from '../../../../utils/getNumbersOfWeekend';
 function GeneralStatistic() {
   const { t } = useTranslation();
   const [userList, setUserList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchUsers = async () => {
     try {
       const res = await UsersApi.getAll();
@@ -40,8 +42,14 @@ function GeneralStatistic() {
   const [dataSource, setDataSource] = useState([]);
   const navi = useNavigate();
   const fetchGeneralStatisTicData = async () => {
-    const resp = await generalStatisticApi.getAll({ ...params });
-    setDataSource(resp.data);
+    try {
+      const resp = await generalStatisticApi.getAll({ ...params });
+      setDataSource(resp.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      message.error(error.message);
+    }
   };
   useEffect(() => {
     navi({
@@ -54,7 +62,16 @@ function GeneralStatistic() {
   useEffect(() => {
     fetchGeneralStatisTicData();
   }, [params]);
-
+  const handleTableChange = (pagination, filter, sorter) => {
+    const { current: page, pageSize: limit } = pagination;
+    setParams(prev => ({
+      ...prev,
+      page,
+      limit,
+      sortBy: sorter.field,
+      sortDirection: sorter.order === ASCEND ? ASC : DESC,
+    }));
+  };
   const columns = [
     {
       title: t('general_table.cardinal_numbers'),
@@ -65,6 +82,11 @@ function GeneralStatistic() {
       title: t('general_table.employees'),
       dataIndex: 'fullName',
       align: 'center',
+      showSorterTooltip: {
+        title: t('personal_statistic.titleChangeSorter'),
+      },
+      sorter: true,
+      defaultSortOrder: checkOrderbyValue(params, 'date'),
     },
     {
       title: `${t('general_table.month')} ${params.date.split('/')[1]}`,
@@ -133,7 +155,11 @@ function GeneralStatistic() {
         params={params}
         setParams={setParams}
       />
-      <Filter />
+      <Filter
+        listParam={params}
+        setListParam={setParams}
+        setLoading={setLoading}
+      />
       <ButtonGroup
         total={dataSource.totalWages}
         totalWork={restOfWorkDay}
@@ -145,7 +171,14 @@ function GeneralStatistic() {
         api={generalStatisticApi}
         setListParam={setParams}
       />
-      <Table dataSource={data} columns={columns} rowKey="id" bordered />
+      <Table
+        dataSource={data}
+        columns={columns}
+        rowKey="id"
+        bordered
+        loading={loading}
+        onChange={handleTableChange}
+      />
     </>
   );
 }
