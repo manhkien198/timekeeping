@@ -72,7 +72,7 @@ function GeneralStatistic() {
       ...prev,
       page,
       limit,
-      sortBy: sorter.field ? sorter.field : '',
+      sortBy: sorter.field && sorter.order ? sorter.field : '',
       sortDirection: sorter.order ? (sorter.order === ASCEND ? ASC : DESC) : '',
     }));
   };
