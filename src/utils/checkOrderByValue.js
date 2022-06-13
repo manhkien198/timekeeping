@@ -1,5 +1,4 @@
 export const checkOrderbyValue = (listParams, field) => {
-  // orderby : 'ascend', 'descend', ''
   let orderBy = '';
 
   if (listParams?.orderby) {

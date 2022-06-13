@@ -11,7 +11,7 @@ import ButtonGroup from '../../../../components/ButtonGroup';
 import CusomPageHeader from '../../../../components/CusomPageHeader';
 import Filter from '../../../../components/Filter';
 import SelectUsers from '../../../../components/SelectUsers';
-import { DATE_FORMAT } from '../../../../constants/common';
+import { ASC, ASCEND, DATE_FORMAT, DESC } from '../../../../constants/common';
 import { checkOrderbyValue } from '../../../../utils/checkOrderByValue';
 import { getNumbersOfWeekend } from '../../../../utils/getNumbersOfWeekend';
 import { dataExport } from '../../../../utils/newDataExportStatistic';
@@ -176,7 +176,7 @@ function PersonalStatistic(props) {
       page,
       limit,
       sortBy: sorter.field,
-      sortDirection: sorter.order === 'ascend' ? 'ASC' : 'DESC',
+      sortDirection: sorter.order === ASCEND ? ASC : DESC,
     }));
   };
   return (
