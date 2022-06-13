@@ -38,6 +38,9 @@ function GeneralStatistic() {
     date: queryParams.date
       ? queryParams.date
       : moment(Date.now()).format('DD/MM/YYYY'),
+    sortBy: '',
+    sortDirection: '',
+    keyword: queryParams.keyword ? queryParams.keyword : '',
   });
   const [dataSource, setDataSource] = useState([]);
   const navi = useNavigate();
@@ -68,8 +71,8 @@ function GeneralStatistic() {
       ...prev,
       page,
       limit,
-      sortBy: sorter.field,
-      sortDirection: sorter.order === ASCEND ? ASC : DESC,
+      sortBy: sorter.field && sorter.order ? sorter.field : '',
+      sortDirection: sorter.order ? (sorter.order === ASCEND ? ASC : DESC) : '',
     }));
   };
   const columns = [
