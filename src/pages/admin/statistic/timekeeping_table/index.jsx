@@ -54,7 +54,6 @@ function TimeKeepingTable(props) {
   const getAllData = async () => {
     try {
       const { data } = await TimeKeepingApi.getAll(listParam);
-      const {data:total} =await TimeKeepingApi.getTotalWorking({date: listParam.date})
       setData(data.list);
       setLoading(false);
     } catch (error) {

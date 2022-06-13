@@ -2,6 +2,7 @@ import { Table, Tooltip } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from "react-redux";
+import { ASC, ASCEND, DESC } from "../../../../../constants/common";
 import { checkOrderbyValue, isWeekend } from "../constant";
 import { setReloadTalbe } from "../reducer";
 const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year, listParam, setListParam, setLoading }) => {
@@ -82,11 +83,8 @@ const TableTimeKeeping = ({ data, month, day, handleShowModal, loading, year, li
 
   const onChange = (pagination, filter, sorter) => {
     const params = {
-      // page: pagination.current,
-      // limit: pagination.pageSize,
-      orderby: sorter.order? sorter.field :"",
-      sortDirection: sorter.order? sorter.order === 'ascend' ? 'ASC' : 'DESC': ""
-      // status: statusFiltered.length ? statusFiltered.join('-') : '',
+      orderby: sorter.order ? sorter.field :"",
+      sortDirection: sorter.order ? sorter.order === ASCEND ? ASC : DESC : ""
     };
     setListParam(prev => ({ ...prev, ...params }));
     setLoading(true);

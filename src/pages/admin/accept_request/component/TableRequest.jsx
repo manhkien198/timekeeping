@@ -8,6 +8,8 @@ import AcceptRequestApi from '../../../../api/accept_request/AcceptRequestApi';
 import { useDispatch } from 'react-redux';
 import { setReloadTalbe } from '../reducer';
 import { checkOrderbyValue } from "../constant";
+import { ASC, ASCEND, DESC } from "../../../../constants/common";
+
 const TableRequest = props => {
   const { data, loading, setLoading, listParam, setListParam } = props;
   const dispatch = useDispatch();
@@ -47,13 +49,9 @@ const TableRequest = props => {
   };
 
   const onChange = (pagination, filter, sorter) => {
-
     const params = {
-      // page: pagination.current,
-      // limit: pagination.pageSize,
-      orderby: sorter.order? sorter.field :"",
-      sortDirection: sorter.order? sorter.order === 'ascend' ? 'ASC' : 'DESC': ""
-      // status: statusFiltered.length ? statusFiltered.join('-') : '',
+      orderby: sorter.order ? sorter.field :"",
+      sortDirection: sorter.order ? sorter.order === ASCEND ? ASC : DESC: ""
     };
     setListParam(prev => ({ ...prev, ...params }));
     setLoading(true);
